@@ -3,7 +3,7 @@
 ### **TECHNICAL SKILLS**
 
 - 🐍 **Programming & Scripting**: Python, JavaScript  
-- 🌐 **Web Technologies**: HTML, CSS, JavaScript, Bootstrap, React Js, Node Js, Express Js, RESTful APIs, Postman  
+- 🌐 **Web Technologies**: HTML, CSS, JavaScript, Bootstrap, RESTful APIs, Postman  
 - 🗄️ **Database**: MySQL, MongoDB (NoSQL), PostgreSQL  
 - ☁️ **Cloud & DevOps**: Linux (Ubuntu/WSL), Git & GitHub, Docker, Jenkins, Agile, CI/CD  
 - 🧠 **Others**: Problem Solving, Object-Oriented Programming (OOPs), Data Structures & Algorithms (DSA)  
