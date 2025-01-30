@@ -27,8 +27,7 @@ APIs: Designing and testing RESTful APIs using Postman
 🌍 Tech Enthusiast – Eager to explore emerging technologies like Machine Learning, Blockchain, and AI
 🌟 ADDITIONAL STRENGTHS
 Critical Thinking & Problem Solving – A natural problem solver, thriving in algorithmic challenges and data structure design
-Collaboration & Communication – Highly effective in collaborative environments, contributing to open-source projects and working in Agile teamsarner**: I embrace learning, whether it’s through certification, hands-on projects, or industry research.
-- 💡 **Creative Thinker**: My passion for problem-solving is paired with a drive to build scalable, impactful solutions.
-- 🌍 **Team Player**: I value collaboration, effective communication, and working in dynamic environments.
-
----
+Collaboration & Communication – Highly effective in collaborative environments, contributing to open-source projects and working in Agile teams
+Continuous Learner – I embrace learning, whether through certification, hands-on projects, or industry research
+Creative Thinker – My passion for problem-solving is paired with a drive to build scalable, impactful solutions
+Team Player – I value collaboration, effective communication, and working in dynamic environments
