@@ -1,36 +1,51 @@
-RISHI VERMA
-🚀 Passionate Python Developer | Full-Stack Web Developer | Cloud Enthusiast | Problem Solver
+# **RISHI VERMA**
 
-Portfilo -------    
-https://my-portfollio-seven.vercel.app/
+🚀 Passionate Backend Developer | Cloud Enthusiast | Problem Solver
 
 
-🔧 TECHNICAL SKILLS
-🐍 Python Mastery
-Expertise in Core Python, OOP, Scripting, and Automation with libraries like Pandas, Matplotlib, and NumPy for data manipulation and visualization.
+## 🔧 TECHNICAL SKILLS
 
-🌐 Web Development
+### 🐍 Java Mastery
 
-Frontend: HTML5, CSS3, JavaScript, React.js, Bootstrap
-Backend: Building robust APIs with FastAPI, Django, Node.js, Express.js
-APIs: Designing and testing RESTful APIs using Postman
-💾 Database Management
-Solid experience with MySQL, MongoDB, PostgreSQL, and ORM frameworks like SQLAlchemy.
+* Expertise in Core Java, OOP
+* Hands-on experience with "Spring Boot" Projects
 
-☁️ Cloud & DevOps
-Practical experience with Linux, AWS (Basic knowledge), Docker for containerization, Jenkins, and CI/CD pipeline automation.
+### 🌐 Web Development
 
-🧠 Data Science & Development
-Strong analytical skills with Pandas, Matplotlib, NumPy, alongside proficiency in Data Structures & Algorithms (DSA) and OOP principles.
+* **Frontend**: HTML5, CSS3, JavaScript, React.js, Bootstrap
+* **Backend**: Node.js, Express.js, **Spring Boot**
+* **API Development**: RESTful API design and testing using Postman
 
-🔧 Version Control
-Advanced use of Git and GitHub for source code management and collaboration.
+### 💾 Database Management
 
-📜 CERTIFICATIONS
-🏅 Python Certification – GeeksforGeeks
-🚢 Docker Certification – Simplilearn
-🎓 Web Development Bootcamp – Angela Yu (Udemy)
-🏫 Full-Stack Web Development Training – Innovaneers Technologies, Kanpur
-🏆 ACHIEVEMENTS
-🏅 Academic Excellence Award – Recognized for high academic performance throughout college.
-🎯 JEECUP Rank 488 – Outstanding performance in the competitive exam.
+* Proficient with **MySQL**, **PostgreSQL**, **MongoDB**
+
+
+### ☁️ Cloud & DevOps
+
+* Working knowledge of **AWS** (basic services), **Linux**, **Docker**, **Jenkins**
+* Experience in setting up CI/CD pipelines and containerizing applications
+
+### 🧠 Data Science & Algorithms
+
+* Strong foundation in **Data Structures & Algorithms**, **Object-Oriented Programming (OOP)**
+
+### 🔧 Version Control
+
+* Proficient in using **Git** and **GitHub** for source control and team collaboration
+
+---
+
+## 📜 CERTIFICATIONS
+
+🏅 Python Programming – *GeeksforGeeks*
+🚢 Docker Essentials – *Simplilearn*
+🎓 The Complete Web Development Bootcamp – *Angela Yu (Udemy)*
+🏫 Full-Stack Web Development Training – *Innovaneers Technologies, Kanpur*
+
+---
+
+## 🏆 ACHIEVEMENTS
+
+🏅 **Academic Excellence Award** – Honored for consistent academic performance throughout college
+🎯 **JEECUP Rank 488** – Secured a top rank in the competitive entrance examination
