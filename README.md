@@ -5,11 +5,6 @@
 
 ## 🔧 TECHNICAL SKILLS
 
-### 🐍 Java Mastery
-
-* Expertise in Core Java, OOP
-* Hands-on experience with "Spring Boot" Projects
-
 ### 🌐 Web Development
 
 * **Frontend**: HTML5, CSS3, JavaScript, React.js, Bootstrap
