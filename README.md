@@ -8,7 +8,7 @@
 ### 🌐 Web Development
 
 * **Frontend**: HTML5, CSS3, JavaScript, React.js, Bootstrap
-* **Backend**: Node.js, Express.js, **Spring Boot**
+* **Backend**: Node.js, **Spring Boot**
 * **API Development**: RESTful API design and testing using Postman
 
 ### 💾 Database Management
