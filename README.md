@@ -7,8 +7,12 @@
 
 ### 🌐 Web Development
 
+
+* **Backend**: Java (Core + Advanced)
+Spring Boot, Spring MVC, Hibernate (JPA)
+RESTful API Design & Development
+Authentication & Authorization (JWT, Basic Security)
 * **Frontend**: HTML5, CSS3, JavaScript, React.js, Bootstrap
-* **Backend**: Node.js, **Spring Boot**
 * **API Development**: RESTful API design and testing using Postman
 
 ### 💾 Database Management
