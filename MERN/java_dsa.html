@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSA Master Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+  --bg: #c7c7c7;
+  --ink: #1d2433;
+  --muted: #5b6476;
+  --panel: rgba(255, 252, 245, 0.86);
+  --panel-strong: rgba(255, 248, 235, 0.95);
+  --line: rgba(29, 36, 51, 0.12);
+  --accent: #df5f38;
+  --accent-soft: #f6bf86;
+  --secondary: #2d8f85;
+  --secondary-soft: #b9ece2;
+  --purple-soft: #e4d8ff;
+  --shadow: 0 20px 50px rgba(75, 47, 23, 0.12);
+
+  --code-bg: #1a202b;
+  --code-ink: #edf5ff;
+}
+
+html[data-theme="dark"] {
+  --bg: #070a0f;
+  --ink: #e9eef7;
+  --muted: #a4b0c6;
+  --panel: rgba(15, 18, 28, 0.78);
+  --panel-strong: rgba(18, 22, 35, 0.9);
+  --line: rgba(233, 238, 247, 0.12);
+  --accent: #ff7a45;
+  --accent-soft: #f7b27f;
+  --secondary: #4ad3c2;
+  --secondary-soft: rgba(74, 211, 194, 0.16);
+  --purple-soft: rgba(171, 133, 255, 0.22);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+  --code-bg: #0d111a;
+  --code-ink: #dbe8ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(223, 95, 56, 0.16), transparent 28%),
+    radial-gradient(circle at top right, rgba(45, 143, 133, 0.16), transparent 28%),
+    linear-gradient(180deg, #fcf8ef 0%, #f4ead9 100%);
+  min-height: 100vh;
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top left, rgba(255, 122, 69, 0.15), transparent 30%),
+    radial-gradient(circle at top right, rgba(74, 211, 194, 0.14), transparent 30%),
+    linear-gradient(180deg, #070a0f 0%, #0b1020 100%);
+}
+
+.page-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(29, 36, 51, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 36, 51, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.35;
+}
+
+html[data-theme="dark"] .page-glow {
+  background-image:
+    linear-gradient(rgba(233, 238, 247, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(233, 238, 247, 0.04) 1px, transparent 1px);
+  opacity: 0.25;
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.65fr 1fr;
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+.hero-copy,
+.hero-note,
+.toolbar,
+.stats,
+.problem-card {
+  backdrop-filter: blur(12px);
+}
+
+.hero-copy,
+.hero-note {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(2.2rem, 5vw, 4.7rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.lead {
+  margin-bottom: 1rem;
+  max-width: 56rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.hero-chips,
+.meta-row,
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.hero-chips span,
+.badge,
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+.hero-chips span {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.hero-note {
+  background:
+    linear-gradient(135deg, rgba(253, 234, 204, 0.92), rgba(255, 246, 230, 0.94));
+}
+
+.note-label {
+  margin-bottom: 0.7rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--secondary);
+}
+
+.note-text {
+  font-family: "Caveat", cursive;
+  font-size: 1.95rem;
+  line-height: 1.2;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 1fr;
+  gap: 0.9rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.toolbar-right {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.9rem;
+  align-items: end;
+}
+
+.theme-toggle {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0.95rem 1rem;
+  background: rgba(255, 255, 255, 0.52);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+html[data-theme="dark"] .theme-toggle {
+  background: rgba(12, 15, 26, 0.7);
+}
+
+.theme-toggle:hover {
+  border-color: rgba(255, 122, 69, 0.55);
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+input,
+select,
+.problem-header,
+.copy-button {
+  font: inherit;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0.95rem 1rem;
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select {
+  background: rgba(8, 10, 18, 0.7);
+}
+
+.stats {
+  margin-bottom: 1.2rem;
+}
+
+.stat-card {
+  flex: 1 1 180px;
+  min-width: 180px;
+  padding: 1rem 1.1rem;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+.stat-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.section-copy {
+  max-width: 22rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.problem-card {
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+}
+
+.problem-header {
+  width: 100%;
+  border: 0;
+  padding: 1.2rem 1.2rem 1rem;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.problem-header:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.problem-topline,
+.problem-heading-row {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.problem-topline {
+  margin-bottom: 0.65rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.problem-id {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--accent);
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.badge-category {
+  color: var(--secondary);
+}
+
+.badge-difficulty.easy {
+  background: rgba(45, 143, 133, 0.13);
+}
+
+.badge-difficulty.medium {
+  background: rgba(223, 95, 56, 0.12);
+}
+
+.badge-difficulty.hard {
+  background: rgba(103, 63, 188, 0.12);
+}
+
+.problem-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.5vw, 1.9rem);
+  line-height: 1.1;
+  color: greenyellow;
+}
+
+.toggle-icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--purple-soft);
+  color: #5a34ad;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.problem-card.open .toggle-icon {
+  transform: rotate(45deg);
+}
+
+.meta-row {
+  margin-top: 0.8rem;
+}
+
+.meta-pill {
+  font-family: "IBM Plex Mono", monospace;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.problem-body {
+  display: none;
+  padding: 0 1.2rem 1.2rem;
+}
+
+.problem-card.open .problem-body {
+  display: block;
+}
+
+.body-grid,
+.explain-grid {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.body-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.explain-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.panel {
+  position: relative;
+  padding: 1rem;
+  margin-top: 0.9rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+}
+
+.panel-note {
+  background:
+    linear-gradient(135deg, rgba(255, 239, 204, 0.95), rgba(255, 247, 232, 0.96));
+}
+
+.panel-label {
+  margin-bottom: 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.panel-text {
+  margin: 0;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.handwritten-note {
+  white-space: pre-wrap;
+}
+
+.mini-block,
+.pseudo-block,
+.code-block {
+  margin: 0;
+  overflow: auto;
+  border-radius: 18px;
+  font-family: "IBM Plex Mono", monospace;
+  background: var(--code-bg);
+  color: var(--code-ink);
+}
+
+.mini-block {
+  padding: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.pseudo-block,
+.code-block {
+  padding: 1rem;
+  line-height: 1.65;
+  font-size: 0.92rem;
+}
+
+.copy-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(90deg, var(--accent), #f39157);
+  color: white;
+  cursor: pointer;
+}
+
+.copy-button.copied {
+  background: linear-gradient(90deg, var(--secondary), #47b7aa);
+}
+
+.code-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.code-variant-wrap {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.code-variant-wrap span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.code-variant {
+  width: min(260px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.6rem 0.75rem;
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--ink);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+}
+
+html[data-theme="dark"] .code-variant {
+  background: rgba(8, 10, 18, 0.7);
+}
+
+.dry-run-list,
+.tip-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.dry-step {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.8rem 0.9rem;
+  border-radius: 18px;
+  background: rgba(45, 143, 133, 0.08);
+}
+
+.dry-index {
+  flex-shrink: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--secondary-soft);
+  font-weight: 700;
+  color: #115f57;
+}
+
+.dry-text {
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.tip-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.tip-list li {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 22px;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .toolbar,
+  .body-grid,
+  .explain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar-right {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(100% - 1rem, 1200px);
+    padding-top: 0.75rem;
+  }
+
+  .hero-copy,
+  .hero-note,
+  .toolbar,
+  .problem-header,
+  .problem-body,
+  .panel {
+    padding-left: 0.95rem;
+    padding-right: 0.95rem;
+  }
+
+  .note-text {
+    font-size: 1.65rem;
+  }
+
+  .problem-heading-row {
+    align-items: flex-start;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="page-glow"></div>
+  <div class="shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Java DSA study website</p>
+        <h1>DSA Master Notes in Hinglish</h1>
+        <p class="lead">
+          Source questions se bana hua ek fresh study website jahan har problem ke saath detailed explanation,
+          approach, pseudo code, Java code, sample input, expected output, aur clear dry run diya gaya hai.
+        </p>
+        <div class="hero-chips">
+          <span>16 DSA problems</span>
+          <span>Detailed Hinglish notes</span>
+          <span>Dry run ready</span>
+          <span>Interview revision style</span>
+        </div>
+      </div>
+
+      <aside class="hero-note">
+        <div class="note-label">Notebook View</div>
+        <div class="note-text">
+          Yahan focus ratta nahi, samajh hai.
+          Har card mein "problem kya bol rahi hai", "kaise sochna hai", aur "code line by line kya kar raha hai"
+          ko simple handwriting style mein samjhaya gaya hai.
+        </div>
+      </aside>
+    </header>
+
+    <section class="toolbar">
+      <label class="field">
+        <span>Search problem</span>
+        <input id="searchInput" type="text" placeholder="Binary search, XOR, rotate, anagram...">
+      </label>
+
+      <label class="field field-select">
+        <span>Category</span>
+        <select id="categoryFilter">
+          <option value="all">All categories</option>
+        </select>
+      </label>
+
+      <div class="toolbar-right">
+        <label class="field field-select">
+          <span>Difficulty</span>
+          <select id="difficultyFilter">
+            <option value="all">All levels</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">Dark</button>
+      </div>
+    </section>
+
+    <section class="stats" id="statsRow"></section>
+
+    <main>
+      <section class="section-head">
+        <div>
+          <p class="eyebrow">Curated problems</p>
+          <h2>Detailed DSA Breakdown</h2>
+        </div>
+        <p class="section-copy" id="resultCount">Loading problems...</p>
+      </section>
+
+      <section class="card-grid" id="problemGrid"></section>
+    </main>
+  </div>
+
+  <template id="problemTemplate">
+    <article class="problem-card">
+      <button class="problem-header" type="button">
+        <div class="problem-topline">
+          <span class="problem-id"></span>
+          <span class="badge badge-category"></span>
+          <span class="badge badge-difficulty"></span>
+        </div>
+        <div class="problem-heading-row">
+          <h3 class="problem-title"></h3>
+          <span class="toggle-icon">+</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-pill meta-time"></span>
+          <span class="meta-pill meta-space"></span>
+        </div>
+      </button>
+
+      <div class="problem-body">
+        <div class="body-grid">
+          <section class="panel panel-statement">
+            <div class="panel-label">Problem Statement</div>
+            <p class="panel-text statement-text"></p>
+          </section>
+
+          <section class="panel panel-note">
+            <div class="panel-label">Hinglish Notes</div>
+            <div class="handwritten-note note-text"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-label">Input</div>
+            <pre class="mini-block input-block"></pre>
+          </section>
+
+          <section class="panel">
+            <div class="panel-label">Expected Output</div>
+            <pre class="mini-block output-block"></pre>
+          </section>
+        </div>
+
+        <section class="explain-grid">
+          <div class="panel">
+            <div class="panel-label">Brute Force Soch</div>
+            <p class="panel-text brute-text"></p>
+          </div>
+          <div class="panel">
+            <div class="panel-label">Optimal Approach</div>
+            <p class="panel-text optimal-text"></p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-label">Pseudo Code</div>
+          <pre class="pseudo-block"></pre>
+        </section>
+
+        <section class="panel">
+          <div class="panel-label">Dry Run</div>
+          <div class="dry-run-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-label">Java Code</div>
+          <div class="code-toolbar">
+            <label class="code-variant-wrap">
+              <span>Approach</span>
+              <select class="code-variant"></select>
+            </label>
+            <button class="copy-button" type="button">Copy code</button>
+          </div>
+          <pre class="code-block"></pre>
+        </section>
+
+        <section class="panel">
+          <div class="panel-label">Interview Tips</div>
+          <ul class="tip-list"></ul>
+        </section>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    const problems = [
+  {
+    id: "P01",
+    title: "Finding the Maximum Element",
+    category: "Array & Strings",
+    difficulty: "Easy",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Array ke andar sabse bada element find karna hai. Negative values bhi ho sakti hain, isliye logic safe hona chahiye.",
+    note: "Sabse common galti hoti hai max ko 0 se start kar dena. Agar array me sab negative numbers hue to answer galat aa jayega. Isi liye first element ko hi starting max banao.",
+    brute: "Do nested loops chalao aur har element ko baaki sab se compare karo. Jo kisi se chhota na nikle, wahi maximum hai. Idea simple hai par unnecessary slow hai.",
+    optimal: "First element ko max mano. Phir array ko ek baar traverse karo. Jab bhi current element max se bada mile, max update kar do. Single pass me answer mil jata hai.",
+    input: "arr = [3, 1, 7, 2, 9, 4]",
+    output: "Max = 9",
+    pseudo: `FIND_MAX(arr):
+  maxi = arr[0]
+  FOR i = 1 TO arr.length - 1:
+    IF arr[i] > maxi:
+      maxi = arr[i]
+  RETURN maxi`,
+    code: `public class MaxElement {
+    public static int findMax(int[] arr) {
+        int maxi = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > maxi) {
+                maxi = arr[i];
+            }
+        }
+        return maxi;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {3, 1, 7, 2, 9, 4};
+        System.out.println("Max = " + findMax(arr));
+    }
+}`,
+    dryRun: [
+      "Start me maxi = 3.",
+      "1 compare hua 3 se, bada nahi hai, maxi same raha.",
+      "7 bada mila, ab maxi = 7.",
+      "2 aur 4 chhote hain, 9 bada mila to maxi = 9 ho gaya."
+    ],
+    tips: [
+      "Negative array ke liye arr[0] se initialize karna best hai.",
+      "Empty array case ko real interview code me separately handle karo."
+    ]
+  },
+  {
+    id: "P02",
+    title: "Two Sum",
+    category: "Array & Strings",
+    difficulty: "Medium",
+    time: "O(n)",
+    space: "O(n)",
+    statement: "Aise do numbers ke indices return karo jinka sum target ke equal ho.",
+    note: "Question dekhte hi pehle ye pakdo ki array sorted hai ya unsorted. Sorted ho to two-pointer chalega, unsorted ho to HashMap wala thought sabse natural hai.",
+    brute: "Har pair check karo. i aur j ke liye nested loops chalao aur sum target se compare karo.",
+    optimal: "Unsorted input ke liye HashMap use karo. Har number ke liye complement = target - current nikaalo. Agar complement already map me hai to answer mil gaya, warna current ko map me store kar do.",
+    input: "arr = [2, 7, 11, 15], target = 9",
+    output: "[0, 1]",
+    pseudo: `TWO_SUM(arr, target):
+  map = empty HashMap
+  FOR i = 0 TO arr.length - 1:
+    complement = target - arr[i]
+    IF map contains complement:
+      RETURN [map[complement], i]
+    map[arr[i]] = i
+  RETURN [-1, -1]`,
+    code: `import java.util.Arrays;
+import java.util.HashMap;
+
+public class TwoSum {
+    public static int[] hashMap(int[] arr, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            int complement = target - arr[i];
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            map.put(arr[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 7, 11, 15};
+        System.out.println(Arrays.toString(hashMap(arr, 9)));
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Brute (O(n^2))",
+        code: `import java.util.Arrays;
+
+public class TwoSumBrute {
+    public static int[] bruteForce(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] + arr[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 7, 11, 15};
+        System.out.println(Arrays.toString(bruteForce(arr, 9))); // [0, 1]
+    }
+}`
+      },
+      {
+        label: "Optimal (HashMap, unsorted)",
+        code: `import java.util.Arrays;
+import java.util.HashMap;
+
+public class TwoSum {
+    public static int[] hashMap(int[] arr, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            int complement = target - arr[i];
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            map.put(arr[i], i);
+        }
+        return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 7, 11, 15};
+        System.out.println(Arrays.toString(hashMap(arr, 9))); // [0, 1]
+    }
+}`
+      },
+      {
+        label: "Optimal (Two Pointer, sorted)",
+        code: `import java.util.Arrays;
+
+public class TwoSumTwoPointer {
+    public static int[] twoPointer(int[] arr, int target) {
+        int low = 0, high = arr.length - 1;
+        while (low < high) {
+            int sum = arr[low] + arr[high];
+            if (sum == target) return new int[]{low, high};
+            if (sum < target) low++;
+            else high--;
+        }
+        return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
+        int[] sorted = {2, 7, 11, 15};
+        System.out.println(Arrays.toString(twoPointer(sorted, 9))); // [0, 1]
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "i = 0, value = 2, complement = 7. Map khaali hai, to 2 store kar diya.",
+      "i = 1, value = 7, complement = 2.",
+      "Map me 2 mil gaya with index 0.",
+      "Isliye answer [0, 1] return ho gaya."
+    ],
+    tips: [
+      "Same element ko do baar use na ho, isliye complement check pehle karo, put baad me.",
+      "Sorted array ke liye two-pointer bhi explain karna achha hota hai."
+    ]
+  },
+  {
+    id: "P03",
+    title: "Move Zeros to End",
+    category: "Array & Strings",
+    difficulty: "Easy",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Array ke saare zeros ko end me shift karna hai bina non-zero order bigaade.",
+    note: "Yeh stable movement problem hai. Non-zero numbers ka relative order same rehna chahiye. Isi wajah se simple sort karna valid nahi hai.",
+    brute: "Temp array me pehle saare non-zero elements bhar do, phir remaining positions me zeros daal do.",
+    optimal: "j pointer first zero ko hold karega. i aage scan karega. Jab non-zero mile to usko j ke saath swap karke j aage badhao.",
+    input: "arr = [1, 0, 2, 0, 3]",
+    output: "[1, 2, 3, 0, 0]",
+    pseudo: `MOVE_ZEROS(arr):
+  j = 0
+  WHILE j < arr.length AND arr[j] != 0:
+    j++
+  FOR i = j + 1 TO arr.length - 1:
+    IF arr[i] != 0:
+      SWAP arr[i], arr[j]
+      j++`,
+    code: `public class MoveZeros {
+    public static void optimal(int[] arr) {
+        int n = arr.length;
+        int j = 0;
+        while (j < n && arr[j] != 0) {
+            j++;
+        }
+        for (int i = j + 1; i < n; i++) {
+            if (arr[i] != 0) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                j++;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 0, 2, 0, 3};
+        optimal(arr);
+        for (int x : arr) {
+            System.out.print(x + " ");
+        }
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Brute (Temp array)",
+        code: `import java.util.Arrays;
+
+public class MoveZerosBrute {
+    public static int[] brute(int[] arr) {
+        int[] temp = new int[arr.length];
+        int idx = 0;
+        for (int x : arr) {
+            if (x != 0) temp[idx++] = x;
+        }
+        return temp;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 0, 2, 0, 3};
+        System.out.println(Arrays.toString(brute(arr))); // [1, 2, 3, 0, 0]
+    }
+}`
+      },
+      {
+        label: "Optimal (In-place)",
+        code: `public class MoveZeros {
+    public static void optimal(int[] arr) {
+        int n = arr.length;
+        int j = 0;
+        while (j < n && arr[j] != 0) {
+            j++;
+        }
+        for (int i = j + 1; i < n; i++) {
+            if (arr[i] != 0) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                j++;
+            }
+        }
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "First zero index j = 1 par mila.",
+      "i = 2 par value 2 non-zero hai, swap with index 1. Array ban gaya [1, 2, 0, 0, 3].",
+      "j ab 2 ho gaya. i = 3 par zero hai, skip.",
+      "i = 4 par 3 mila, swap with index 2. Final array [1, 2, 3, 0, 0]."
+    ],
+    tips: [
+      "Relative order maintain rehna chahiye, isi liye yeh interview favorite hai.",
+      "All-zero ya no-zero arrays bhi mentally test karo."
+    ]
+  },
+  {
+    id: "P04",
+    title: "Sort Colors (0s, 1s, 2s)",
+    category: "Array & Strings",
+    difficulty: "Medium",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Array me sirf 0, 1, 2 hain. Inhe in-place sort karna hai.",
+    note: "Yeh Dutch National Flag problem hai. Interview me jab 3 distinct values aur one-pass hint mile, turant low-mid-high yaad aana chahiye.",
+    brute: "Arrays.sort() chala do. Kaam ho jayega par special property ka fayda nahi uthta.",
+    optimal: "low ke left me 0s, high ke right me 2s, aur mid current pointer hota hai. 0 mile to low se swap, 1 mile to bas mid++, 2 mile to high se swap.",
+    input: "arr = [2, 0, 1, 0, 2, 1]",
+    output: "[0, 0, 1, 1, 2, 2]",
+    pseudo: `SORT_COLORS(arr):
+  low = 0, mid = 0, high = arr.length - 1
+  WHILE mid <= high:
+    IF arr[mid] == 0:
+      SWAP arr[low], arr[mid]
+      low++, mid++
+    ELSE IF arr[mid] == 1:
+      mid++
+    ELSE:
+      SWAP arr[mid], arr[high]
+      high--`,
+    code: `public class SortColors {
+    public static void dnf(int[] arr) {
+        int low = 0, mid = 0, high = arr.length - 1;
+        while (mid <= high) {
+            if (arr[mid] == 0) {
+                int t = arr[low];
+                arr[low] = arr[mid];
+                arr[mid] = t;
+                low++;
+                mid++;
+            } else if (arr[mid] == 1) {
+                mid++;
+            } else {
+                int t = arr[mid];
+                arr[mid] = arr[high];
+                arr[high] = t;
+                high--;
+            }
+        }
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Better (Counting, 2-pass)",
+        code: `public class SortColorsCount {
+    public static void countSort(int[] arr) {
+        int c0 = 0, c1 = 0, c2 = 0;
+        for (int x : arr) {
+            if (x == 0) c0++;
+            else if (x == 1) c1++;
+            else c2++;
+        }
+        int i = 0;
+        while (c0-- > 0) arr[i++] = 0;
+        while (c1-- > 0) arr[i++] = 1;
+        while (c2-- > 0) arr[i++] = 2;
+    }
+}`
+      },
+      {
+        label: "Optimal (Dutch National Flag)",
+        code: `public class SortColors {
+    public static void dnf(int[] arr) {
+        int low = 0, mid = 0, high = arr.length - 1;
+        while (mid <= high) {
+            if (arr[mid] == 0) {
+                int t = arr[low];
+                arr[low] = arr[mid];
+                arr[mid] = t;
+                low++;
+                mid++;
+            } else if (arr[mid] == 1) {
+                mid++;
+            } else {
+                int t = arr[mid];
+                arr[mid] = arr[high];
+                arr[high] = t;
+                high--;
+            }
+        }
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "Start: low = 0, mid = 0, high = 5, arr[mid] = 2.",
+      "2 mila to high se swap, array [1, 0, 1, 0, 2, 2], high = 4.",
+      "Mid par 1 mila to bas mid aage.",
+      "Aage 0s ko low side aur 2s ko right side bhejte hue final array [0, 0, 1, 1, 2, 2] ban jata hai."
+    ],
+    tips: [
+      "2 ke case me mid ko turant increase mat karo, kyunki swapped value unknown hoti hai.",
+      "State zones yaad rakho: 0..low-1 = zeros, low..mid-1 = ones, high+1..end = twos."
+    ]
+  },
+  {
+    id: "P05",
+    title: "Rotate Array by K Steps",
+    category: "Array & Strings",
+    difficulty: "Medium",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Array ko right side me k steps rotate karna hai.",
+    note: "Rotation problems me sabse important line hoti hai k = k % n. Isse extra cycles bachti hain aur large k ka issue solve hota hai.",
+    brute: "One step rotation ko k baar repeat karo. Har rotation me elements shift honge.",
+    optimal: "Reversal algorithm use karo. Puri array reverse karo, phir first k reverse karo, phir remaining reverse karo.",
+    input: "arr = [1, 2, 3, 4, 5, 6, 7], k = 3",
+    output: "[5, 6, 7, 1, 2, 3, 4]",
+    pseudo: `ROTATE(arr, k):
+  n = arr.length
+  k = k % n
+  REVERSE(arr, 0, n - 1)
+  REVERSE(arr, 0, k - 1)
+  REVERSE(arr, k, n - 1)`,
+    code: `public class RotateArray {
+    public static void reverse(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    public static void rotate(int[] arr, int k) {
+        int n = arr.length;
+        k = k % n;
+        if (k == 0) return;
+        reverse(arr, 0, n - 1);
+        reverse(arr, 0, k - 1);
+        reverse(arr, k, n - 1);
+    }
+}`,
+    dryRun: [
+      "Original array [1, 2, 3, 4, 5, 6, 7], k = 3.",
+      "Full reverse ke baad [7, 6, 5, 4, 3, 2, 1].",
+      "First 3 reverse karne ke baad [5, 6, 7, 4, 3, 2, 1].",
+      "Baaki reverse karne ke baad final [5, 6, 7, 1, 2, 3, 4]."
+    ],
+    tips: [
+      "Right rotation aur left rotation ke formulas alag hote hain, confuse mat karo.",
+      "Empty array guard production code me useful hota hai."
+    ]
+  },
+  {
+    id: "P06",
+    title: "Remove Duplicates from Sorted Array",
+    category: "Array & Strings",
+    difficulty: "Easy",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Sorted array me duplicates hata kar unique elements ko front me compact karna hai aur new length return karni hai.",
+    note: "Sorted property hi asli shortcut hai. Kyunki duplicates paas paas pade honge, hum do pointers se kaam nipta sakte hain.",
+    brute: "HashSet ya extra temp list me unique values store karo aur phir copy back karo.",
+    optimal: "i slow pointer hai jo last unique element dikhata hai. j fast pointer hai jo scan karta hai. Jab naya element mile to i++ karke us position par copy kar do.",
+    input: "arr = [1, 1, 2, 3, 3, 4]",
+    output: "new length = 4, useful array part = [1, 2, 3, 4]",
+    pseudo: `REMOVE_DUPLICATES(arr):
+  IF arr.length == 0:
+    RETURN 0
+  i = 0
+  FOR j = 1 TO arr.length - 1:
+    IF arr[j] != arr[i]:
+      i++
+      arr[i] = arr[j]
+  RETURN i + 1`,
+    code: `public class RemoveDuplicates {
+    public static int removeDuplicates(int[] arr) {
+        if (arr.length == 0) return 0;
+        int i = 0;
+        for (int j = 1; j < arr.length; j++) {
+            if (arr[j] != arr[i]) {
+                i++;
+                arr[i] = arr[j];
+            }
+        }
+        return i + 1;
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Brute (Extra space)",
+        code: `import java.util.Arrays;
+import java.util.LinkedHashSet;
+
+public class RemoveDuplicatesBrute {
+    public static int[] unique(int[] arr) {
+        LinkedHashSet<Integer> set = new LinkedHashSet<>();
+        for (int x : arr) set.add(x);
+        int[] out = new int[set.size()];
+        int i = 0;
+        for (int x : set) out[i++] = x;
+        return out;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 1, 2, 3, 3, 4};
+        System.out.println(Arrays.toString(unique(arr))); // [1, 2, 3, 4]
+    }
+}`
+      },
+      {
+        label: "Optimal (Two pointers, in-place)",
+        code: `public class RemoveDuplicates {
+    public static int removeDuplicates(int[] arr) {
+        if (arr.length == 0) return 0;
+        int i = 0;
+        for (int j = 1; j < arr.length; j++) {
+            if (arr[j] != arr[i]) {
+                i++;
+                arr[i] = arr[j];
+            }
+        }
+        return i + 1;
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "i = 0 at value 1.",
+      "j = 1 par bhi 1 hai, duplicate hai, skip.",
+      "j = 2 par 2 mila, i = 1 karo aur arr[1] = 2.",
+      "Isi tarah 3 aur 4 ko front me laake new length 4 milti hai."
+    ],
+    tips: [
+      "Question usually kehta hai ki first len elements hi valid maana jayenge.",
+      "Sorted array mention ko ignore mat karo, wahi clue hai."
+    ]
+  },
+  {
+    id: "P07",
+    title: "Even/Odd, Power of Two, Set Bits",
+    category: "Bit Manipulation",
+    difficulty: "Easy",
+    time: "O(1)",
+    space: "O(1)",
+    statement: "Bit operations ki help se teen classic checks karne hain: number even hai ya odd, power of two hai ya nahi, aur set bits kitne hain.",
+    note: "Bit manipulation me binary picture dimaag me aani chahiye. Jab tak bits ka visual clear nahi hoga, tricks yaad rahengi but samajh nahi aayega.",
+    brute: "Even/odd ke liye modulo, set bits ke liye binary string, power of two ke liye repeated division socha ja sakta hai.",
+    optimal: "Even/odd ke liye n & 1. Power of two ke liye n > 0 && (n & (n - 1)) == 0. Set bits ke liye Brian Kernighan use karo jo har step me ek set bit hata deta hai.",
+    input: "n = 13, m = 16",
+    output: "13 is odd, set bits in 13 = 3, 16 is power of two = true",
+    pseudo: `IS_EVEN(n):
+  RETURN (n & 1) == 0
+
+IS_POWER_OF_TWO(n):
+  RETURN n > 0 AND (n & (n - 1)) == 0
+
+COUNT_BITS(n):
+  count = 0
+  WHILE n > 0:
+    n = n & (n - 1)
+    count++
+  RETURN count`,
+    code: `public class BitTricks {
+    public static boolean isEven(int n) {
+        return (n & 1) == 0;
+    }
+
+    public static boolean isPowerOfTwo(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+
+    public static int countSetBits(int n) {
+        int count = 0;
+        while (n > 0) {
+            n = n & (n - 1);
+            count++;
+        }
+        return count;
+    }
+}`,
+    dryRun: [
+      "13 ka binary 1101 hota hai, last bit 1 hai, isliye odd hai.",
+      "16 ka binary 10000 hota hai.",
+      "16 & 15 => 10000 & 01111 = 0, isliye power of two true.",
+      "13 ke set bits count karte waqt 1101 -> 1100 -> 1000 -> 0000, total 3 steps."
+    ],
+    tips: [
+      "Power of two check me n > 0 zaroor lagao, warna 0 galat pass ho sakta hai.",
+      "Binary likh ke samjhana interview me impress karta hai."
+    ]
+  },
+  {
+    id: "P08",
+    title: "Non-Repeating Element and Missing Number (XOR)",
+    category: "Bit Manipulation",
+    difficulty: "Medium",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Ek case me har element do baar aata hai except ek. Doosre case me 0..n range se ek number missing hai. XOR se solve karna hai.",
+    note: "XOR ka golden rule yaad rakho: same numbers cancel ho jate hain. Isi wajah se yeh trick magical lagti hai but actually bahut clean logic hai.",
+    brute: "Unique element ke liye nested frequency count. Missing number ke liye sort ya extra boolean array.",
+    optimal: "Unique element me saare numbers XOR karo. Jo pair me hain wo 0 ho jayenge aur unique bach jayega. Missing number me full range aur array dono ka XOR karo.",
+    input: "unique array = [1, 2, 3, 2, 1], missing array = [0, 1, 3, 4]",
+    output: "Unique = 3, Missing = 2",
+    pseudo: `FIND_UNIQUE(arr):
+  xor = 0
+  FOR each x in arr:
+    xor = xor ^ x
+  RETURN xor
+
+FIND_MISSING(arr, n):
+  xor = 0
+  FOR i = 0 TO n:
+    xor = xor ^ i
+  FOR each x in arr:
+    xor = xor ^ x
+  RETURN xor`,
+    code: `public class XORProblems {
+    public static int findUnique(int[] arr) {
+        int xor = 0;
+        for (int x : arr) xor ^= x;
+        return xor;
+    }
+
+    public static int missingNumber(int[] arr, int n) {
+        int xor = 0;
+        for (int i = 0; i <= n; i++) xor ^= i;
+        for (int x : arr) xor ^= x;
+        return xor;
+    }
+}`,
+    dryRun: [
+      "Unique case: 1 ^ 2 ^ 3 ^ 2 ^ 1 = (1 ^ 1) ^ (2 ^ 2) ^ 3 = 3.",
+      "Missing case me pehle 0 ^ 1 ^ 2 ^ 3 ^ 4 lo.",
+      "Phir array ke numbers se XOR karo: 0 ^ 1 ^ 3 ^ 4.",
+      "Paired numbers cancel hoke sirf 2 bach jata hai."
+    ],
+    tips: [
+      "XOR questions me pair-cancel intuition clearly bolo.",
+      "Missing number range inclusive hai ya exclusive, yeh check karna mat bhoolo."
+    ]
+  },
+  {
+    id: "P09",
+    title: "Binary Search",
+    category: "Search & Sorting",
+    difficulty: "Easy",
+    time: "O(log n)",
+    space: "O(1)",
+    statement: "Sorted array me target ka index find karna hai.",
+    note: "Binary search ka first rule: sorted array. Agar array sorted nahi hai to yeh algorithm valid hi nahi hota.",
+    brute: "Linear search me ek-ek element check karoge.",
+    optimal: "Middle element se compare karo. Target bada hai to right half lo, chhota hai to left half lo. Har step me search space aadha hota hai.",
+    input: "arr = [1, 3, 5, 7, 9, 11], target = 7",
+    output: "index = 3",
+    pseudo: `BINARY_SEARCH(arr, target):
+  low = 0
+  high = arr.length - 1
+  WHILE low <= high:
+    mid = low + (high - low) / 2
+    IF arr[mid] == target:
+      RETURN mid
+    ELSE IF arr[mid] < target:
+      low = mid + 1
+    ELSE:
+      high = mid - 1
+  RETURN -1`,
+    code: `public class BinarySearch {
+    public static int search(int[] arr, int target) {
+        int low = 0, high = arr.length - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == target) return mid;
+            else if (arr[mid] < target) low = mid + 1;
+            else high = mid - 1;
+        }
+        return -1;
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Optimal (Iterative)",
+        code: `public class BinarySearch {
+    public static int search(int[] arr, int target) {
+        int low = 0, high = arr.length - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == target) return mid;
+            if (arr[mid] < target) low = mid + 1;
+            else high = mid - 1;
+        }
+        return -1;
+    }
+}`
+      },
+      {
+        label: "Recursive",
+        code: `public class BinarySearchRecursive {
+    public static int search(int[] arr, int low, int high, int target) {
+        if (low > high) return -1;
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == target) return mid;
+        if (arr[mid] < target) return search(arr, mid + 1, high, target);
+        return search(arr, low, mid - 1, target);
+    }
+}`
+      },
+      {
+        label: "Search Insert Position",
+        code: `public class SearchInsertPosition {
+    public static int searchInsert(int[] arr, int target) {
+        int low = 0, high = arr.length - 1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == target) return mid;
+            if (arr[mid] < target) low = mid + 1;
+            else high = mid - 1;
+        }
+        return low;
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "low = 0, high = 5, mid = 2, value = 5.",
+      "5 target 7 se chhota hai, to left half ko discard kar do.",
+      "Ab low = 3, high = 5, mid = 4, value = 9.",
+      "9 bada hai, high = 3. Next mid = 3 aur value 7 mil gaya."
+    ],
+    tips: [
+      "mid = (low + high) / 2 likhne se overflow discussion aa sakta hai.",
+      "Search insert position bhi isi logic ka extension hai."
+    ]
+  },
+  {
+    id: "P10",
+    title: "Find Peak Element",
+    category: "Search & Sorting",
+    difficulty: "Medium",
+    time: "O(log n)",
+    space: "O(1)",
+    statement: "Aisa index find karna hai jahan element apne neighbors se bada ho.",
+    note: "Yeh normal binary search nahi, binary search on answer hai. Hum exact sorted order nahi dekh rahe, slope dekh rahe hain.",
+    brute: "Har element ko neighbors ke saath compare karo aur first peak return kar do.",
+    optimal: "Agar arr[mid] < arr[mid + 1] hai to right side me koi peak zaroor hogi. Warna left side including mid me peak hogi. Isi logic se half choose hota hai.",
+    input: "arr = [1, 3, 20, 4, 1, 0]",
+    output: "Peak index = 2, Peak value = 20",
+    pseudo: `FIND_PEAK(arr):
+  low = 0
+  high = arr.length - 1
+  WHILE low < high:
+    mid = low + (high - low) / 2
+    IF arr[mid] < arr[mid + 1]:
+      low = mid + 1
+    ELSE:
+      high = mid
+  RETURN low`,
+    code: `public class PeakElement {
+    public static int findPeak(int[] arr) {
+        int low = 0, high = arr.length - 1;
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] < arr[mid + 1]) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+}`,
+    dryRun: [
+      "low = 0, high = 5, mid = 2, value 20.",
+      "arr[2] < arr[3] check false hai kyunki 20 < 4 nahi hai.",
+      "Iska matlab peak mid ya left side me hai, high = 2.",
+      "Further narrowing ke baad low = high = 2, peak mil gaya."
+    ],
+    tips: [
+      "Peak unique hona zaroori nahi, koi bhi valid peak acceptable hoti hai.",
+      "Edge elements ke paas sirf ek neighbor hota hai."
+    ]
+  },
+  {
+    id: "P11",
+    title: "Kth Largest Element",
+    category: "Advanced DSA",
+    difficulty: "Hard",
+    time: "O(n log k)",
+    space: "O(k)",
+    statement: "Array me kth largest element nikalna hai bina poori array ko unnecessary sort kiye.",
+    note: "Heap wale questions me socho: kya mujhe sab elements yaad rakhne hain? Yahan answer ke liye sirf top k candidates chahiye, bas.",
+    brute: "Array sort karo aur last se kth element return kar do.",
+    optimal: "Min-heap of size k rakho. Heap me top k largest candidates maintain karo. Jab size k se bada ho to smallest hata do. End me heap top hi kth largest hoga.",
+    input: "arr = [3, 2, 1, 5, 6, 4], k = 2",
+    output: "2nd largest = 5",
+    pseudo: `KTH_LARGEST(arr, k):
+  minHeap = empty priority queue
+  FOR each x in arr:
+    minHeap.add(x)
+    IF minHeap.size() > k:
+      minHeap.poll()
+  RETURN minHeap.peek()`,
+    code: `import java.util.PriorityQueue;
+
+public class KthLargest {
+    public static int minHeap(int[] arr, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int x : arr) {
+            pq.add(x);
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+        return pq.peek();
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Brute (Sort)",
+        code: `import java.util.Arrays;
+
+public class KthLargestSort {
+    public static int bruteSort(int[] arr, int k) {
+        Arrays.sort(arr);
+        return arr[arr.length - k];
+    }
+}`
+      },
+      {
+        label: "Optimal (Min-Heap size k)",
+        code: `import java.util.PriorityQueue;
+
+public class KthLargest {
+    public static int minHeap(int[] arr, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int x : arr) {
+            pq.add(x);
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+        return pq.peek();
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "Heap me 3, 2 add hue to heap size 2 hai.",
+      "1 add karne par size 3 ho gaya, smallest 1 remove ho gaya.",
+      "5 aur 6 add hone ke baad heap top gradually badhta gaya.",
+      "Final heap me [5, 6] bachte hain, top = 5 which is 2nd largest."
+    ],
+    tips: [
+      "Min-heap use hota hai, max-heap nahi, kyunki hume top k me sabse chhota candidate track karna hota hai.",
+      "Quickselect bhi alternate optimal idea hai, but heap is interview-safe."
+    ]
+  },
+  {
+    id: "P12",
+    title: "Majority Element",
+    category: "Advanced DSA",
+    difficulty: "Medium",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Woh element find karna hai jo array me n/2 se zyada baar aata hai.",
+    note: "Boyer-Moore ko vote cancellation ki tarah socho. Majority candidate dusre sab votes ko cancel karte karte last me bacha rehta hai.",
+    brute: "Har element ki frequency nested loops se count karo.",
+    optimal: "Candidate aur count maintain karo. Same mile to count++, alag mile to count--. Count zero ho jaye to naya candidate choose karo.",
+    input: "arr = [3, 2, 3, 1, 3]",
+    output: "Majority = 3",
+    pseudo: `MAJORITY_ELEMENT(arr):
+  candidate = arr[0]
+  count = 1
+  FOR i = 1 TO arr.length - 1:
+    IF count == 0:
+      candidate = arr[i]
+      count = 1
+    ELSE IF arr[i] == candidate:
+      count++
+    ELSE:
+      count--
+  RETURN candidate`,
+    code: `public class MajorityElement {
+    public static int boyerMoore(int[] arr) {
+        int candidate = arr[0], count = 1;
+        for (int i = 1; i < arr.length; i++) {
+            if (count == 0) {
+                candidate = arr[i];
+                count = 1;
+            } else if (arr[i] == candidate) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return candidate;
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Better (HashMap)",
+        code: `import java.util.HashMap;
+
+public class MajorityElementHashMap {
+    public static int hashMap(int[] arr) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int x : arr) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+        for (int key : map.keySet()) {
+            if (map.get(key) > arr.length / 2) return key;
+        }
+        return -1;
+    }
+}`
+      },
+      {
+        label: "Optimal (Boyer-Moore)",
+        code: `public class MajorityElement {
+    public static int boyerMoore(int[] arr) {
+        int candidate = arr[0], count = 1;
+        for (int i = 1; i < arr.length; i++) {
+            if (count == 0) {
+                candidate = arr[i];
+                count = 1;
+            } else if (arr[i] == candidate) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return candidate;
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "Start candidate = 3, count = 1.",
+      "2 mila, alag hai, count = 0.",
+      "Count zero hua to next 3 candidate ban gaya, count = 1.",
+      "Baaki traversal ke baad 3 hi survive karta hai."
+    ],
+    tips: [
+      "Agar problem guarantee nahi deti ki majority exists, to second pass verification karo.",
+      "Is algorithm ko pairing-cancel explanation se samjhao."
+    ]
+  },
+  {
+    id: "P13",
+    title: "Valid Anagram",
+    category: "Advanced DSA",
+    difficulty: "Easy",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Do strings same characters with same frequencies rakhti hain ya nahi, yeh check karna hai.",
+    note: "Anagram ka matlab order same hona nahi, frequency same hona hota hai. Yeh distinction clear rakhna important hai.",
+    brute: "Dono strings sort karo aur compare kar lo.",
+    optimal: "26-size frequency array lo. First string ke chars increment karo, second ke decrement. End me sab zero hua to anagram hai.",
+    input: 's = "anagram", t = "nagaram"',
+    output: "true",
+    pseudo: `IS_ANAGRAM(s, t):
+  IF s.length != t.length:
+    RETURN false
+  freq[26] = {0}
+  FOR i = 0 TO s.length - 1:
+    freq[s[i] - 'a']++
+    freq[t[i] - 'a']--
+  FOR each count in freq:
+    IF count != 0:
+      RETURN false
+  RETURN true`,
+    code: `public class ValidAnagram {
+    public static boolean optimal(String s, String t) {
+        if (s.length() != t.length()) return false;
+        int[] freq = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;
+            freq[t.charAt(i) - 'a']--;
+        }
+        for (int count : freq) {
+            if (count != 0) return false;
+        }
+        return true;
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Brute (Sort)",
+        code: `import java.util.Arrays;
+
+public class ValidAnagramSort {
+    public static boolean brute(String s, String t) {
+        if (s.length() != t.length()) return false;
+        char[] a = s.toCharArray();
+        char[] b = t.toCharArray();
+        Arrays.sort(a);
+        Arrays.sort(b);
+        return Arrays.equals(a, b);
+    }
+}`
+      },
+      {
+        label: "Optimal (Frequency array)",
+        code: `public class ValidAnagram {
+    public static boolean optimal(String s, String t) {
+        if (s.length() != t.length()) return false;
+        int[] freq = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i) - 'a']++;
+            freq[t.charAt(i) - 'a']--;
+        }
+        for (int count : freq) {
+            if (count != 0) return false;
+        }
+        return true;
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "anagram aur nagaram ki lengths same hain, to process continue.",
+      "a par +1 aur n par -1 jaisa update hota rahega pairwise.",
+      "End tak same characters same count me aaye to saare buckets zero ho jayenge.",
+      "All zeros means true."
+    ],
+    tips: [
+      "Unicode ya uppercase scenarios me frequency array approach tweak karni padegi.",
+      "Length mismatch pe early return very useful shortcut hai."
+    ]
+  },
+  {
+    id: "P14",
+    title: "Climbing Stairs",
+    category: "Advanced DSA",
+    difficulty: "Medium",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "n stairs chadhne ke kitne ways hain agar 1 ya 2 steps le sakte ho?",
+    note: "Yeh DP ka entry-level gold question hai. Har n par answer previous do states se banta hai, isliye Fibonacci pattern dikhta hai.",
+    brute: "Recursion se f(n) = f(n-1) + f(n-2) likh do, par repeated calls bahut ho jayengi.",
+    optimal: "Bottom-up DP me sirf do previous answers store karo. Har new step ka answer in dono ka sum hota hai.",
+    input: "n = 5",
+    output: "8",
+    pseudo: `CLIMB_STAIRS(n):
+  IF n <= 1:
+    RETURN 1
+  prev2 = 1
+  prev1 = 1
+  FOR i = 2 TO n:
+    curr = prev1 + prev2
+    prev2 = prev1
+    prev1 = curr
+  RETURN prev1`,
+    code: `public class ClimbingStairs {
+    public static int optimal(int n) {
+        if (n <= 1) return 1;
+        int prev2 = 1, prev1 = 1;
+        for (int i = 2; i <= n; i++) {
+            int curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return prev1;
+    }
+}`,
+    codeVariants: [
+      {
+        label: "Brute (Recursion)",
+        code: `public class ClimbingStairsBrute {
+    public static int brute(int n) {
+        if (n <= 1) return 1;
+        return brute(n - 1) + brute(n - 2);
+    }
+}`
+      },
+      {
+        label: "Better (Memoization)",
+        code: `public class ClimbingStairsMemo {
+    public static int memo(int n, int[] dp) {
+        if (n <= 1) return 1;
+        if (dp[n] != 0) return dp[n];
+        dp[n] = memo(n - 1, dp) + memo(n - 2, dp);
+        return dp[n];
+    }
+}`
+      },
+      {
+        label: "Optimal (2 variables)",
+        code: `public class ClimbingStairs {
+    public static int optimal(int n) {
+        if (n <= 1) return 1;
+        int prev2 = 1, prev1 = 1;
+        for (int i = 2; i <= n; i++) {
+            int curr = prev1 + prev2;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return prev1;
+    }
+}`
+      }
+    ],
+    dryRun: [
+      "n = 5 ke liye prev2 = 1, prev1 = 1 se start.",
+      "i = 2 => curr = 2.",
+      "i = 3 => curr = 3, i = 4 => curr = 5.",
+      "i = 5 => curr = 8, yahi final answer hai."
+    ],
+    tips: [
+      "Base case n <= 1 ko clearly mention karo.",
+      "Memoization aur tabulation dono discuss karna achha rehta hai."
+    ]
+  },
+  {
+    id: "P15",
+    title: "Smart Elevator",
+    category: "Story Problems",
+    difficulty: "Easy",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Elevator har floor movement me 2 seconds aur har stop par 1 second leti hai. Requests given order me process hongi. Total time nikaalna hai.",
+    note: "Story problem lagti hai, par andar se simple simulation hai. Bas current position track karni hai aur har request ka contribution add karna hai.",
+    brute: "Har floor movement ko manually simulate karo, par logically wahi formula me collapse ho jata hai.",
+    optimal: "Each request ke liye distance = abs(requested - current). Time = distance * 2 + 1. Phir current update karo.",
+    input: "requests = [3, 1, 5], start = 0",
+    output: "21",
+    pseudo: `ELEVATOR_TIME(requests, start):
+  current = start
+  total = 0
+  FOR each floor in requests:
+    total += abs(floor - current) * 2 + 1
+    current = floor
+  RETURN total`,
+    code: `public class SmartElevator {
+    public static int totalTime(int[] requests, int start) {
+        int current = start;
+        int totalTime = 0;
+        for (int floor : requests) {
+            totalTime += Math.abs(floor - current) * 2 + 1;
+            current = floor;
+        }
+        return totalTime;
+    }
+}`,
+    dryRun: [
+      "Start floor 0 se first request 3 tak distance 3 hai, time = 3*2+1 = 7.",
+      "Ab current = 3.",
+      "Next request 1 hai, distance 2 => time 5, total 12.",
+      "Last request 5 hai, distance 4 => time 9, final total 21."
+    ],
+    tips: [
+      "Order fixed hai, route optimization nahi karna.",
+      "Stop time ko ignore karna common mistake hai."
+    ]
+  },
+  {
+    id: "P16",
+    title: "Power Grid and Message Decoder",
+    category: "Story Problems",
+    difficulty: "Easy",
+    time: "O(n)",
+    space: "O(1)",
+    statement: "Is combined story card me do mini problems hain: power grid me increasing triplets count karne hain aur encoded string ko decode karna hai.",
+    note: "Story format dekh ke confuse mat ho. Dono parts ko alag small DSA tasks me tod do: pehla array scan hai, doosra string parsing.",
+    brute: "Power grid me saare triplets alag se check kar sakte ho. Decoder me repeated concatenation without parsing rules confusing ho sakti hai.",
+    optimal: "Power grid ke liye single loop me arr[i] < arr[i+1] < arr[i+2] check karo. Decoder ke liye number read karo, next character pakdo, utni baar append karo.",
+    input: 'power = [1, 2, 3, 1, 5, 6], encoded = "3a2b"',
+    output: 'Triplets = 2, decoded = "aaabb"',
+    pseudo: `COUNT_TRIPLETS(arr):
+  count = 0
+  FOR i = 0 TO arr.length - 3:
+    IF arr[i] < arr[i + 1] AND arr[i + 1] < arr[i + 2]:
+      count++
+  RETURN count
+
+DECODE(encoded):
+  result = ""
+  i = 0
+  WHILE i < encoded.length:
+    count = read number from i
+    ch = next character
+    append ch count times
+    move i forward
+  RETURN result`,
+    code: `public class StoryProblems {
+    public static int countTriplets(int[] arr) {
+        int count = 0;
+        for (int i = 0; i <= arr.length - 3; i++) {
+            if (arr[i] < arr[i + 1] && arr[i + 1] < arr[i + 2]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static String decode(String encoded) {
+        StringBuilder result = new StringBuilder();
+        int i = 0;
+        while (i < encoded.length()) {
+            int count = 0;
+            while (i < encoded.length() && Character.isDigit(encoded.charAt(i))) {
+                count = count * 10 + (encoded.charAt(i) - '0');
+                i++;
+            }
+            if (i < encoded.length()) {
+                char ch = encoded.charAt(i);
+                for (int j = 0; j < count; j++) {
+                    result.append(ch);
+                }
+                i++;
+            }
+        }
+        return result.toString();
+    }
+}`,
+    dryRun: [
+      "Power array me [1,2,3] increasing hai, count = 1.",
+      "Triplet [2,3,1] increasing nahi hai. [3,1,5] bhi nahi.",
+      "[1,5,6] increasing hai, count = 2.",
+      'Decoder me "3a2b" read karte waqt pehle 3 aur a milkar "aaa" banate hain, phir 2 aur b milkar "bb", final "aaabb".'
+    ],
+    tips: [
+      "Combined problems ko break karke solve karna best strategy hoti hai.",
+      "Decoder me multi-digit counts bhi possible ho sakte hain, isliye count build karna important hai."
+    ]
+  }
+];
+
+const categoryDescriptions = {
+  "Array & Strings": "Foundation problems jahan two pointers, array traversal, aur in-place logic ka game hai.",
+  "Bit Manipulation": "Binary tricks jo interview me short aur smart solutions nikalte hain.",
+  "Search & Sorting": "Half-search thinking aur slope-based decision making ka zone.",
+  "Advanced DSA": "Heap, voting algorithm, DP aur frequency pattern wale solid interview questions.",
+  "Story Problems": "Real-world wording ke andar hidden simple logic aur simulation."
+};
+
+const grid = document.getElementById("problemGrid");
+const searchInput = document.getElementById("searchInput");
+const categoryFilter = document.getElementById("categoryFilter");
+const difficultyFilter = document.getElementById("difficultyFilter");
+const statsRow = document.getElementById("statsRow");
+const resultCount = document.getElementById("resultCount");
+const template = document.getElementById("problemTemplate");
+const themeToggle = document.getElementById("themeToggle");
+
+function titleCase(value) {
+  return value.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function buildStats() {
+  const stats = [
+    { label: "Total Problems", value: String(problems.length) },
+    { label: "Categories", value: String(new Set(problems.map((item) => item.category)).size) },
+    { label: "Easy + Medium", value: String(problems.filter((item) => item.difficulty !== "Hard").length) },
+    { label: "Hard", value: String(problems.filter((item) => item.difficulty === "Hard").length) }
+  ];
+
+  statsRow.innerHTML = stats
+    .map(
+      (item) => `<article class="stat-card"><span class="stat-label">${item.label}</span><strong class="stat-value">${item.value}</strong></article>`
+    )
+    .join("");
+}
+
+function buildCategoryOptions() {
+  const categories = [...new Set(problems.map((item) => item.category))];
+  categoryFilter.innerHTML =
+    '<option value="all">All categories</option>' +
+    categories.map((category) => `<option value="${category}">${category}</option>`).join("");
+}
+
+function createDryRun(list) {
+  return list
+    .map(
+      (step, index) => `<div class="dry-step"><span class="dry-index">${index + 1}</span><div class="dry-text">${step}</div></div>`
+    )
+    .join("");
+}
+
+function createTips(list) {
+  return list.map((tip) => `<li>${tip}</li>`).join("");
+}
+
+function attachCardBehavior(card, code) {
+  const header = card.querySelector(".problem-header");
+  const copyButton = card.querySelector(".copy-button");
+  const codeBlock = card.querySelector(".code-block");
+  const toggleIcon = card.querySelector(".toggle-icon");
+
+  header.addEventListener("click", () => {
+    const isOpen = card.classList.toggle("open");
+    toggleIcon.textContent = isOpen ? "x" : "+";
+  });
+
+  copyButton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(codeBlock?.textContent || code || "");
+      copyButton.textContent = "Copied";
+      copyButton.classList.add("copied");
+      setTimeout(() => {
+        copyButton.textContent = "Copy code";
+        copyButton.classList.remove("copied");
+      }, 1800);
+    } catch (error) {
+      copyButton.textContent = "Copy failed";
+      setTimeout(() => {
+        copyButton.textContent = "Copy code";
+      }, 1800);
+    }
+  });
+}
+
+function pickDefaultVariant(problem) {
+  const variants = problem.codeVariants || [];
+  const preferred = variants.find((v) => (v.label || "").toLowerCase().includes("optimal"));
+  return preferred || variants[0] || null;
+}
+
+function setTheme(theme) {
+  const next = theme === "dark" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("dsa_theme", next);
+  if (themeToggle) {
+    themeToggle.textContent = next === "dark" ? "Light" : "Dark";
+  }
+}
+
+function renderProblems() {
+  const searchText = searchInput.value.trim().toLowerCase();
+  const categoryValue = categoryFilter.value;
+  const difficultyValue = difficultyFilter.value;
+
+  const filtered = problems.filter((problem) => {
+    const matchesSearch =
+      !searchText ||
+      problem.title.toLowerCase().includes(searchText) ||
+      problem.category.toLowerCase().includes(searchText) ||
+      problem.statement.toLowerCase().includes(searchText) ||
+      problem.note.toLowerCase().includes(searchText);
+
+    const matchesCategory = categoryValue === "all" || problem.category === categoryValue;
+    const matchesDifficulty = difficultyValue === "all" || problem.difficulty === difficultyValue;
+
+    return matchesSearch && matchesCategory && matchesDifficulty;
+  });
+
+  resultCount.textContent = filtered.length
+    ? `${filtered.length} problems visible. Har card ko open karke detailed Hinglish breakdown aur dry run dekho.`
+    : "No problem matched the current filter. Thoda search halka karo.";
+
+  grid.innerHTML = "";
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty-state">Abhi koi problem match nahi hui. Search ya filter ko change karke phir try karo.</div>';
+    return;
+  }
+
+  filtered.forEach((problem) => {
+    const node = template.content.firstElementChild.cloneNode(true);
+    node.querySelector(".problem-id").textContent = problem.id;
+    node.querySelector(".badge-category").textContent = problem.category;
+
+    const difficultyBadge = node.querySelector(".badge-difficulty");
+    difficultyBadge.textContent = problem.difficulty;
+    difficultyBadge.classList.add(problem.difficulty.toLowerCase());
+
+    node.querySelector(".problem-title").textContent = problem.title;
+    node.querySelector(".meta-time").textContent = `Time ${problem.time}`;
+    node.querySelector(".meta-space").textContent = `Space ${problem.space}`;
+    node.querySelector(".statement-text").textContent = problem.statement;
+    node.querySelector(".note-text").textContent = problem.note;
+    node.querySelector(".input-block").textContent = problem.input;
+    node.querySelector(".output-block").textContent = problem.output;
+    node.querySelector(".brute-text").textContent = problem.brute;
+    node.querySelector(".optimal-text").textContent = problem.optimal;
+    node.querySelector(".pseudo-block").textContent = problem.pseudo;
+
+    const variants = problem.codeVariants && problem.codeVariants.length
+      ? problem.codeVariants
+      : [{ label: "Code", code: problem.code || "" }];
+
+    const variantSelect = node.querySelector(".code-variant");
+    const codeBlock = node.querySelector(".code-block");
+
+    if (variantSelect) {
+      variantSelect.innerHTML = variants
+        .map((v, idx) => `<option value="${idx}">${v.label || "Code"}</option>`)
+        .join("");
+
+      const def = pickDefaultVariant(problem);
+      const defIdx = Math.max(0, variants.indexOf(def));
+      variantSelect.value = String(defIdx);
+      codeBlock.textContent = variants[defIdx]?.code || "";
+
+      variantSelect.addEventListener("change", () => {
+        const idx = Number(variantSelect.value);
+        codeBlock.textContent = variants[idx]?.code || "";
+      });
+    } else {
+      codeBlock.textContent = variants[0]?.code || "";
+    }
+
+    node.querySelector(".dry-run-list").innerHTML = createDryRun(problem.dryRun);
+    node.querySelector(".tip-list").innerHTML = createTips(problem.tips);
+
+    attachCardBehavior(node, problem.code);
+    grid.appendChild(node);
+  });
+}
+
+searchInput.addEventListener("input", renderProblems);
+categoryFilter.addEventListener("change", renderProblems);
+difficultyFilter.addEventListener("change", renderProblems);
+
+buildStats();
+buildCategoryOptions();
+renderProblems();
+
+(() => {
+  const saved = localStorage.getItem("dsa_theme");
+  setTheme(saved || "dark");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+  }
+})();
+
+  </script>
+</body>
+</html>

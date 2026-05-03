@@ -1,0 +1,1670 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --java-orange: #EA6C14;
+    --java-dark: #1a1a2e;
+    --java-mid: #16213e;
+    --java-accent: #0f3460;
+    --java-green: #4CAF50;
+    --java-yellow: #FFD700;
+    --bg:#c7c7c7;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6b6b80;
+    --border: #e8e6df;
+    --code-bg: #1e1e2e;
+    --code-text: #cdd6f4;
+    --tag-basic: #eaf3de;
+    --tag-basic-text: #3B6D11;
+    --tag-inter: #FAEEDA;
+    --tag-inter-text: #854F0B;
+    --tag-adv: #FAECE7;
+    --tag-adv-text: #993C1D;
+  }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .header {
+    background: var(--java-dark);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--java-orange);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--java-orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .logo-text {
+    color: white;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-sub {
+    color: #aaa;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .search-bar {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    width: 280px;
+    outline: none;
+  }
+
+  .search-bar::placeholder { color: rgba(255,255,255,0.4); }
+  .search-bar:focus { border-color: var(--java-orange); }
+
+  .progress-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+  }
+
+  .progress-track {
+    width: 100px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--java-orange);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .layout {
+    display: flex;
+    min-height: calc(100vh - 73px);
+  }
+
+  .sidebar {
+    width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 0;
+    flex-shrink: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 73px);
+    position: sticky;
+    top: 73px;
+  }
+
+  .sidebar-section {
+    margin-bottom: 0.5rem;
+  }
+
+  .sidebar-section-header {
+    padding: 0.5rem 1.5rem;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .sidebar-category {
+    padding: 10px 1.5rem;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+    color: var(--text);
+  }
+
+  .sidebar-category:hover {
+    background: var(--bg);
+    border-left-color: var(--java-orange);
+    color: var(--java-orange);
+  }
+
+  .sidebar-category.active {
+    background: #fff4ec;
+    border-left-color: var(--java-orange);
+    color: var(--java-orange);
+  }
+
+  .cat-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .cat-count {
+    margin-left: auto;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .main {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 73px);
+  }
+
+  .section-hero {
+    background: var(--java-dark);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-hero::before {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 200px;
+    height: 200px;
+    background: var(--java-orange);
+    opacity: 0.1;
+    border-radius: 50%;
+  }
+
+  .section-hero-title {
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .section-hero-desc {
+    color: rgba(255,255,255,0.6);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .section-hero-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-tag {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.8);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .questions-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .q-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .q-card.done {
+    border-left: 3px solid var(--java-green);
+  }
+
+  .q-header {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .q-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--java-orange);
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .q-num.done { background: #eaf3de; color: var(--java-green); }
+
+  .q-meta { flex: 1; }
+
+  .q-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .q-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .badge-basic { background: var(--tag-basic); color: var(--tag-basic-text); }
+  .badge-intermediate { background: var(--tag-inter); color: var(--tag-inter-text); }
+  .badge-advanced { background: var(--tag-adv); color: var(--tag-adv-text); }
+
+  .badge-op {
+    background: #e6f1fb;
+    color: #185FA5;
+  }
+
+  .q-toggle {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+
+  .q-toggle.open { transform: rotate(180deg); }
+
+  .q-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 1.25rem;
+  }
+
+  .q-body.open { display: block; }
+
+  .q-explanation {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .code-block {
+    background: var(--code-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .code-lang {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  .copy-btn {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Syne', sans-serif;
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+  .copy-btn.copied { color: var(--java-green); }
+
+  .code-content {
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--code-text);
+    white-space: pre;
+  }
+
+  .kw { color: #cba6f7; }
+  .str { color: #a6e3a1; }
+  .num { color: #fab387; }
+  .cm { color: #6c7086; font-style: italic; }
+  .fn { color: #89dceb; }
+  .cl { color: #f9e2af; }
+  .op { color: #89b4fa; }
+
+  .mark-done-btn {
+    margin-top: 1rem;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .mark-done-btn:hover { border-color: var(--java-green); color: var(--java-green); }
+  .mark-done-btn.done { background: #eaf3de; border-color: var(--java-green); color: var(--java-green); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--java-orange);
+    font-family: 'JetBrains Mono', monospace;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.5rem 0 1rem;
+  }
+
+  .divider-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .back-btn {
+    background: none;
+    border: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--java-orange);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 1.5rem;
+    padding: 0;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover { border-color: var(--java-orange); color: var(--java-orange); }
+  .filter-btn.active { background: var(--java-orange); color: white; border-color: var(--java-orange); }
+
+  .sidebar-divider { height: 1px; background: var(--border); margin: 0.75rem 1.5rem; }
+</style>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">J8</div>
+    <div>
+      <div class="logo-text">StreamMaster</div>
+      <div class="logo-sub">Java Streams Interview Prep</div>
+    </div>
+  </div>
+  <input class="search-bar" type="text" placeholder="Search questions..." id="searchInput" oninput="handleSearch()" />
+  <div class="progress-bar-wrap">
+    <span id="progressText">0 / 55</span>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-header">Overview</div>
+      <div class="sidebar-category active" onclick="showSection('home')" id="nav-home">
+        <div class="cat-icon" style="background:#fff4ec; color:var(--java-orange);">&#9654;</div>
+        Dashboard
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-header">Topics</div>
+      <div class="sidebar-category" onclick="showSection('strings')" id="nav-strings">
+        <div class="cat-icon" style="background:#e6f1fb; color:#185FA5;">"A"</div>
+        List of Strings
+        <div class="cat-count">20</div>
+      </div>
+      <div class="sidebar-category" onclick="showSection('numbers')" id="nav-numbers">
+        <div class="cat-icon" style="background:#eaf3de; color:#3B6D11;">42</div>
+        Numbers & Arrays
+        <div class="cat-count">15</div>
+      </div>
+      <div class="sidebar-category" onclick="showSection('employees')" id="nav-employees">
+        <div class="cat-icon" style="background:#FAECE7; color:#993C1D;">&#128101;</div>
+        Employee Class
+        <div class="cat-count">20</div>
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-header">Key Concepts</div>
+      <div class="sidebar-category" onclick="showSection('concepts')" id="nav-concepts">
+        <div class="cat-icon" style="background:#FAEEDA; color:#854F0B;">&#9889;</div>
+        Stream API Concepts
+      </div>
+    </div>
+  </div>
+
+  <div class="main" id="mainContent"></div>
+</div>
+
+<script>
+const done = new Set();
+let currentSection = 'home';
+let currentFilter = 'all';
+
+const sections = {
+  strings: {
+    title: "List of Strings — Streams",
+    desc: "Master string manipulation using Java Streams API. From basic transformations to complex grouping operations.",
+    tags: ["filter()", "map()", "collect()", "groupingBy()", "sorted()"],
+    questions: [
+      { id: 'S1', level: 'basic', title: 'Convert list of strings to uppercase, sort and print', ops: ['map()', 'sorted()', 'forEach()'],
+        explanation: "Use map() to transform each string to uppercase, sorted() to sort alphabetically, then forEach() to print.",
+        code: `List<String> names = Arrays.asList("banana","apple","cherry","date");
+
+names.stream()
+     .map(<span class="cl">String</span>::toUpperCase)     <span class="cm">// transform each string</span>
+     .sorted()                          <span class="cm">// sort alphabetically</span>
+     .forEach(<span class="cl">System</span>.out::println);   <span class="cm">// print each</span>
+
+<span class="cm">// Output: APPLE, BANANA, CHERRY, DATE</span>`},
+
+      { id: 'S2', level: 'basic', title: 'Get strings where length > 5 and count them', ops: ['filter()', 'count()'],
+        explanation: "Use filter() to keep only strings with length > 5, then count() to get the total.",
+        code: `List<String> words = Arrays.asList("hi","hello","stream","go","java","filter");
+
+<span class="kw">long</span> count = words.stream()
+    .filter(s -> s.length() > <span class="num">5</span>)   <span class="cm">// keep only length > 5</span>
+    .count();                        <span class="cm">// terminal: count elements</span>
+
+<span class="cl">System</span>.out.println(count);         <span class="cm">// Output: 2 (stream, filter)</span>`},
+
+      { id: 'S3', level: 'basic', title: 'Remove duplicates from a list', ops: ['distinct()'],
+        explanation: "distinct() is a stateful intermediate operation that eliminates duplicate elements.",
+        code: `List<String> list = Arrays.asList("apple","banana","apple","cherry","banana");
+
+List<String> unique = list.stream()
+    .distinct()             <span class="cm">// remove duplicates</span>
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [apple, banana, cherry]</span>`},
+
+      { id: 'S4', level: 'basic', title: 'Get strings containing a particular word', ops: ['filter()', 'contains()'],
+        explanation: "filter() with String.contains() filters strings that include a specific substring.",
+        code: `List<String> sentences = Arrays.asList(
+    "Java streams are powerful",
+    "Python is great",
+    "Java is widely used",
+    "Kotlin and Java"
+);
+
+List<String> result = sentences.stream()
+    .filter(s -> s.contains(<span class="str">"Java"</span>))
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [Java streams are powerful, Java is widely used, Kotlin and Java]</span>`},
+
+      { id: 'S5', level: 'basic', title: 'Remove strings that start with a specific word', ops: ['filter()', 'startsWith()'],
+        explanation: "Use filter() with negate (!) to exclude strings starting with a particular prefix.",
+        code: `List<String> fruits = Arrays.asList("apple","apricot","banana","avocado","cherry");
+
+List<String> result = fruits.stream()
+    .filter(s -> !s.startsWith(<span class="str">"ap"</span>))   <span class="cm">// exclude strings starting with "ap"</span>
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [banana, avocado, cherry]</span>`},
+
+      { id: 'S6', level: 'basic', title: 'Find the first element starting with a particular letter', ops: ['filter()', 'findFirst()'],
+        explanation: "filter() to match the letter, findFirst() returns an Optional with the first match.",
+        code: `List<String> names = Arrays.asList("Charlie","Alice","Bob","Andrew");
+
+<span class="cl">Optional</span><String> first = names.stream()
+    .filter(s -> s.startsWith(<span class="str">"A"</span>))
+    .findFirst();
+
+first.ifPresent(<span class="cl">System</span>.out::println);   <span class="cm">// Output: Alice</span>`},
+
+      { id: 'S7', level: 'basic', title: 'Get the length of each name in a list', ops: ['map()', 'collect()'],
+        explanation: "map() transforms each string to its length using String::length method reference.",
+        code: `List<String> names = Arrays.asList("Alice","Bob","Charlie","Dave");
+
+List<Integer> lengths = names.stream()
+    .map(<span class="cl">String</span>::length)             <span class="cm">// transform to length</span>
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [5, 3, 7, 4]</span>
+
+<span class="cm">// Print name + length together:</span>
+names.stream()
+     .forEach(n -> <span class="cl">System</span>.out.println(n + <span class="str">" -> "</span> + n.length()));</span>`},
+
+      { id: 'S8', level: 'intermediate', title: 'Sort strings by their lengths (ascending/descending)', ops: ['sorted()', 'Comparator'],
+        explanation: "Use sorted() with a custom Comparator comparing string lengths. Reverse with reversed().",
+        code: `List<String> words = Arrays.asList("banana","kiwi","apple","fig","mango");
+
+<span class="cm">// Ascending by length:</span>
+words.stream()
+     .sorted(<span class="cl">Comparator</span>.comparingInt(<span class="cl">String</span>::length))
+     .forEach(<span class="cl">System</span>.out::println);
+
+<span class="cm">// Descending by length:</span>
+words.stream()
+     .sorted(<span class="cl">Comparator</span>.comparingInt(<span class="cl">String</span>::length).reversed())
+     .forEach(<span class="cl">System</span>.out::println);
+
+<span class="cm">// Ascending: fig, kiwi, mango, apple, banana</span>`},
+
+      { id: 'S9', level: 'intermediate', title: 'Find the longest word in the list', ops: ['reduce()', 'max()'],
+        explanation: "Use max() with a Comparator on string lengths, or reduce() to compare two strings at a time.",
+        code: `List<String> words = Arrays.asList("apple","extraordinary","kiwi","mango","stream");
+
+<span class="cm">// Using max():</span>
+<span class="cl">Optional</span><String> longest = words.stream()
+    .max(<span class="cl">Comparator</span>.comparingInt(<span class="cl">String</span>::length));
+
+longest.ifPresent(<span class="cl">System</span>.out::println);   <span class="cm">// extraordinary</span>
+
+<span class="cm">// Using reduce():</span>
+<span class="cl">Optional</span><String> longest2 = words.stream()
+    .reduce((a, b) -> a.length() >= b.length() ? a : b);`},
+
+      { id: 'S10', level: 'intermediate', title: 'Get strings containing vowels', ops: ['filter()', 'matches()'],
+        explanation: "Use filter() with a regex that checks whether the string contains at least one vowel.",
+        code: `List<String> words = Arrays.asList("stream","cry","apple","gym","rhythm","orange");
+
+List<String> withVowels = words.stream()
+    .filter(s -> s.matches(<span class="str">".*[aeiouAEIOU].*"</span>))
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [stream, apple, orange]</span>`},
+
+      { id: 'S11', level: 'intermediate', title: 'Convert list of strings to single comma-separated string', ops: ['joining()'],
+        explanation: "Collectors.joining() is a powerful collector that concatenates strings with a delimiter.",
+        code: `List<String> fruits = Arrays.asList("apple","banana","cherry","date");
+
+String result = fruits.stream()
+    .collect(<span class="cl">Collectors</span>.joining(<span class="str">", "</span>));
+
+<span class="cl">System</span>.out.println(result);
+<span class="cm">// Output: apple, banana, cherry, date</span>
+
+<span class="cm">// With prefix and suffix:</span>
+String withBrackets = fruits.stream()
+    .collect(<span class="cl">Collectors</span>.joining(<span class="str">", "</span>, <span class="str">"["</span>, <span class="str">"]"</span>));
+<span class="cm">// Output: [apple, banana, cherry, date]</span>`},
+
+      { id: 'S12', level: 'intermediate', title: 'Create new list where each string is reversed', ops: ['map()', 'StringBuilder'],
+        explanation: "Use map() with StringBuilder to reverse each string in the stream.",
+        code: `List<String> words = Arrays.asList("hello","world","java","stream");
+
+List<String> reversed = words.stream()
+    .map(s -> <span class="kw">new</span> <span class="cl">StringBuilder</span>(s).reverse().toString())
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [olleh, dlrow, avaj, maerts]</span>`},
+
+      { id: 'S13', level: 'intermediate', title: 'Remove all null or empty strings from a list', ops: ['filter()', 'Objects::nonNull'],
+        explanation: "Chain two filter() calls: first for non-null, then for non-empty using isEmpty().",
+        code: `List<String> list = Arrays.asList("apple", <span class="kw">null</span>, "", "banana", <span class="kw">null</span>, "cherry", "");
+
+List<String> cleaned = list.stream()
+    .filter(<span class="cl">Objects</span>::nonNull)       <span class="cm">// remove nulls</span>
+    .filter(s -> !s.isEmpty())    <span class="cm">// remove empty strings</span>
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [apple, banana, cherry]</span>`},
+
+      { id: 'S14', level: 'advanced', title: 'Group strings by the first letter', ops: ['groupingBy()', 'Collectors'],
+        explanation: "Collectors.groupingBy() creates a Map<Character, List<String>> using the first character as key.",
+        code: `List<String> words = Arrays.asList("apple","ant","banana","avocado","cherry","blueberry");
+
+Map<Character, List<String>> grouped = words.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(s -> s.charAt(<span class="num">0</span>)));
+
+grouped.forEach((k, v) -> <span class="cl">System</span>.out.println(k + <span class="str">" -> "</span> + v));
+<span class="cm">// a -> [apple, ant, avocado]</span>
+<span class="cm">// b -> [banana, blueberry]</span>
+<span class="cm">// c -> [cherry]</span>`},
+
+      { id: 'S15', level: 'advanced', title: 'Group strings by their length', ops: ['groupingBy()', 'String::length'],
+        explanation: "Group strings using String::length as the classifier function in groupingBy().",
+        code: `List<String> words = Arrays.asList("hi","kiwi","apple","mango","go","figs");
+
+Map<Integer, List<String>> byLength = words.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(<span class="cl">String</span>::length));
+
+byLength.forEach((k, v) -> <span class="cl">System</span>.out.println(k + <span class="str">" chars: "</span> + v));
+<span class="cm">// 2 chars: [hi, go]</span>
+<span class="cm">// 4 chars: [kiwi, figs]</span>
+<span class="cm">// 5 chars: [apple, mango]</span>`},
+
+      { id: 'S16', level: 'advanced', title: 'Map of first letter to list of strings starting with it', ops: ['groupingBy()', 'toMap()'],
+        explanation: "Similar to groupingBy first letter — this creates Map<String, List<String>> using first letter as key string.",
+        code: `List<String> fruits = Arrays.asList("apple","avocado","banana","cherry","blueberry");
+
+Map<String, List<String>> map = fruits.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(
+        s -> <span class="cl">String</span>.valueOf(s.charAt(<span class="num">0</span>))  <span class="cm">// key = first letter as String</span>
+    ));
+
+map.forEach((k, v) -> <span class="cl">System</span>.out.println(k + <span class="str">" -> "</span> + v));</span>`},
+
+      { id: 'S17', level: 'advanced', title: 'Partition strings into vowel and non-vowel groups', ops: ['partitioningBy()'],
+        explanation: "partitioningBy() creates a Map<Boolean, List<String>> splitting into two groups based on predicate.",
+        code: `List<String> words = Arrays.asList("apple","cry","orange","gym","umbrella","rhythm");
+
+Map<Boolean, List<String>> partitioned = words.stream()
+    .collect(<span class="cl">Collectors</span>.partitioningBy(
+        s -> s.matches(<span class="str">".*[aeiouAEIOU].*"</span>)
+    ));
+
+<span class="cl">System</span>.out.println(<span class="str">"With vowels: "</span> + partitioned.get(<span class="kw">true</span>));
+<span class="cl">System</span>.out.println(<span class="str">"Without vowels: "</span> + partitioned.get(<span class="kw">false</span>));</span>`},
+
+      { id: 'S18', level: 'advanced', title: 'Print only string elements excluding digits', ops: ['filter()', 'matches()'],
+        explanation: "Use filter() with a regex that matches strings containing no digit characters.",
+        code: `List<String> mixed = Arrays.asList("apple","123","banana","4","cherry","678hello","mango");
+
+mixed.stream()
+     .filter(s -> !s.matches(<span class="str">".*\\d.*"</span>))   <span class="cm">// exclude strings with any digit</span>
+     .forEach(<span class="cl">System</span>.out::println);
+
+<span class="cm">// Output: apple, banana, cherry, mango</span>`},
+
+      { id: 'S19', level: 'advanced', title: 'Find first element with length 10 or throw exception', ops: ['filter()', 'findFirst()', 'orElseThrow()'],
+        explanation: "findFirst() returns Optional; use orElseThrow() to throw an exception if no element is found.",
+        code: `List<String> words = Arrays.asList("hi","hello","java","streamapi","collection");
+
+<span class="kw">try</span> {
+    String found = words.stream()
+        .filter(s -> s.length() == <span class="num">10</span>)
+        .findFirst()
+        .orElseThrow(() -> <span class="kw">new</span> <span class="cl">NoSuchElementException</span>(<span class="str">"No 10-char string found!"</span>));
+
+    <span class="cl">System</span>.out.println(found);   <span class="cm">// collection</span>
+} <span class="kw">catch</span> (<span class="cl">NoSuchElementException</span> e) {
+    <span class="cl">System</span>.out.println(e.getMessage());
+}</span>`},
+
+      { id: 'S20', level: 'advanced', title: 'Reverse the list of strings using streams', ops: ['reduce()', 'Deque'],
+        explanation: "Use a Deque or reduce() to reverse the order of the list. Streams are not reversible by default.",
+        code: `List<String> list = Arrays.asList("apple","banana","cherry","date","elderberry");
+
+<span class="cm">// Method 1: Using Deque</span>
+List<String> reversed = list.stream()
+    .collect(<span class="cl">Collectors</span>.toCollection(<span class="cl">ArrayDeque</span>::<span class="kw">new</span>))
+    .descendingIterator()
+    .forEachRemaining(... <span class="cm">// use iterator</span>);
+
+<span class="cm">// Method 2: Using IntStream with indices</span>
+List<String> reversed2 = <span class="cl">IntStream</span>.rangeClosed(<span class="num">1</span>, list.size())
+    .mapToObj(i -> list.get(list.size() - i))
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Output: [elderberry, date, cherry, banana, apple]</span>`},
+    ]
+  },
+
+  numbers: {
+    title: "Numbers & Arrays — Streams",
+    desc: "Handle numeric data with IntStream, reduce(), partitioning and parallel processing.",
+    tags: ["IntStream", "reduce()", "mapToInt()", "partitioningBy()", "parallelStream()"],
+    questions: [
+      { id: 'N1', level: 'basic', title: 'Get even/odd numbers from array and list', ops: ['filter()', 'IntStream'],
+        explanation: "Use filter() with modulo operator to get even (n % 2 == 0) or odd (n % 2 != 0) numbers.",
+        code: `List<Integer> numbers = Arrays.asList(<span class="num">1,2,3,4,5,6,7,8,9,10</span>);
+
+<span class="cm">// Even numbers:</span>
+List<Integer> evens = numbers.stream()
+    .filter(n -> n % <span class="num">2</span> == <span class="num">0</span>)
+    .collect(<span class="cl">Collectors</span>.toList());   <span class="cm">// [2,4,6,8,10]</span>
+
+<span class="cm">// Odd numbers:</span>
+List<Integer> odds = numbers.stream()
+    .filter(n -> n % <span class="num">2</span> != <span class="num">0</span>)
+    .collect(<span class="cl">Collectors</span>.toList());   <span class="cm">// [1,3,5,7,9]</span>
+
+<span class="cm">// From array:</span>
+<span class="kw">int</span>[] arr = {<span class="num">1,2,3,4,5,6</span>};
+<span class="cl">IntStream</span>.of(arr).filter(n -> n % <span class="num">2</span> == <span class="num">0</span>).forEach(<span class="cl">System</span>.out::println);</span>`},
+
+      { id: 'N2', level: 'basic', title: 'Get even/odd numbers between a range', ops: ['IntStream.rangeClosed()'],
+        explanation: "IntStream.rangeClosed(a, b) generates a range from a to b inclusive, then filter for even/odd.",
+        code: `<span class="cm">// Even numbers from 1 to 20:</span>
+<span class="cl">IntStream</span>.rangeClosed(<span class="num">1</span>, <span class="num">20</span>)
+    .filter(n -> n % <span class="num">2</span> == <span class="num">0</span>)
+    .forEach(<span class="cl">System</span>.out::println);
+
+<span class="cm">// Odd numbers from 1 to 20:</span>
+<span class="cl">IntStream</span>.rangeClosed(<span class="num">1</span>, <span class="num">20</span>)
+    .filter(n -> n % <span class="num">2</span> != <span class="num">0</span>)
+    .forEach(<span class="cl">System</span>.out::println);</span>`},
+
+      { id: 'N3', level: 'basic', title: 'Sort a list of integers ascending/descending', ops: ['sorted()', 'Comparator.reverseOrder()'],
+        explanation: "sorted() sorts ascending by default. For descending, pass Comparator.reverseOrder().",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">5,2,8,1,9,3,7</span>);
+
+<span class="cm">// Ascending:</span>
+nums.stream().sorted().forEach(<span class="cl">System</span>.out::println);
+<span class="cm">// 1, 2, 3, 5, 7, 8, 9</span>
+
+<span class="cm">// Descending:</span>
+nums.stream()
+    .sorted(<span class="cl">Comparator</span>.reverseOrder())
+    .forEach(<span class="cl">System</span>.out::println);
+<span class="cm">// 9, 8, 7, 5, 3, 2, 1</span>`},
+
+      { id: 'N4', level: 'basic', title: 'Calculate sum and average of numbers', ops: ['mapToInt()', 'sum()', 'average()'],
+        explanation: "mapToInt() converts to IntStream which has built-in sum() and average() terminal operations.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">10,20,30,40,50</span>);
+
+<span class="cm">// Sum:</span>
+<span class="kw">int</span> sum = nums.stream().mapToInt(<span class="cl">Integer</span>::intValue).sum();
+<span class="cl">System</span>.out.println(<span class="str">"Sum: "</span> + sum);   <span class="cm">// 150</span>
+
+<span class="cm">// Average:</span>
+OptionalDouble avg = nums.stream().mapToInt(<span class="cl">Integer</span>::intValue).average();
+avg.ifPresent(a -> <span class="cl">System</span>.out.println(<span class="str">"Avg: "</span> + a));   <span class="cm">// 30.0</span>
+
+<span class="cm">// Using Collectors:</span>
+<span class="kw">int</span> sum2 = nums.stream().collect(<span class="cl">Collectors</span>.summingInt(<span class="cl">Integer</span>::intValue));</span>`},
+
+      { id: 'N5', level: 'basic', title: 'Find max/min number in array/list', ops: ['max()', 'min()', 'IntStream'],
+        explanation: "Use max() and min() with Comparator.naturalOrder() or IntStream's built-in max()/min().",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">15,3,42,7,28,1,99</span>);
+
+<span class="cm">// Max:</span>
+<span class="cl">Optional</span><Integer> max = nums.stream().max(<span class="cl">Comparator</span>.naturalOrder());
+max.ifPresent(m -> <span class="cl">System</span>.out.println(<span class="str">"Max: "</span> + m));   <span class="cm">// 99</span>
+
+<span class="cm">// Min:</span>
+<span class="cl">Optional</span><Integer> min = nums.stream().min(<span class="cl">Comparator</span>.naturalOrder());
+min.ifPresent(m -> <span class="cl">System</span>.out.println(<span class="str">"Min: "</span> + m));   <span class="cm">// 1</span>
+
+<span class="cm">// From IntStream:</span>
+<span class="kw">int</span>[] arr = {<span class="num">15,3,42,7,28</span>};
+<span class="cl">IntStream</span>.of(arr).max().ifPresent(<span class="cl">System</span>.out::println);</span>`},
+
+      { id: 'N6', level: 'intermediate', title: 'Remove duplicate elements from array/list', ops: ['distinct()'],
+        explanation: "distinct() removes duplicates based on equals() method. Works on any stream type.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">1,2,3,2,4,3,5,1,6</span>);
+
+List<Integer> unique = nums.stream()
+    .distinct()
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cl">System</span>.out.println(unique);   <span class="cm">// [1,2,3,4,5,6]</span>
+
+<span class="cm">// From array with IntStream:</span>
+<span class="kw">int</span>[] arr = {<span class="num">5,5,3,1,3,2</span>};
+<span class="kw">int</span>[] uniqueArr = <span class="cl">IntStream</span>.of(arr).distinct().toArray();</span>`},
+
+      { id: 'N7', level: 'intermediate', title: 'Convert list of integers to list of their squares', ops: ['map()', 'Math.pow()'],
+        explanation: "Use map() to apply the squaring function (n * n) to each element in the stream.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">1,2,3,4,5,6</span>);
+
+List<Integer> squares = nums.stream()
+    .map(n -> n * n)
+    .collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cl">System</span>.out.println(squares);   <span class="cm">// [1,4,9,16,25,36]</span>`},
+
+      { id: 'N8', level: 'intermediate', title: 'Find the sum of squares of all numbers', ops: ['mapToInt()', 'sum()', 'reduce()'],
+        explanation: "Map each number to its square first, then sum using mapToInt().sum() or reduce().",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">1,2,3,4,5</span>);
+
+<span class="cm">// Using mapToInt:</span>
+<span class="kw">int</span> sumOfSquares = nums.stream()
+    .mapToInt(n -> n * n)
+    .sum();
+
+<span class="cl">System</span>.out.println(sumOfSquares);   <span class="cm">// 55 (1+4+9+16+25)</span>
+
+<span class="cm">// Using reduce:</span>
+<span class="kw">int</span> result = nums.stream()
+    .map(n -> n * n)
+    .reduce(<span class="num">0</span>, <span class="cl">Integer</span>::sum);</span>`},
+
+      { id: 'N9', level: 'intermediate', title: 'Get second largest and second smallest number', ops: ['sorted()', 'skip()', 'limit()'],
+        explanation: "Sort the stream, use skip() to skip the first element, then findFirst() for second.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">5,2,8,1,9,3,7</span>);
+
+<span class="cm">// Second largest:</span>
+<span class="cl">Optional</span><Integer> secondLargest = nums.stream()
+    .sorted(<span class="cl">Comparator</span>.reverseOrder())   <span class="cm">// desc order</span>
+    .distinct()                             <span class="cm">// handle duplicates</span>
+    .skip(<span class="num">1</span>)                              <span class="cm">// skip largest</span>
+    .findFirst();
+
+secondLargest.ifPresent(n -> <span class="cl">System</span>.out.println(<span class="str">"2nd largest: "</span> + n));   <span class="cm">// 8</span>
+
+<span class="cm">// Second smallest:</span>
+<span class="cl">Optional</span><Integer> secondSmallest = nums.stream()
+    .sorted().distinct().skip(<span class="num">1</span>).findFirst();
+
+secondSmallest.ifPresent(n -> <span class="cl">System</span>.out.println(<span class="str">"2nd smallest: "</span> + n));   <span class="cm">// 2</span>`},
+
+      { id: 'N10', level: 'intermediate', title: 'Get first number greater than 50 in a list', ops: ['filter()', 'findFirst()'],
+        explanation: "filter() to keep numbers > 50, then findFirst() returns the first match as Optional.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">10,35,67,24,88,51,12</span>);
+
+<span class="cl">Optional</span><Integer> first = nums.stream()
+    .filter(n -> n > <span class="num">50</span>)
+    .findFirst();
+
+first.ifPresent(n -> <span class="cl">System</span>.out.println(<span class="str">"First > 50: "</span> + n));   <span class="cm">// 67</span></span>`},
+
+      { id: 'N11', level: 'advanced', title: 'Sum of numbers in a 2D array / List<List<Integer>>', ops: ['flatMap()', 'mapToInt()'],
+        explanation: "flatMap() flattens nested lists into a single stream, then mapToInt().sum() computes the total.",
+        code: `List<List<Integer>> matrix = Arrays.asList(
+    Arrays.asList(<span class="num">1,2,3</span>),
+    Arrays.asList(<span class="num">4,5,6</span>),
+    Arrays.asList(<span class="num">7,8,9</span>)
+);
+
+<span class="kw">int</span> total = matrix.stream()
+    .flatMap(<span class="cl">Collection</span>::stream)   <span class="cm">// flatten 2D to 1D</span>
+    .mapToInt(<span class="cl">Integer</span>::intValue)
+    .sum();
+
+<span class="cl">System</span>.out.println(total);   <span class="cm">// 45</span></span>`},
+
+      { id: 'N12', level: 'advanced', title: 'Convert array of integers to Map<number, square>', ops: ['toMap()', 'Collectors'],
+        explanation: "Collectors.toMap() takes a key mapper and value mapper to build a Map from stream elements.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">1,2,3,4,5</span>);
+
+Map<Integer, Integer> squareMap = nums.stream()
+    .collect(<span class="cl">Collectors</span>.toMap(
+        n -> n,        <span class="cm">// key: the number itself</span>
+        n -> n * n     <span class="cm">// value: its square</span>
+    ));
+
+<span class="cl">System</span>.out.println(squareMap);
+<span class="cm">// {1=1, 2=4, 3=9, 4=16, 5=25}</span></span>`},
+
+      { id: 'N13', level: 'advanced', title: 'Partition integers into even and odd groups', ops: ['partitioningBy()'],
+        explanation: "partitioningBy() splits the stream into two groups by a predicate — perfect for even/odd.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">1,2,3,4,5,6,7,8,9,10</span>);
+
+Map<Boolean, List<Integer>> partitioned = nums.stream()
+    .collect(<span class="cl">Collectors</span>.partitioningBy(n -> n % <span class="num">2</span> == <span class="num">0</span>));
+
+<span class="cl">System</span>.out.println(<span class="str">"Even: "</span> + partitioned.get(<span class="kw">true</span>));   <span class="cm">// [2,4,6,8,10]</span>
+<span class="cl">System</span>.out.println(<span class="str">"Odd: "</span>  + partitioned.get(<span class="kw">false</span>));  <span class="cm">// [1,3,5,7,9]</span></span>`},
+
+      { id: 'N14', level: 'advanced', title: 'Calculate product of all numbers using reduce()', ops: ['reduce()'],
+        explanation: "reduce() accumulates the stream with an associative operation. For product, multiply elements.",
+        code: `List<Integer> nums = Arrays.asList(<span class="num">1,2,3,4,5</span>);
+
+<span class="kw">int</span> product = nums.stream()
+    .reduce(<span class="num">1</span>, (a, b) -> a * b);   <span class="cm">// identity = 1 (multiplicative)</span>
+
+<span class="cl">System</span>.out.println(product);   <span class="cm">// 120 (1*2*3*4*5)</span>
+
+<span class="cm">// With Optional (no identity):</span>
+<span class="cl">Optional</span><Integer> product2 = nums.stream().reduce((a, b) -> a * b);</span>`},
+
+      { id: 'N15', level: 'advanced', title: 'Parallel stream to compute sum of squares', ops: ['parallelStream()', 'mapToLong()'],
+        explanation: "parallelStream() processes elements in parallel using the fork-join pool for performance on large datasets.",
+        code: `List<Integer> nums = <span class="cl">IntStream</span>.rangeClosed(<span class="num">1</span>, <span class="num">1000000</span>)
+    .boxed().collect(<span class="cl">Collectors</span>.toList());
+
+<span class="cm">// Parallel stream for performance:</span>
+<span class="kw">long</span> sumOfSquares = nums.parallelStream()
+    .mapToLong(n -> (<span class="kw">long</span>) n * n)
+    .sum();
+
+<span class="cl">System</span>.out.println(sumOfSquares);
+<span class="cm">// Computed using multiple threads via fork-join pool</span>
+<span class="cm">// Use parallel only for large datasets — overhead on small ones</span></span>`},
+    ]
+  },
+
+  employees: {
+    title: "Employee Class — Streams",
+    desc: "Real-world domain modeling: filter, group, aggregate, and analyze employee data with Streams API.",
+    tags: ["groupingBy()", "Collectors.averagingDouble()", "partitioningBy()", "comparingDouble()"],
+    domainModel: `<span class="kw">class</span> <span class="cl">Employee</span> {
+    <span class="kw">private</span> <span class="cl">String</span>  empName;
+    <span class="kw">private</span> <span class="kw">int</span>     empId;
+    <span class="kw">private</span> <span class="cl">String</span>  city;
+    <span class="kw">private</span> <span class="kw">double</span>  salary;
+    <span class="kw">private</span> <span class="cl">String</span>  department;
+    <span class="cm">// getters, constructors...</span>
+}`,
+    questions: [
+      { id: 'E1', level: 'basic', title: 'Find all employees from a specific city and get count', ops: ['filter()', 'count()'],
+        explanation: "filter() employees by city name (case-insensitive), then count() for the total.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="kw">long</span> count = emps.stream()
+    .filter(e -> e.getCity().equalsIgnoreCase(<span class="str">"Mumbai"</span>))
+    .count();
+
+<span class="cl">System</span>.out.println(<span class="str">"Employees in Mumbai: "</span> + count);
+
+<span class="cm">// Also get the list:</span>
+List<Employee> mumbaiEmps = emps.stream()
+    .filter(e -> e.getCity().equalsIgnoreCase(<span class="str">"Mumbai"</span>))
+    .collect(<span class="cl">Collectors</span>.toList());</span>`},
+
+      { id: 'E2', level: 'basic', title: 'Find employees where salary > specific value', ops: ['filter()', 'collect()'],
+        explanation: "Filter using salary getter and comparison operator inside the lambda predicate.",
+        code: `List<Employee> emps = getEmployees();
+
+List<Employee> highPaid = emps.stream()
+    .filter(e -> e.getSalary() > <span class="num">50000</span>)
+    .collect(<span class="cl">Collectors</span>.toList());
+
+highPaid.forEach(e -> <span class="cl">System</span>.out.println(e.getEmpName() + <span class="str">": "</span> + e.getSalary()));</span>`},
+
+      { id: 'E3', level: 'basic', title: 'Print employee names in uppercase alphabetical order', ops: ['map()', 'sorted()', 'forEach()'],
+        explanation: "map() to get names, map() again to uppercase, sorted() alphabetically, forEach() to print.",
+        code: `List<Employee> emps = getEmployees();
+
+emps.stream()
+    .map(<span class="cl">Employee</span>::getEmpName)        <span class="cm">// get name</span>
+    .map(<span class="cl">String</span>::toUpperCase)           <span class="cm">// uppercase</span>
+    .sorted()                            <span class="cm">// alphabetical</span>
+    .forEach(<span class="cl">System</span>.out::println);     <span class="cm">// print</span></span>`},
+
+      { id: 'E4', level: 'basic', title: 'Get first HR employee or throw exception', ops: ['filter()', 'findFirst()', 'orElseThrow()'],
+        explanation: "findFirst() returns Optional; orElseThrow() throws if no HR employee is found.",
+        code: `List<Employee> emps = getEmployees();
+
+Employee hrEmp = emps.stream()
+    .filter(e -> e.getDepartment().equalsIgnoreCase(<span class="str">"HR"</span>))
+    .findFirst()
+    .orElseThrow(() -> <span class="kw">new</span> <span class="cl">RuntimeException</span>(<span class="str">"No HR employee found!"</span>));
+
+<span class="cl">System</span>.out.println(hrEmp.getEmpName());</span>`},
+
+      { id: 'E5', level: 'basic', title: 'Get total salary in a specific department', ops: ['filter()', 'mapToDouble()', 'sum()'],
+        explanation: "Filter by department, then mapToDouble() and sum() for total salary.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="kw">double</span> totalSalary = emps.stream()
+    .filter(e -> e.getDepartment().equalsIgnoreCase(<span class="str">"Engineering"</span>))
+    .mapToDouble(<span class="cl">Employee</span>::getSalary)
+    .sum();
+
+<span class="cl">System</span>.out.printf(<span class="str">"Total Engineering Salary: %.2f%n"</span>, totalSalary);</span>`},
+
+      { id: 'E6', level: 'intermediate', title: 'Check if ALL employees earn above a salary threshold', ops: ['allMatch()'],
+        explanation: "allMatch() is a short-circuit terminal operation that returns false as soon as one doesn't match.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="kw">boolean</span> allAbove30k = emps.stream()
+    .allMatch(e -> e.getSalary() > <span class="num">30000</span>);
+
+<span class="cl">System</span>.out.println(<span class="str">"All earn > 30k: "</span> + allAbove30k);
+
+<span class="cm">// Related checks:</span>
+<span class="kw">boolean</span> anyAbove100k = emps.stream().anyMatch(e -> e.getSalary() > <span class="num">100000</span>);
+<span class="kw">boolean</span> noneBelow10k = emps.stream().noneMatch(e -> e.getSalary() < <span class="num">10000</span>);</span>`},
+
+      { id: 'E7', level: 'intermediate', title: 'Get sum and average salary of all employees', ops: ['mapToDouble()', 'sum()', 'average()'],
+        explanation: "mapToDouble() converts to DoubleStream giving access to sum() and average() directly.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="kw">double</span> totalSalary = emps.stream()
+    .mapToDouble(<span class="cl">Employee</span>::getSalary)
+    .sum();
+
+OptionalDouble avgSalary = emps.stream()
+    .mapToDouble(<span class="cl">Employee</span>::getSalary)
+    .average();
+
+<span class="cl">System</span>.out.printf(<span class="str">"Total: %.2f, Avg: %.2f%n"</span>, totalSalary, avgSalary.orElse(<span class="num">0</span>));</span>`},
+
+      { id: 'E8', level: 'intermediate', title: 'Get a Map of Employee Names to their salaries', ops: ['toMap()', 'Collectors'],
+        explanation: "Collectors.toMap() with name as key and salary as value creates the desired Map.",
+        code: `List<Employee> emps = getEmployees();
+
+Map<String, Double> nameSalaryMap = emps.stream()
+    .collect(<span class="cl">Collectors</span>.toMap(
+        <span class="cl">Employee</span>::getEmpName,    <span class="cm">// key</span>
+        <span class="cl">Employee</span>::getSalary       <span class="cm">// value</span>
+    ));
+
+nameSalaryMap.forEach((name, sal) ->
+    <span class="cl">System</span>.out.println(name + <span class="str">" -> "</span> + sal));</span>`},
+
+      { id: 'E9', level: 'intermediate', title: 'Print employee details from highest to lowest salary', ops: ['sorted()', 'Comparator.comparingDouble()'],
+        explanation: "sorted() with reversed() Comparator on salary gives descending salary order.",
+        code: `List<Employee> emps = getEmployees();
+
+emps.stream()
+    .sorted(<span class="cl">Comparator</span>.comparingDouble(<span class="cl">Employee</span>::getSalary).reversed())
+    .forEach(e -> <span class="cl">System</span>.out.printf(
+        <span class="str">"%s | %s | %.0f%n"</span>, e.getEmpName(), e.getDepartment(), e.getSalary()
+    ));</span>`},
+
+      { id: 'E10', level: 'intermediate', title: 'Get employee(s) with highest salary', ops: ['max()', 'Comparator'],
+        explanation: "max() with a salary Comparator finds the employee with the maximum salary.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="cl">Optional</span><Employee> topEarner = emps.stream()
+    .max(<span class="cl">Comparator</span>.comparingDouble(<span class="cl">Employee</span>::getSalary));
+
+topEarner.ifPresent(e -> 
+    <span class="cl">System</span>.out.println(<span class="str">"Top earner: "</span> + e.getEmpName() + <span class="str">" ("</span> + e.getSalary() + <span class="str">")"</span>));</span>`},
+
+      { id: 'E11', level: 'intermediate', title: 'Get employee(s) with second highest salary', ops: ['sorted()', 'skip()', 'findFirst()'],
+        explanation: "Sort descending by salary, skip(1) to skip the highest, then findFirst() for second highest.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="kw">double</span> secondHighest = emps.stream()
+    .mapToDouble(<span class="cl">Employee</span>::getSalary)
+    .distinct()
+    .sorted()
+    .skip(emps.stream().mapToDouble(<span class="cl">Employee</span>::getSalary).distinct().count() - <span class="num">2</span>)
+    .findFirst()
+    .orElseThrow();
+
+<span class="cm">// Simpler approach:</span>
+List<Employee> secondHighestEmps = emps.stream()
+    .sorted(<span class="cl">Comparator</span>.comparingDouble(<span class="cl">Employee</span>::getSalary).reversed())
+    .filter(e -> e.getSalary() < emps.stream()
+        .mapToDouble(<span class="cl">Employee</span>::getSalary).max().orElse(<span class="num">0</span>))
+    .limit(<span class="num">1</span>)
+    .collect(<span class="cl">Collectors</span>.toList());</span>`},
+
+      { id: 'E12', level: 'intermediate', title: 'Get employees earning above average salary', ops: ['filter()', 'average()'],
+        explanation: "First compute average salary, then filter employees whose salary exceeds it.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="kw">double</span> avgSalary = emps.stream()
+    .mapToDouble(<span class="cl">Employee</span>::getSalary)
+    .average()
+    .orElse(<span class="num">0</span>);
+
+List<Employee> aboveAvg = emps.stream()
+    .filter(e -> e.getSalary() > avgSalary)
+    .collect(<span class="cl">Collectors</span>.toList());
+
+aboveAvg.forEach(e -> <span class="cl">System</span>.out.println(e.getEmpName() + <span class="str">": "</span> + e.getSalary()));</span>`},
+
+      { id: 'E13', level: 'intermediate', title: 'Get the employee with the longest name', ops: ['max()', 'comparingInt()'],
+        explanation: "Use max() with a Comparator that compares employee name lengths.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="cl">Optional</span><Employee> longestName = emps.stream()
+    .max(<span class="cl">Comparator</span>.comparingInt(e -> e.getEmpName().length()));
+
+longestName.ifPresent(e -> 
+    <span class="cl">System</span>.out.println(<span class="str">"Longest name: "</span> + e.getEmpName()));</span>`},
+
+      { id: 'E14', level: 'advanced', title: 'Group all employees by department', ops: ['groupingBy()'],
+        explanation: "Collectors.groupingBy() with the department getter creates a Map<String, List<Employee>>.",
+        code: `List<Employee> emps = getEmployees();
+
+Map<String, List<Employee>> byDept = emps.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(<span class="cl">Employee</span>::getDepartment));
+
+byDept.forEach((dept, empList) -> {
+    <span class="cl">System</span>.out.println(<span class="str">"== "</span> + dept + <span class="str">" =="</span>);
+    empList.forEach(e -> <span class="cl">System</span>.out.println(<span class="str">"  "</span> + e.getEmpName()));
+});</span>`},
+
+      { id: 'E15', level: 'advanced', title: 'Get count of employees by department', ops: ['groupingBy()', 'counting()'],
+        explanation: "Combine groupingBy() with counting() as the downstream collector.",
+        code: `List<Employee> emps = getEmployees();
+
+Map<String, Long> countByDept = emps.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(
+        <span class="cl">Employee</span>::getDepartment,
+        <span class="cl">Collectors</span>.counting()      <span class="cm">// downstream collector</span>
+    ));
+
+countByDept.forEach((dept, count) ->
+    <span class="cl">System</span>.out.println(dept + <span class="str">": "</span> + count));</span>`},
+
+      { id: 'E16', level: 'advanced', title: 'Get sum of salaries by department', ops: ['groupingBy()', 'summingDouble()'],
+        explanation: "Use groupingBy() with Collectors.summingDouble() as the downstream collector.",
+        code: `List<Employee> emps = getEmployees();
+
+Map<String, Double> salaryByDept = emps.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(
+        <span class="cl">Employee</span>::getDepartment,
+        <span class="cl">Collectors</span>.summingDouble(<span class="cl">Employee</span>::getSalary)
+    ));
+
+salaryByDept.forEach((dept, total) ->
+    <span class="cl">System</span>.out.printf(<span class="str">"%s: %.2f%n"</span>, dept, total));</span>`},
+
+      { id: 'E17', level: 'advanced', title: 'Get average salaries per department', ops: ['groupingBy()', 'averagingDouble()'],
+        explanation: "Collectors.averagingDouble() calculates the average of a numeric field per group.",
+        code: `List<Employee> emps = getEmployees();
+
+Map<String, Double> avgByDept = emps.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(
+        <span class="cl">Employee</span>::getDepartment,
+        <span class="cl">Collectors</span>.averagingDouble(<span class="cl">Employee</span>::getSalary)
+    ));
+
+avgByDept.forEach((dept, avg) ->
+    <span class="cl">System</span>.out.printf(<span class="str">"%s avg: %.2f%n"</span>, dept, avg));</span>`},
+
+      { id: 'E18', level: 'advanced', title: 'Check if all employees belong to a specific department', ops: ['allMatch()'],
+        explanation: "allMatch() checks all employees against a predicate — returns false if any doesn't match.",
+        code: `List<Employee> emps = getEmployees();
+
+<span class="kw">boolean</span> allHR = emps.stream()
+    .allMatch(e -> e.getDepartment().equalsIgnoreCase(<span class="str">"HR"</span>));
+
+<span class="cl">System</span>.out.println(<span class="str">"All in HR? "</span> + allHR);   <span class="cm">// likely false</span></span>`},
+
+      { id: 'E19', level: 'advanced', title: 'List employees grouped by city in same department', ops: ['groupingBy()', 'filter()'],
+        explanation: "First filter by department, then groupingBy city to group same-department employees by city.",
+        code: `List<Employee> emps = getEmployees();
+
+Map<String, List<Employee>> cityGroupInDept = emps.stream()
+    .filter(e -> e.getDepartment().equalsIgnoreCase(<span class="str">"Engineering"</span>))
+    .collect(<span class="cl">Collectors</span>.groupingBy(<span class="cl">Employee</span>::getCity));
+
+cityGroupInDept.forEach((city, empList) -> {
+    <span class="cl">System</span>.out.println(<span class="str">"City: "</span> + city);
+    empList.forEach(e -> <span class="cl">System</span>.out.println(<span class="str">"  - "</span> + e.getEmpName()));
+});</span>`},
+
+      { id: 'E20', level: 'advanced', title: 'Find department with highest average salary', ops: ['groupingBy()', 'averagingDouble()', 'max()'],
+        explanation: "Compute average salary per department, then find the entry with the max average salary.",
+        code: `List<Employee> emps = getEmployees();
+
+Map<String, Double> avgByDept = emps.stream()
+    .collect(<span class="cl">Collectors</span>.groupingBy(
+        <span class="cl">Employee</span>::getDepartment,
+        <span class="cl">Collectors</span>.averagingDouble(<span class="cl">Employee</span>::getSalary)
+    ));
+
+<span class="cl">Optional</span><Map.Entry<String, Double>> topDept = avgByDept.entrySet().stream()
+    .max(<span class="cl">Map</span>.Entry.comparingByValue());
+
+topDept.ifPresent(e ->
+    <span class="cl">System</span>.out.printf(<span class="str">"Highest avg salary dept: %s (%.2f)%n"</span>, e.getKey(), e.getValue()));</span>`},
+    ]
+  },
+
+  concepts: {
+    title: "Stream API Core Concepts",
+    desc: "Quick reference for all major stream operations with descriptions and examples.",
+    items: [
+      { name: "filter(Predicate)", category: "Intermediate", desc: "Keeps elements matching the predicate. Short-circuits for findFirst/findAny." },
+      { name: "map(Function)", category: "Intermediate", desc: "Transforms each element. Returns a Stream of the new type." },
+      { name: "flatMap(Function)", category: "Intermediate", desc: "Maps each element to a stream and flattens. Used for nested collections." },
+      { name: "sorted()", category: "Intermediate", desc: "Natural order sort. Pass Comparator for custom order. Stateful op." },
+      { name: "distinct()", category: "Intermediate", desc: "Removes duplicates using equals(). Stateful operation." },
+      { name: "limit(n)", category: "Intermediate", desc: "Returns first n elements. Short-circuit operation." },
+      { name: "skip(n)", category: "Intermediate", desc: "Skips first n elements. Useful with sorted() for Nth element." },
+      { name: "peek(Consumer)", category: "Intermediate", desc: "Debug/side-effect step. Does not consume the stream." },
+      { name: "collect(Collector)", category: "Terminal", desc: "Mutable reduction into List, Map, Set, String, etc." },
+      { name: "count()", category: "Terminal", desc: "Returns number of elements as long." },
+      { name: "findFirst()", category: "Terminal", desc: "Returns Optional of first element. Short-circuits." },
+      { name: "findAny()", category: "Terminal", desc: "Returns Optional of any element. Faster in parallel streams." },
+      { name: "anyMatch(Predicate)", category: "Terminal", desc: "Returns true if any element matches. Short-circuits." },
+      { name: "allMatch(Predicate)", category: "Terminal", desc: "Returns true only if all elements match." },
+      { name: "noneMatch(Predicate)", category: "Terminal", desc: "Returns true if no elements match the predicate." },
+      { name: "reduce(identity, BinaryOp)", category: "Terminal", desc: "Combines elements into one result. Example: sum, product." },
+      { name: "forEach(Consumer)", category: "Terminal", desc: "Consumes each element. Does not return a value." },
+      { name: "max(Comparator)", category: "Terminal", desc: "Returns Optional of max element by Comparator." },
+      { name: "min(Comparator)", category: "Terminal", desc: "Returns Optional of min element by Comparator." },
+      { name: "toArray()", category: "Terminal", desc: "Collects stream into an array." },
+      { name: "groupingBy(classifier)", category: "Collector", desc: "Groups elements into Map<K, List<T>>." },
+      { name: "partitioningBy(pred)", category: "Collector", desc: "Splits into Map<Boolean, List<T>>." },
+      { name: "joining(delim)", category: "Collector", desc: "Concatenates strings with delimiter, optional prefix/suffix." },
+      { name: "counting()", category: "Collector", desc: "Downstream: counts elements in each group." },
+      { name: "summingInt/Double()", category: "Collector", desc: "Downstream: sums a numeric field per group." },
+      { name: "averagingDouble()", category: "Collector", desc: "Downstream: computes average of a field per group." },
+      { name: "toMap(keyFn, valFn)", category: "Collector", desc: "Collects into a Map with custom key/value functions." },
+    ]
+  }
+};
+
+const doneCounts = { strings: 0, numbers: 0, employees: 0 };
+
+function updateProgress() {
+  const total = 55;
+  const count = done.size;
+  document.getElementById('progressText').textContent = count + ' / ' + total;
+  document.getElementById('progressFill').style.width = (count / total * 100) + '%';
+
+  ['strings','numbers','employees'].forEach(sec => {
+    const qs = sections[sec].questions;
+    doneCounts[sec] = qs.filter(q => done.has(q.id)).length;
+  });
+
+  document.querySelectorAll('.stat-card[data-section]').forEach(card => {
+    const sec = card.dataset.section;
+    if (sec) {
+      const qs = sections[sec].questions;
+      card.querySelector('.stat-num').textContent = doneCounts[sec] + '/' + qs.length;
+    }
+  });
+}
+
+function toggleQuestion(id) {
+  const body = document.getElementById('body-' + id);
+  const toggle = document.getElementById('toggle-' + id);
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.q-body.open').forEach(b => {
+    b.classList.remove('open');
+    const t = document.getElementById('toggle-' + b.id.replace('body-',''));
+    if (t) t.classList.remove('open');
+  });
+  if (!isOpen) {
+    body.classList.add('open');
+    toggle.classList.add('open');
+  }
+}
+
+function markDone(id) {
+  const btn = document.getElementById('done-btn-' + id);
+  const numEl = document.getElementById('num-' + id);
+  const card = document.getElementById('card-' + id);
+  if (done.has(id)) {
+    done.delete(id);
+    btn.classList.remove('done');
+    btn.innerHTML = '&#9711; Mark as studied';
+    numEl.classList.remove('done');
+    card.classList.remove('done');
+  } else {
+    done.add(id);
+    btn.classList.add('done');
+    btn.innerHTML = '&#10003; Studied!';
+    numEl.classList.add('done');
+    card.classList.add('done');
+  }
+  updateProgress();
+}
+
+function copyCode(id) {
+  const el = document.getElementById('code-' + id);
+  const text = el.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-' + id);
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function handleSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  if (!q) { showSection(currentSection); return; }
+
+  const results = [];
+  ['strings','numbers','employees'].forEach(sec => {
+    sections[sec].questions.forEach(question => {
+      if (question.title.toLowerCase().includes(q) || question.ops.some(o => o.toLowerCase().includes(q))) {
+        results.push({ ...question, section: sec });
+      }
+    });
+  });
+
+  const main = document.getElementById('mainContent');
+  if (results.length === 0) {
+    main.innerHTML = '<div class="empty-state">No questions found for "' + q + '"</div>';
+    return;
+  }
+
+  main.innerHTML = '<div style="margin-bottom:1.5rem;"><span style="font-size:13px;color:var(--muted);">Showing ' + results.length + ' results for "' + q + '"</span></div>' +
+    '<div class="questions-grid">' + results.map(q => renderQuestion(q)).join('') + '</div>';
+}
+
+function renderQuestion(q) {
+  const levelClass = { basic: 'badge-basic', intermediate: 'badge-intermediate', advanced: 'badge-advanced' }[q.level];
+  const levelLabel = { basic: 'Basic', intermediate: 'Intermediate', advanced: 'Advanced' }[q.level];
+  const isDone = done.has(q.id);
+  return `<div class="q-card ${isDone ? 'done' : ''}" id="card-${q.id}">
+    <div class="q-header" onclick="toggleQuestion('${q.id}')">
+      <div class="q-num ${isDone ? 'done' : ''}" id="num-${q.id}">${q.id}</div>
+      <div class="q-meta">
+        <div class="q-title">${q.title}</div>
+        <div class="q-badges">
+          <span class="badge ${levelClass}">${levelLabel}</span>
+          ${q.ops.map(op => `<span class="badge badge-op">${op}</span>`).join('')}
+        </div>
+      </div>
+      <div class="q-toggle" id="toggle-${q.id}">&#9660;</div>
+    </div>
+    <div class="q-body" id="body-${q.id}">
+      <p class="q-explanation">${q.explanation}</p>
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">JAVA</span>
+          <button class="copy-btn" id="copy-${q.id}" onclick="copyCode('${q.id}')">Copy</button>
+        </div>
+        <div class="code-content" id="code-${q.id}">${q.code}</div>
+      </div>
+      <button class="mark-done-btn ${isDone ? 'done' : ''}" id="done-btn-${q.id}" onclick="markDone('${q.id}')">
+        ${isDone ? '&#10003; Studied!' : '&#9711; Mark as studied'}
+      </button>
+    </div>
+  </div>`;
+}
+
+function setActiveNav(id) {
+  document.querySelectorAll('.sidebar-category').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('nav-' + id);
+  if (el) el.classList.add('active');
+}
+
+function showSection(name) {
+  currentSection = name;
+  currentFilter = 'all';
+  setActiveNav(name);
+  const main = document.getElementById('mainContent');
+
+  if (name === 'home') {
+    main.innerHTML = `
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-num" id="total-done">${done.size}</span>
+          <div class="stat-label">Studied</div>
+        </div>
+        <div class="stat-card" data-section="strings">
+          <span class="stat-num">${doneCounts.strings}/20</span>
+          <div class="stat-label">Strings</div>
+        </div>
+        <div class="stat-card" data-section="numbers">
+          <span class="stat-num">${doneCounts.numbers}/15</span>
+          <div class="stat-label">Numbers</div>
+        </div>
+        <div class="stat-card" data-section="employees">
+          <span class="stat-num">${doneCounts.employees}/20</span>
+          <div class="stat-label">Employee</div>
+        </div>
+      </div>
+      <div class="section-hero">
+        <div class="section-hero-title">Java Streams Interview Prep</div>
+        <div class="section-hero-desc">55 curated questions across 3 domains — Strings, Numbers, and Employee class. Click any topic in the sidebar to begin. Expand questions to see explanations and complete code examples.</div>
+        <div class="section-hero-tags">
+          <span class="hero-tag">filter() map() reduce()</span>
+          <span class="hero-tag">groupingBy() partitioningBy()</span>
+          <span class="hero-tag">Optional & Exceptions</span>
+          <span class="hero-tag">Parallel Streams</span>
+        </div>
+      </div>
+
+      <div class="section-title">Choose a Topic to Start</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+        <div class="q-card" style="cursor:pointer;" onclick="showSection('strings')">
+          <div style="padding:1.5rem;">
+            <div style="font-size:28px;margin-bottom:10px;">📝</div>
+            <div style="font-weight:800;font-size:15px;margin-bottom:6px;">List of Strings</div>
+            <div style="font-size:12px;color:var(--muted);">20 questions covering filter, map, sort, group</div>
+            <div style="margin-top:12px;display:flex;gap:6px;">
+              <span class="badge badge-basic">7 Basic</span>
+              <span class="badge badge-intermediate">6 Inter</span>
+              <span class="badge badge-advanced">7 Adv</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-card" style="cursor:pointer;" onclick="showSection('numbers')">
+          <div style="padding:1.5rem;">
+            <div style="font-size:28px;margin-bottom:10px;">🔢</div>
+            <div style="font-weight:800;font-size:15px;margin-bottom:6px;">Numbers & Arrays</div>
+            <div style="font-size:12px;color:var(--muted);">15 questions on IntStream, reduce, parallel</div>
+            <div style="margin-top:12px;display:flex;gap:6px;">
+              <span class="badge badge-basic">5 Basic</span>
+              <span class="badge badge-intermediate">5 Inter</span>
+              <span class="badge badge-advanced">5 Adv</span>
+            </div>
+          </div>
+        </div>
+        <div class="q-card" style="cursor:pointer;" onclick="showSection('employees')">
+          <div style="padding:1.5rem;">
+            <div style="font-size:28px;margin-bottom:10px;">👥</div>
+            <div style="font-weight:800;font-size:15px;margin-bottom:6px;">Employee Class</div>
+            <div style="font-size:12px;color:var(--muted);">20 questions with real-world domain model</div>
+            <div style="margin-top:12px;display:flex;gap:6px;">
+              <span class="badge badge-basic">5 Basic</span>
+              <span class="badge badge-intermediate">8 Inter</span>
+              <span class="badge badge-advanced">7 Adv</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  if (name === 'concepts') {
+    const { title, desc, items } = sections.concepts;
+    const cats = ['Intermediate','Terminal','Collector'];
+    main.innerHTML = `
+      <div class="section-hero">
+        <div class="section-hero-title">${title}</div>
+        <div class="section-hero-desc">${desc}</div>
+      </div>
+      ${cats.map(cat => `
+        <div class="section-divider"><span class="divider-label">${cat} Operations</span><div class="divider-line"></div></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-bottom:1rem;">
+          ${items.filter(i => i.category === cat).map(item => `
+            <div class="q-card">
+              <div style="padding:1rem 1.25rem;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--java-orange);margin-bottom:6px;">${item.name}</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.6;">${item.desc}</div>
+              </div>
+            </div>`).join('')}
+        </div>`).join('')}
+    `;
+    return;
+  }
+
+  const sec = sections[name];
+  if (!sec || !sec.questions) return;
+
+  const levels = ['basic', 'intermediate', 'advanced'];
+  const filterHTML = `<div class="filter-row">
+    <button class="filter-btn active" id="filter-all" onclick="applyFilter('all','${name}')">All (${sec.questions.length})</button>
+    ${levels.map(l => {
+      const count = sec.questions.filter(q => q.level === l).length;
+      return `<button class="filter-btn" id="filter-${l}" onclick="applyFilter('${l}','${name}')">${l.charAt(0).toUpperCase()+l.slice(1)} (${count})</button>`;
+    }).join('')}
+  </div>`;
+
+  const domainModelHTML = sec.domainModel ? `
+    <div class="code-block" style="margin-bottom:1.5rem;">
+      <div class="code-header"><span class="code-lang">DOMAIN MODEL</span></div>
+      <div class="code-content">${sec.domainModel}</div>
+    </div>` : '';
+
+  main.innerHTML = `
+    <div class="section-hero">
+      <div class="section-hero-title">${sec.title}</div>
+      <div class="section-hero-desc">${sec.desc}</div>
+      <div class="section-hero-tags">${sec.tags.map(t => `<span class="hero-tag">${t}</span>`).join('')}</div>
+    </div>
+    ${domainModelHTML}
+    ${filterHTML}
+    <div class="questions-grid" id="questions-grid">
+      ${renderByLevel(sec.questions, 'all')}
+    </div>
+  `;
+}
+
+function renderByLevel(questions, filter) {
+  const levels = ['basic', 'intermediate', 'advanced'];
+  let html = '';
+  levels.forEach(level => {
+    const qs = questions.filter(q => q.level === level && (filter === 'all' || q.level === filter));
+    if (qs.length === 0) return;
+    if (filter === 'all') {
+      const label = { basic: 'Basic', intermediate: 'Intermediate', advanced: 'Advanced' }[level];
+      html += `<div class="section-divider"><span class="divider-label">${label}</span><div class="divider-line"></div></div>`;
+    }
+    html += qs.map(q => renderQuestion(q)).join('');
+  });
+  return html;
+}
+
+function applyFilter(level, sectionName) {
+  currentFilter = level;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('filter-' + level).classList.add('active');
+  const sec = sections[sectionName];
+  document.getElementById('questions-grid').innerHTML = renderByLevel(sec.questions, level);
+}
+
+showSection('home');
+updateProgress();
+</script>

@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Code Hub — SDET Interview Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #c7c7c7;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #499467;
+    --accent: #ff5f1f;
+    --accent2: #00e5ff;
+    --accent3: #a855f7;
+    --text: #e8e8f0;
+    --muted: #6b6b88;
+    --code-bg: #0d0d14;
+    --green: #00ff87;
+    --yellow: #ffd60a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(circle, rgba(255,95,31,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-orb {
+    position: fixed;
+    bottom: -20%;
+    right: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 40px 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255,95,31,0.15);
+    border: 1px solid rgba(255,95,31,0.4);
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 6px 14px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(42px, 7vw, 88px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -3px;
+    margin-bottom: 16px;
+  }
+
+  h1 span.accent { color: var(--accent); }
+  h1 span.dim { color: var(--muted); }
+
+  .subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 40px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent2);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+  }
+
+  .tabs-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs-inner::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 18px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.2s;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); }
+  .tab-btn.active::after { transform: scaleX(1); }
+
+  /* MAIN CONTENT */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 50px 60px;
+  }
+
+  /* SECTION */
+  .section {
+    display: none;
+  }
+  .section.active { display: block; }
+
+  .section-title {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    color: var(--accent2);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PROBLEM CARDS GRID */
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(620px, 1fr));
+    gap: 24px;
+  }
+
+  @media (max-width: 700px) {
+    .problems-grid { grid-template-columns: 1fr; }
+    header, .nav-tabs, main { padding-left: 20px; padding-right: 20px; }
+    h1 { letter-spacing: -1px; }
+  }
+
+  /* PROBLEM CARD */
+  .problem-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .problem-card:hover {
+    border-color: rgba(0,229,255,0.3);
+    transform: translateY(-2px);
+  }
+
+  .problem-card:hover::before { opacity: 1; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 22px 26px 16px;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .problem-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 32px;
+  }
+
+  .problem-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tag-easy { background: rgba(0,255,135,0.1); color: var(--green); border: 1px solid rgba(0,255,135,0.2); }
+  .tag-medium { background: rgba(255,214,10,0.1); color: var(--yellow); border: 1px solid rgba(255,214,10,0.2); }
+  .tag-hard { background: rgba(255,95,31,0.1); color: var(--accent); border: 1px solid rgba(255,95,31,0.2); }
+
+  .expand-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-size: 14px;
+  }
+
+  .expand-btn:hover { background: var(--border); color: var(--text); }
+  .expand-btn.open { border-color: var(--accent2); color: var(--accent2); }
+
+  /* CODE BLOCK */
+  .code-section {
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .code-section.open { display: block; }
+
+  .code-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 26px;
+    background: var(--code-bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .code-lang {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .copy-btn {
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.2);
+    color: var(--accent2);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 5px 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover { background: rgba(0,229,255,0.2); }
+  .copy-btn.copied { background: rgba(0,255,135,0.1); border-color: rgba(0,255,135,0.3); color: var(--green); }
+
+  pre {
+    margin: 0;
+    padding: 24px 26px;
+    background: var(--code-bg);
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #cdd6f4;
+  }
+
+  .output-block {
+    padding: 14px 26px;
+    background: rgba(0,255,135,0.04);
+    border-top: 1px solid rgba(0,255,135,0.1);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--green);
+  }
+
+  .output-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  /* Syntax highlighting */
+  .kw { color: #cba6f7; }
+  .ty { color: #89b4fa; }
+  .fn { color: #89dceb; }
+  .st { color: #a6e3a1; }
+  .cm { color: #585b70; font-style: italic; }
+  .nm { color: #fab387; }
+  .op { color: #89dceb; }
+
+  /* Q&A CARDS */
+  .qa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 20px;
+  }
+
+  @media (max-width: 600px) { .qa-grid { grid-template-columns: 1fr; } }
+
+  .qa-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .qa-card:hover { border-color: rgba(168,85,247,0.4); }
+
+  .qa-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent3);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .qa-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .qa-a {
+    font-size: 13px;
+    color: #a0a0b8;
+    line-height: 1.7;
+  }
+
+  .qa-a code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(168,85,247,0.1);
+    padding: 1px 6px;
+    color: var(--accent3);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 50px;
+    border-top: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .problem-card {
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .problem-card:nth-child(1) { animation-delay: 0.05s; }
+  .problem-card:nth-child(2) { animation-delay: 0.10s; }
+  .problem-card:nth-child(3) { animation-delay: 0.15s; }
+  .problem-card:nth-child(4) { animation-delay: 0.20s; }
+  .problem-card:nth-child(5) { animation-delay: 0.25s; }
+  .problem-card:nth-child(6) { animation-delay: 0.30s; }
+
+  /* Search */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .search-input {
+    flex: 1;
+    max-width: 400px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus { border-color: var(--accent2); }
+  .search-input::placeholder { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="glow-orb"></div>
+
+
+<nav class="nav-tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('numbers')">// Numbers</button>
+    <button class="tab-btn" onclick="showTab('strings')">// Strings</button>
+    <button class="tab-btn" onclick="showTab('arrays')">// Arrays</button>
+    <button class="tab-btn" onclick="showTab('oop')">// OOP + Misc</button>
+    <button class="tab-btn" onclick="showTab('interview')">// Interview Q&A</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════ NUMBERS ═══════════════════════ -->
+<div id="numbers" class="section active">
+  <p class="section-title">Number Programs</p>
+  <div class="search-bar">
+    <input class="search-input" type="text" placeholder="Search problems..." oninput="filterCards(this,'numbers')">
+  </div>
+  <div class="problems-grid" id="numbers-grid">
+
+    <!-- 1. Odd or Even -->
+    <div class="problem-card" data-title="odd even number">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#01</span><span class="tag tag-easy">Easy</span></div>
+          <div class="problem-title">Find Odd or Even Number</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">OddEven</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">Scanner</span> scanner = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+        System.out.print(<span class="st">"Enter any number: "</span>);
+        <span class="kw">int</span> number = scanner.nextInt();
+
+        <span class="kw">if</span> (number % <span class="nm">2</span> == <span class="nm">0</span>) {
+            System.out.println(number + <span class="st">" is even."</span>);
+        } <span class="kw">else</span> {
+            System.out.println(number + <span class="st">" is odd."</span>);
+        }
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Enter any number: 7 → 7 is odd. | Enter: 4 → 4 is even.</div>
+      </div>
+    </div>
+
+    <!-- 2. Prime Number -->
+    <div class="problem-card" data-title="prime number">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#02</span><span class="tag tag-medium">Medium</span></div>
+          <div class="problem-title">Find Prime Number</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrimeNumber</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">Scanner</span> scanner = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+        System.out.print(<span class="st">"Enter a number: "</span>);
+        <span class="kw">int</span> number = scanner.nextInt();
+
+        <span class="kw">if</span> (<span class="fn">isPrime</span>(number)) {
+            System.out.println(number + <span class="st">" is a prime number."</span>);
+        } <span class="kw">else</span> {
+            System.out.println(number + <span class="st">" is not a prime number."</span>);
+        }
+    }
+
+    <span class="kw">public static boolean</span> <span class="fn">isPrime</span>(<span class="kw">int</span> num) {
+        <span class="kw">if</span> (num <= <span class="nm">1</span>) <span class="kw">return false</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">2</span>; i <= Math.sqrt(num); i++) {
+            <span class="kw">if</span> (num % i == <span class="nm">0</span>) <span class="kw">return false</span>;
+        }
+        <span class="kw">return true</span>;
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Enter: 7 → 7 is a prime number. | Enter: 9 → 9 is not a prime number.</div>
+      </div>
+    </div>
+
+    <!-- 3. Fibonacci -->
+    <div class="problem-card" data-title="fibonacci series">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#03</span><span class="tag tag-medium">Medium</span></div>
+          <div class="problem-title">Fibonacci Series up to N terms</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">Fibonacci</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> number = <span class="nm">6</span>;
+        <span class="kw">int</span> first = <span class="nm">0</span>, second = <span class="nm">1</span>, next;
+
+        System.out.println(<span class="st">"Fibonacci series:"</span>);
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i <= number; i++) {
+            System.out.print(first + <span class="st">" "</span>);
+            next = second + first;
+            first = second;
+            second = next;
+        }
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>0 1 1 2 3 5 8</div>
+      </div>
+    </div>
+
+    <!-- 4. Swap without 3rd variable -->
+    <div class="problem-card" data-title="swap numbers without third variable">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#04</span><span class="tag tag-easy">Easy</span></div>
+          <div class="problem-title">Swap Two Numbers Without Third Variable</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SwapNumbers</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> a = <span class="nm">5</span>, b = <span class="nm">10</span>;
+        System.out.println(<span class="st">"Before: a="</span> + a + <span class="st">", b="</span> + b);
+
+        a = a + b;  <span class="cm">// a = 15</span>
+        b = a - b;  <span class="cm">// b = 5</span>
+        a = a - b;  <span class="cm">// a = 10</span>
+
+        System.out.println(<span class="st">"After:  a="</span> + a + <span class="st">", b="</span> + b);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Before: a=5, b=10 → After: a=10, b=5</div>
+      </div>
+    </div>
+
+    <!-- 5. Factorial -->
+    <div class="problem-card" data-title="factorial number">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#05</span><span class="tag tag-easy">Easy</span></div>
+          <div class="problem-title">Find Factorial of a Number</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">FactorialNumber</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> number = <span class="nm">5</span>;
+        <span class="kw">int</span> factorial = <span class="nm">1</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">1</span>; i <= number; i++) {
+            factorial = factorial * i;
+        }
+
+        System.out.println(<span class="st">"Factorial of "</span> + number + <span class="st">" = "</span> + factorial);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>5! = 5×4×3×2×1 = 120</div>
+      </div>
+    </div>
+
+    <!-- 6. Reverse Number -->
+    <div class="problem-card" data-title="reverse number">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#06</span><span class="tag tag-easy">Easy</span></div>
+          <div class="problem-title">Reverse a Number</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">ReverseNumber</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> no = <span class="nm">15786</span>, rev = <span class="nm">0</span>, r;
+
+        <span class="kw">while</span> (no > <span class="nm">0</span>) {
+            r = no % <span class="nm">10</span>;
+            rev = rev * <span class="nm">10</span> + r;
+            no = no / <span class="nm">10</span>;
+        }
+
+        System.out.println(<span class="st">"Reversed: "</span> + rev);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: 15786 → Reversed: 68751</div>
+      </div>
+    </div>
+
+    <!-- 7. Armstrong -->
+    <div class="problem-card" data-title="armstrong number">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#07</span><span class="tag tag-medium">Medium</span></div>
+          <div class="problem-title">Armstrong Number Check</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">ArmstrongNumber</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> no = <span class="nm">153</span>, arm = <span class="nm">0</span>, d = no, a;
+
+        <span class="kw">while</span> (no > <span class="nm">0</span>) {
+            a = no % <span class="nm">10</span>;
+            no = no / <span class="nm">10</span>;
+            arm = arm + a * a * a;
+        }
+
+        <span class="kw">if</span> (arm == d)
+            System.out.println(d + <span class="st">" is an Armstrong number"</span>);
+        <span class="kw">else</span>
+            System.out.println(d + <span class="st">" is NOT an Armstrong number"</span>);
+    }
+}
+<span class="cm">// Armstrong: 1³+5³+3³ = 1+125+27 = 153 ✓</span></pre>
+        <div class="output-block"><div class="output-label">Output</div>153 is an Armstrong number</div>
+      </div>
+    </div>
+
+    <!-- 8. Number of Digits -->
+    <div class="problem-card" data-title="number of digits count">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#08</span><span class="tag tag-easy">Easy</span></div>
+          <div class="problem-title">Count Number of Digits</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">NumberOfDigits</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> no = <span class="nm">12345</span>, count = <span class="nm">0</span>;
+
+        <span class="kw">if</span> (no < <span class="nm">0</span>) no = no * -<span class="nm">1</span>;       <span class="cm">// handle negatives</span>
+        <span class="kw">else if</span> (no == <span class="nm">0</span>) no = <span class="nm">1</span>;       <span class="cm">// handle zero</span>
+
+        <span class="kw">while</span> (no > <span class="nm">0</span>) {
+            no = no / <span class="nm">10</span>;
+            count++;
+        }
+
+        System.out.println(<span class="st">"Number of digits: "</span> + count);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: 12345 → Number of digits: 5</div>
+      </div>
+    </div>
+
+    <!-- 9. Palindrome Number -->
+    <div class="problem-card" data-title="palindrome number">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#09</span><span class="tag tag-medium">Medium</span></div>
+          <div class="problem-title">Palindrome Number Check</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">PalindromeNumber</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> number = <span class="nm">1001</span>;
+        <span class="kw">if</span> (<span class="fn">isPalindrome</span>(number))
+            System.out.println(number + <span class="st">" is a palindrome."</span>);
+        <span class="kw">else</span>
+            System.out.println(number + <span class="st">" is not a palindrome."</span>);
+    }
+
+    <span class="kw">public static boolean</span> <span class="fn">isPalindrome</span>(<span class="kw">int</span> num) {
+        <span class="kw">int</span> original = num, reversed = <span class="nm">0</span>;
+        <span class="kw">while</span> (num != <span class="nm">0</span>) {
+            <span class="kw">int</span> digit = num % <span class="nm">10</span>;
+            reversed = reversed * <span class="nm">10</span> + digit;
+            num = num / <span class="nm">10</span>;
+        }
+        <span class="kw">return</span> original == reversed;
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>1001 is a palindrome.</div>
+      </div>
+    </div>
+
+    <!-- 10. Sum of Digits -->
+    <div class="problem-card" data-title="sum of digits">
+      <div class="card-header" onclick="toggle(this)">
+        <div>
+          <div class="card-meta"><span class="problem-num">#10</span><span class="tag tag-easy">Easy</span></div>
+          <div class="problem-title">Sum of Digits of a Number</div>
+        </div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SumOfDigits</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span> number = <span class="nm">12345</span>;
+        <span class="kw">int</span> sum = <span class="fn">calculateSumOfDigits</span>(number);
+        System.out.println(<span class="st">"Sum of digits of "</span> + number + <span class="st">" is: "</span> + sum);
+    }
+
+    <span class="kw">public static int</span> <span class="fn">calculateSumOfDigits</span>(<span class="kw">int</span> number) {
+        <span class="kw">int</span> sum = <span class="nm">0</span>;
+        <span class="kw">while</span> (number > <span class="nm">0</span>) {
+            <span class="kw">int</span> digit = number % <span class="nm">10</span>; <span class="cm">// extract last digit</span>
+            sum = sum + digit;
+            number = number / <span class="nm">10</span>;  <span class="cm">// remove last digit</span>
+        }
+        <span class="kw">return</span> sum;
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Sum of digits of 12345 is: 15</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ STRINGS ═══════════════════════ -->
+<div id="strings" class="section">
+  <p class="section-title">String Programs</p>
+  <div class="search-bar">
+    <input class="search-input" type="text" placeholder="Search problems..." oninput="filterCards(this,'strings')">
+  </div>
+  <div class="problems-grid" id="strings-grid">
+
+    <div class="problem-card" data-title="reverse string">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#01</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Reverse a String</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">ReverseString</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span> input = <span class="st">"Hello"</span>;
+        <span class="ty">String</span> nstr = <span class="st">""</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < input.length(); i++) {
+            <span class="kw">char</span> ch = input.charAt(i);
+            nstr = ch + nstr;  <span class="cm">// prepend each char</span>
+        }
+
+        System.out.println(<span class="st">"Reversed: "</span> + nstr);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: Hello → Reversed: olleH</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="reverse each word string">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#02</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Reverse Each Word of a String</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">ReverseEachWord</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="fn">reverseEachWord</span>(<span class="st">"Java is good programming"</span>);
+    }
+
+    <span class="kw">static void</span> <span class="fn">reverseEachWord</span>(<span class="ty">String</span> inputString) {
+        <span class="ty">String</span>[] words = inputString.split(<span class="st">" "</span>);
+        <span class="ty">String</span> reverseString = <span class="st">""</span>;
+
+        <span class="kw">for</span> (<span class="ty">String</span> word : words) {
+            <span class="ty">String</span> nstr = <span class="st">""</span>;
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="nm">0</span>; j < word.length(); j++) {
+                nstr = word.charAt(j) + nstr;
+            }
+            reverseString += nstr + <span class="st">" "</span>;
+        }
+
+        System.out.println(<span class="st">"Input:  "</span> + inputString);
+        System.out.println(<span class="st">"Output: "</span> + reverseString.trim());
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: Java is good programming → Output: avaJ si doog gnimmargorp</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="duplicate characters string">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#03</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Find Duplicate Characters in a String</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.HashMap;
+<span class="kw">import</span> java.util.Set;
+
+<span class="kw">public class</span> <span class="ty">DuplicateChars</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="fn">duplicateCharCount</span>(<span class="st">"Learn Java Programming"</span>);
+    }
+
+    <span class="kw">static void</span> <span class="fn">duplicateCharCount</span>(<span class="ty">String</span> s) {
+        <span class="ty">HashMap</span>&lt;<span class="ty">Character</span>, <span class="ty">Integer</span>&gt; map = <span class="kw">new</span> <span class="ty">HashMap</span>&lt;&gt;();
+
+        <span class="kw">for</span> (<span class="kw">char</span> c : s.toCharArray()) {
+            map.put(c, map.containsKey(c) ? map.get(c)+<span class="nm">1</span> : <span class="nm">1</span>);
+        }
+
+        System.out.println(<span class="st">"Duplicates in: "</span> + s);
+        <span class="kw">for</span> (<span class="kw">char</span> ch : map.keySet()) {
+            <span class="kw">if</span> (map.get(ch) > <span class="nm">1</span>)
+                System.out.println(ch + <span class="st">" : "</span> + map.get(ch));
+        }
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>a:4, g:2, m:2, n:2, r:3</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="count occurrences character">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#04</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Count Occurrences of Each Word</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.HashMap;
+
+<span class="kw">public class</span> <span class="ty">WordCount</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="fn">characterCount</span>(<span class="st">"Test Automation Java Automation"</span>);
+    }
+
+    <span class="kw">static void</span> <span class="fn">characterCount</span>(<span class="ty">String</span> s) {
+        <span class="ty">HashMap</span>&lt;<span class="ty">String</span>, <span class="ty">Integer</span>&gt; map = <span class="kw">new</span> <span class="ty">HashMap</span>&lt;&gt;();
+
+        <span class="kw">for</span> (<span class="ty">String</span> word : s.split(<span class="st">" "</span>)) {
+            <span class="kw">if</span> (map.containsKey(word))
+                map.put(word, map.get(word) + <span class="nm">1</span>);
+            <span class="kw">else</span>
+                map.put(word, <span class="nm">1</span>);
+        }
+
+        System.out.println(<span class="st">"Word count: "</span> + map);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>{Java=1, Automation=2, Test=1}</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="count words string">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#05</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Count Number of Words in a String</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">WordCounter</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span> s = <span class="st">"Welcome to Java World"</span>;
+        <span class="kw">int</span> count = <span class="nm">1</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < s.length() - <span class="nm">1</span>; i++) {
+            <span class="kw">if</span> (s.charAt(i) == <span class="st">' '</span> &amp;&amp; s.charAt(i+<span class="nm">1</span>) != <span class="st">' '</span>)
+                count++;
+        }
+
+        System.out.println(<span class="st">"Number of words: "</span> + count);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: "Welcome to Java World" → Number of words: 4</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="permutations string">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#06</span><span class="tag tag-hard">Hard</span></div><div class="problem-title">All Permutations of a String</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">Permutations</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="fn">permute</span>(<span class="st">"abc"</span>, <span class="st">""</span>);
+    }
+
+    <span class="kw">static void</span> <span class="fn">permute</span>(<span class="ty">String</span> str, <span class="ty">String</span> prefix) {
+        <span class="kw">if</span> (str.length() == <span class="nm">0</span>) {
+            System.out.println(prefix);
+        } <span class="kw">else</span> {
+            <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < str.length(); i++) {
+                <span class="ty">String</span> rem = str.substring(<span class="nm">0</span>, i) + str.substring(i+<span class="nm">1</span>);
+                <span class="fn">permute</span>(rem, prefix + str.charAt(i));
+            }
+        }
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>abc, acb, bac, bca, cab, cba</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="palindrome string check">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#07</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Check if String is a Palindrome</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">PalindromeString</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        System.out.println(<span class="fn">isPalindrome</span>(<span class="st">"madam"</span>)); <span class="cm">// true</span>
+    }
+
+    <span class="kw">static boolean</span> <span class="fn">isPalindrome</span>(<span class="ty">String</span> str) {
+        <span class="kw">int</span> start = <span class="nm">0</span>, end = str.length() - <span class="nm">1</span>;
+
+        <span class="kw">while</span> (start < end) {
+            <span class="kw">if</span> (str.charAt(start) != str.charAt(end))
+                <span class="kw">return false</span>;
+            start++;
+            end--;
+        }
+        <span class="kw">return true</span>;
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>"madam" → true | "hello" → false</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="anagram strings">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#08</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Check if Two Strings are Anagrams</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">Anagram</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        System.out.println(<span class="fn">areAnagrams</span>(<span class="st">"listen"</span>, <span class="st">"silent"</span>)); <span class="cm">// true</span>
+    }
+
+    <span class="kw">static boolean</span> <span class="fn">areAnagrams</span>(<span class="ty">String</span> s1, <span class="ty">String</span> s2) {
+        <span class="kw">if</span> (s1.length() != s2.length()) <span class="kw">return false</span>;
+
+        <span class="kw">int</span>[] charCount = <span class="kw">new int</span>[<span class="nm">256</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < s1.length(); i++) {
+            charCount[s1.charAt(i)]++;
+            charCount[s2.charAt(i)]--;
+        }
+
+        <span class="kw">for</span> (<span class="kw">int</span> count : charCount)
+            <span class="kw">if</span> (count != <span class="nm">0</span>) <span class="kw">return false</span>;
+
+        <span class="kw">return true</span>;
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>"listen" and "silent" → true (anagrams)</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="vowels consonants count">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#09</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Count Vowels and Consonants</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">VowelConsonant</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span> str = <span class="st">"Hello World"</span>;
+        <span class="kw">int</span> vowels = <span class="nm">0</span>, consonants = <span class="nm">0</span>;
+        str = str.toLowerCase();
+
+        <span class="kw">for</span> (<span class="kw">char</span> c : str.toCharArray()) {
+            <span class="kw">if</span> (c >= <span class="st">'a'</span> &amp;&amp; c <= <span class="st">'z'</span>) {
+                <span class="kw">if</span> (<span class="st">"aeiou"</span>.indexOf(c) >= <span class="nm">0</span>)
+                    vowels++;
+                <span class="kw">else</span>
+                    consonants++;
+            }
+        }
+
+        System.out.println(<span class="st">"Vowels: "</span> + vowels);
+        System.out.println(<span class="st">"Consonants: "</span> + consonants);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>"Hello World" → Vowels: 3, Consonants: 7</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="unique characters string">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#10</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Print Unique Characters</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">UniqueChars</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span> input = <span class="st">"Java Automation"</span>;
+        <span class="fn">printUnique</span>(input);
+    }
+
+    <span class="kw">public static void</span> <span class="fn">printUnique</span>(<span class="ty">String</span> str) {
+        <span class="kw">boolean</span>[] seen = <span class="kw">new boolean</span>[<span class="nm">128</span>]; <span class="cm">// ASCII</span>
+        System.out.print(<span class="st">"Unique: "</span>);
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < str.length(); i++) {
+            <span class="kw">char</span> ch = str.charAt(i);
+            <span class="kw">if</span> (!seen[ch]) {
+                seen[ch] = <span class="kw">true</span>;
+                System.out.print(ch + <span class="st">" "</span>);
+            }
+        }
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: "Java Automation" → J a v  A u t o m i n</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="remove spaces string">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#11</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Remove Spaces from String</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">RemoveSpaces</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span> input = <span class="st">"Welcome to Java World"</span>;
+        System.out.println(<span class="st">"Result: "</span> + <span class="fn">removeSpaces</span>(input));
+    }
+
+    <span class="kw">public static</span> <span class="ty">String</span> <span class="fn">removeSpaces</span>(<span class="ty">String</span> str) {
+        <span class="ty">StringBuilder</span> result = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < str.length(); i++) {
+            <span class="kw">if</span> (str.charAt(i) != <span class="st">' '</span>)
+                result.append(str.charAt(i));
+        }
+        <span class="kw">return</span> result.toString();
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>"Welcome to Java World" → "WelcometoJavaWorld"</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="run length encoding aabbcccdd">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#12</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Run-Length Encoding (aabbcccdd → a2b2c3d2)</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">RunLengthEncoding</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        System.out.println(<span class="fn">encode</span>(<span class="st">"aabbcccdd"</span>));
+    }
+
+    <span class="kw">public static</span> <span class="ty">String</span> <span class="fn">encode</span>(<span class="ty">String</span> str) {
+        <span class="ty">StringBuilder</span> result = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+        <span class="kw">int</span> count = <span class="nm">1</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < str.length(); i++) {
+            <span class="kw">if</span> (i+<span class="nm">1</span> < str.length() &amp;&amp; str.charAt(i) == str.charAt(i+<span class="nm">1</span>))
+                count++;
+            <span class="kw">else</span> {
+                result.append(str.charAt(i)).append(count);
+                count = <span class="nm">1</span>;
+            }
+        }
+        <span class="kw">return</span> result.toString();
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: "aabbcccdd" → Output: "a2b2c3d2"</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="longest substring without repeating">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#13</span><span class="tag tag-hard">Hard</span></div><div class="problem-title">Longest Substring Without Repeating Characters</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.HashSet;
+
+<span class="kw">public class</span> <span class="ty">LongestSubstring</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        System.out.println(<span class="fn">lengthOfLongest</span>(<span class="st">"abcabcbb"</span>)); <span class="cm">// 3</span>
+        System.out.println(<span class="fn">lengthOfLongest</span>(<span class="st">"bbbbb"</span>));    <span class="cm">// 1</span>
+        System.out.println(<span class="fn">lengthOfLongest</span>(<span class="st">"pwwkew"</span>));   <span class="cm">// 3</span>
+    }
+
+    <span class="kw">public static int</span> <span class="fn">lengthOfLongest</span>(<span class="ty">String</span> s) {
+        <span class="ty">HashSet</span>&lt;<span class="ty">Character</span>&gt; set = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;&gt;();
+        <span class="kw">int</span> maxLen = <span class="nm">0</span>, start = <span class="nm">0</span>, end = <span class="nm">0</span>;
+
+        <span class="kw">while</span> (end < s.length()) {
+            <span class="kw">char</span> cur = s.charAt(end);
+            <span class="kw">if</span> (!set.contains(cur)) {
+                set.add(cur);
+                maxLen = Math.max(maxLen, end - start + <span class="nm">1</span>);
+                end++;
+            } <span class="kw">else</span> {
+                set.remove(s.charAt(start));
+                start++;
+            }
+        }
+        <span class="kw">return</span> maxLen;
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>"abcabcbb"→3, "bbbbb"→1, "pwwkew"→3</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="separate alpha numeric">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#14</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Separate Alpha and Numeric (Subbu123raj → Subburaj, 123)</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SeparateAlphaNumeric</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="fn">separate</span>(<span class="st">"Subbu123raj"</span>);
+    }
+
+    <span class="kw">static void</span> <span class="fn">separate</span>(<span class="ty">String</span> input) {
+        <span class="ty">StringBuilder</span> alpha = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+        <span class="ty">StringBuilder</span> numeric = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+
+        <span class="kw">for</span> (<span class="kw">char</span> ch : input.toCharArray()) {
+            <span class="kw">if</span> (Character.isLetter(ch))   alpha.append(ch);
+            <span class="kw">else if</span> (Character.isDigit(ch)) numeric.append(ch);
+        }
+
+        System.out.println(<span class="st">"Alpha:   "</span> + alpha);
+        System.out.println(<span class="st">"Numeric: "</span> + numeric);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Alpha: Subburaj | Numeric: 123</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ ARRAYS ═══════════════════════ -->
+<div id="arrays" class="section">
+  <p class="section-title">Array Programs</p>
+  <div class="search-bar">
+    <input class="search-input" type="text" placeholder="Search problems..." oninput="filterCards(this,'arrays')">
+  </div>
+  <div class="problems-grid" id="arrays-grid">
+
+    <div class="problem-card" data-title="common elements two arrays">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#01</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Find Common Elements Between Two Arrays</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.HashSet;
+
+<span class="kw">public class</span> <span class="ty">CommonElements</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span>[] arr1 = {<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>,<span class="nm">4</span>,<span class="nm">5</span>};
+        <span class="kw">int</span>[] arr2 = {<span class="nm">4</span>,<span class="nm">5</span>,<span class="nm">6</span>,<span class="nm">7</span>,<span class="nm">8</span>};
+
+        <span class="ty">HashSet</span>&lt;<span class="ty">Integer</span>&gt; set1 = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;&gt;();
+        <span class="ty">HashSet</span>&lt;<span class="ty">Integer</span>&gt; common = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;&gt;();
+
+        <span class="kw">for</span> (<span class="kw">int</span> n : arr1) set1.add(n);
+        <span class="kw">for</span> (<span class="kw">int</span> n : arr2)
+            <span class="kw">if</span> (set1.contains(n)) common.add(n);
+
+        System.out.println(<span class="st">"Common: "</span> + common);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Common: [4, 5]</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="sort array without builtin">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#02</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Sort Array Without Built-in Methods (Selection Sort)</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SelectionSort</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span>[] array = {<span class="nm">5</span>, <span class="nm">2</span>, <span class="nm">9</span>, <span class="nm">1</span>, <span class="nm">6</span>};
+        <span class="fn">selectionSort</span>(array);
+
+        System.out.print(<span class="st">"Sorted: "</span>);
+        <span class="kw">for</span> (<span class="kw">int</span> n : array) System.out.print(n + <span class="st">" "</span>);
+    }
+
+    <span class="kw">public static void</span> <span class="fn">selectionSort</span>(<span class="kw">int</span>[] arr) {
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="nm">0</span>; i < arr.length-<span class="nm">1</span>; i++) {
+            <span class="kw">int</span> minIdx = i;
+            <span class="kw">for</span> (<span class="kw">int</span> j = i+<span class="nm">1</span>; j < arr.length; j++)
+                <span class="kw">if</span> (arr[j] < arr[minIdx]) minIdx = j;
+
+            <span class="kw">int</span> temp = arr[i];
+            arr[i] = arr[minIdx];
+            arr[minIdx] = temp;
+        }
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Sorted: 1 2 5 6 9</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="remove duplicates array">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#03</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Remove Duplicates from Array</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.HashSet;
+
+<span class="kw">public class</span> <span class="ty">RemoveDuplicates</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span>[] array = {<span class="nm">5</span>,<span class="nm">2</span>,<span class="nm">9</span>,<span class="nm">1</span>,<span class="nm">6</span>,<span class="nm">2</span>,<span class="nm">5</span>};
+        <span class="ty">HashSet</span>&lt;<span class="ty">Integer</span>&gt; set = <span class="kw">new</span> <span class="ty">HashSet</span>&lt;&gt;();
+        <span class="kw">for</span> (<span class="kw">int</span> n : array) set.add(n);
+
+        System.out.print(<span class="st">"Unique: "</span>);
+        <span class="kw">for</span> (<span class="kw">int</span> n : set) System.out.print(n + <span class="st">" "</span>);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Input: {5,2,9,1,6,2,5} → Unique: 1 2 5 6 9</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="missing number array">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#04</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Find the Missing Number in an Array</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">MissingNumber</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span>[] array = {<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">4</span>,<span class="nm">5</span>,<span class="nm">6</span>}; <span class="cm">// Missing: 3</span>
+        System.out.println(<span class="st">"Missing: "</span> + <span class="fn">findMissing</span>(array));
+    }
+
+    <span class="kw">public static int</span> <span class="fn">findMissing</span>(<span class="kw">int</span>[] arr) {
+        <span class="kw">int</span> n = arr.length + <span class="nm">1</span>;
+        <span class="kw">int</span> totalSum = n * (n + <span class="nm">1</span>) / <span class="nm">2</span>; <span class="cm">// Gauss formula</span>
+        <span class="kw">int</span> arraySum = <span class="nm">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> num : arr) arraySum += num;
+        <span class="kw">return</span> totalSum - arraySum;
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>The missing number is: 3</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="largest smallest element array">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#05</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Find Largest and Smallest Element</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">LargestSmallest</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span>[] array = {<span class="nm">5</span>,<span class="nm">2</span>,<span class="nm">9</span>,<span class="nm">1</span>,<span class="nm">6</span>,<span class="nm">3</span>};
+        <span class="kw">int</span> min = array[<span class="nm">0</span>], max = array[<span class="nm">0</span>];
+
+        <span class="kw">for</span> (<span class="kw">int</span> num : array) {
+            <span class="kw">if</span> (num < min) min = num;
+            <span class="kw">if</span> (num > max) max = num;
+        }
+
+        System.out.println(<span class="st">"Smallest: "</span> + min);
+        System.out.println(<span class="st">"Largest:  "</span> + max);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Smallest: 1 | Largest: 9</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="count odd even array">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#06</span><span class="tag tag-easy">Easy</span></div><div class="problem-title">Count Odd and Even Numbers in Array</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">OddEvenCount</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span>[] array = {<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">3</span>,<span class="nm">4</span>,<span class="nm">5</span>,<span class="nm">6</span>,<span class="nm">7</span>,<span class="nm">8</span>,<span class="nm">9</span>};
+        <span class="kw">int</span> odd = <span class="nm">0</span>, even = <span class="nm">0</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> n : array) {
+            <span class="kw">if</span> (n % <span class="nm">2</span> == <span class="nm">0</span>) even++;
+            <span class="kw">else</span> odd++;
+        }
+
+        System.out.println(<span class="st">"Even count: "</span> + even);
+        System.out.println(<span class="st">"Odd count:  "</span> + odd);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Even count: 4 | Odd count: 5</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="non repeated elements array">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#07</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Non-Repeated Elements [1,1,2,2,3,4,5,5,6,6] → [3,4]</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.*;
+
+<span class="kw">public class</span> <span class="ty">NonRepeated</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="kw">int</span>[] array = {<span class="nm">1</span>,<span class="nm">1</span>,<span class="nm">2</span>,<span class="nm">2</span>,<span class="nm">3</span>,<span class="nm">4</span>,<span class="nm">5</span>,<span class="nm">5</span>,<span class="nm">6</span>,<span class="nm">6</span>};
+        <span class="ty">Map</span>&lt;<span class="ty">Integer</span>,<span class="ty">Integer</span>&gt; count = <span class="kw">new</span> <span class="ty">HashMap</span>&lt;&gt;();
+
+        <span class="kw">for</span> (<span class="kw">int</span> n : array)
+            count.put(n, count.getOrDefault(n, <span class="nm">0</span>) + <span class="nm">1</span>);
+
+        <span class="ty">List</span>&lt;<span class="ty">Integer</span>&gt; result = <span class="kw">new</span> <span class="ty">ArrayList</span>&lt;&gt;();
+        <span class="kw">for</span> (<span class="kw">var</span> e : count.entrySet())
+            <span class="kw">if</span> (e.getValue() == <span class="nm">1</span>) result.add(e.getKey());
+
+        System.out.println(<span class="st">"Non-repeated: "</span> + result);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Non-repeated: [3, 4]</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="sum integers special characters array">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#08</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Sum Only Integers from Mixed Array</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SumIntegers</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span>[] array = {<span class="st">"5"</span>,<span class="st">"2"</span>,<span class="st">"9"</span>,<span class="st">"a"</span>,<span class="st">"1"</span>,<span class="st">"6"</span>,<span class="st">"#"</span>,<span class="st">"3"</span>};
+        <span class="kw">int</span> sum = <span class="nm">0</span>;
+
+        <span class="kw">for</span> (<span class="ty">String</span> elem : array) {
+            <span class="kw">try</span> {
+                sum += Integer.parseInt(elem);
+            } <span class="kw">catch</span> (<span class="ty">NumberFormatException</span> e) {
+                <span class="cm">// skip non-integers</span>
+            }
+        }
+
+        System.out.println(<span class="st">"Sum of integers: "</span> + sum);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Sum of integers in the array: 26</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ OOP + MISC ═══════════════════════ -->
+<div id="oop" class="section">
+  <p class="section-title">OOP &amp; Miscellaneous Programs</p>
+  <div class="problems-grid">
+
+    <div class="problem-card" data-title="hashcode equals">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#01</span><span class="tag tag-hard">Hard</span></div><div class="problem-title">Implement hashCode() and equals()</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">import</span> java.util.Objects;
+
+<span class="kw">public class</span> <span class="ty">Student</span> {
+    <span class="kw">private int</span> id;
+    <span class="kw">private</span> <span class="ty">String</span> name;
+
+    <span class="kw">public</span> <span class="fn">Student</span>(<span class="kw">int</span> id, <span class="ty">String</span> name) {
+        <span class="kw">this</span>.id = id; <span class="kw">this</span>.name = name;
+    }
+
+    <span class="nm">@Override</span>
+    <span class="kw">public int</span> <span class="fn">hashCode</span>() {
+        <span class="kw">return</span> Objects.hash(id, name);
+    }
+
+    <span class="nm">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(<span class="ty">Object</span> obj) {
+        <span class="kw">if</span> (<span class="kw">this</span> == obj) <span class="kw">return true</span>;
+        <span class="kw">if</span> (obj == <span class="kw">null</span> || getClass() != obj.getClass())
+            <span class="kw">return false</span>;
+        <span class="ty">Student</span> s = (<span class="ty">Student</span>) obj;
+        <span class="kw">return</span> id == s.id &amp;&amp; Objects.equals(name, s.name);
+    }
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">Student</span> s1 = <span class="kw">new</span> <span class="ty">Student</span>(<span class="nm">1</span>, <span class="st">"Alice"</span>);
+        <span class="ty">Student</span> s2 = <span class="kw">new</span> <span class="ty">Student</span>(<span class="nm">2</span>, <span class="st">"Bob"</span>);
+        <span class="ty">Student</span> s3 = <span class="kw">new</span> <span class="ty">Student</span>(<span class="nm">1</span>, <span class="st">"Alice"</span>);
+
+        System.out.println(s1.equals(s2)); <span class="cm">// false</span>
+        System.out.println(s1.equals(s3)); <span class="cm">// true</span>
+        System.out.println(s1.hashCode() == s3.hashCode()); <span class="cm">// true</span>
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>s1.equals(s2)=false | s1.equals(s3)=true | hashCodes match for equal objects</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="move zeros end array">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#02</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Move Zeros to End (32400121200 → 32412120000)</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">MoveZeros</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span> input = <span class="st">"32400121200"</span>;
+        <span class="ty">StringBuilder</span> digits = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+        <span class="ty">StringBuilder</span> zeros = <span class="kw">new</span> <span class="ty">StringBuilder</span>();
+
+        <span class="kw">for</span> (<span class="kw">char</span> c : input.toCharArray()) {
+            <span class="kw">if</span> (c == <span class="st">'0'</span>) zeros.append(c);
+            <span class="kw">else</span> digits.append(c);
+        }
+
+        System.out.println(<span class="st">"Output: "</span> + digits + zeros);
+    }
+}
+
+<span class="cm">// For leading zeros (00003241212):</span>
+<span class="cm">// String.format("%011d", Long.parseLong(input))</span></pre>
+        <div class="output-block"><div class="output-label">Output</div>32400121200 → 32412120000 (zeros at end)</div>
+      </div>
+    </div>
+
+    <div class="problem-card" data-title="swap strings without third variable">
+      <div class="card-header" onclick="toggle(this)">
+        <div><div class="card-meta"><span class="problem-num">#03</span><span class="tag tag-medium">Medium</span></div><div class="problem-title">Swap Two Strings Without Third Variable</div></div>
+        <button class="expand-btn">+</button>
+      </div>
+      <div class="code-section">
+        <div class="code-toolbar"><span class="code-lang">Java</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+        <pre><span class="kw">public class</span> <span class="ty">SwapStrings</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="ty">String</span>[] args) {
+        <span class="ty">String</span> str1 = <span class="st">"Hello"</span>, str2 = <span class="st">"World"</span>;
+        System.out.println(<span class="st">"Before: str1="</span>+str1+<span class="st">", str2="</span>+str2);
+
+        str1 = str1 + str2;
+        str2 = str1.substring(<span class="nm">0</span>, str1.length() - str2.length());
+        str1 = str1.substring(str2.length());
+
+        System.out.println(<span class="st">"After:  str1="</span>+str1+<span class="st">", str2="</span>+str2);
+    }
+}</pre>
+        <div class="output-block"><div class="output-label">Output</div>Before: Hello, World → After: World, Hello</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ INTERVIEW Q&A ═══════════════════════ -->
+<div id="interview" class="section">
+  <p class="section-title">40 Most Asked Java Interview Questions</p>
+  <div class="qa-grid">
+
+    <div class="qa-card"><div class="qa-num">Q01</div><div class="qa-q">What is Java?</div><div class="qa-a">Java is a high-level, object-oriented programming language developed by Sun Microsystems that enables development of platform-independent applications through bytecode executed on the JVM.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q02</div><div class="qa-q">What are the 4 pillars of OOP in Java?</div><div class="qa-a"><strong>Encapsulation</strong> — wrapping data and methods together. <strong>Inheritance</strong> — child class acquiring parent properties. <strong>Polymorphism</strong> — many forms via overloading/overriding. <strong>Abstraction</strong> — hiding complex implementation details.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q03</div><div class="qa-q">Difference between JDK, JRE, and JVM?</div><div class="qa-a"><code>JDK</code> = Development tools + JRE (for developers). <code>JRE</code> = Runtime libraries + JVM (for running apps). <code>JVM</code> = Java interpreter + JIT + Garbage Collector (executes bytecode).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q04</div><div class="qa-q">What is bytecode in Java?</div><div class="qa-a">When <code>javac</code> compiles a class, it generates a <code>.class</code> file containing bytecode — a machine-independent set of instructions executed by the JVM on any platform.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q05</div><div class="qa-q">Why is Java platform independent?</div><div class="qa-a">Java compiles source code into <code>.class</code> files containing bytecode. The JVM — available on all major platforms — interprets this bytecode. Code compiled on Windows runs on Linux or any platform with a JVM.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q06</div><div class="qa-q">Difference between C++ and Java?</div><div class="qa-a">Java is platform-independent; C++ is platform-dependent. Java has no pointers or operator overloading. Java supports automatic garbage collection and multithreading natively; C++ does not.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q07</div><div class="qa-q">What is JIT compiler?</div><div class="qa-a">The Just-In-Time compiler is part of the JRE that compiles bytecode to native machine code at runtime. It improves Java app performance by caching compiled code instead of interpreting each time.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q08</div><div class="qa-q">Difference between this() and super()?</div><div class="qa-a"><code>this()</code> calls another constructor within the same class. <code>super()</code> calls the superclass constructor. Both must be the first statement if present in a constructor.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q09</div><div class="qa-q">What is multithreading in Java?</div><div class="qa-a">Multithreading divides a Java program into multiple threads that run in parallel, sharing memory space. It improves application performance by enabling concurrent task execution on multi-core processors.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q10</div><div class="qa-q">What is a ClassLoader?</div><div class="qa-a">A ClassLoader dynamically loads, links, and initializes classes at runtime. Java uses three types: <strong>Bootstrap</strong> (core Java classes), <strong>Extension</strong> (ext directory), and <strong>System/Application</strong> (classpath classes).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q11</div><div class="qa-q">What is a Java enum?</div><div class="qa-a">An enum (enumeration) is a special data type representing named constant values. Introduced in Java 5, it provides type-safe constants declared with the <code>enum</code> keyword: <code>enum Day { MON, TUE, WED }</code></div></div>
+
+    <div class="qa-card"><div class="qa-num">Q12</div><div class="qa-q">Difference between equals() and == in Java?</div><div class="qa-a"><code>equals()</code> is a method that compares object content/values. <code>==</code> is an operator that compares references (memory addresses) for objects and values for primitives.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q13</div><div class="qa-q">Lambda expressions and functional interfaces?</div><div class="qa-a">A functional interface has exactly one abstract method. Lambda expressions are anonymous implementations of functional interfaces, providing a concise syntax. They are interrelated — lambdas are expressions that implement functional interfaces.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q14</div><div class="qa-q">Roles of final, finally, and finalize?</div><div class="qa-a"><code>final</code> (keyword): prevents class inheritance, method overriding, variable reassignment. <code>finally</code> (block): always executes after try-catch. <code>finalize</code> (method): called by GC before object is garbage collected.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q15</div><div class="qa-q">Difference between a class and an object?</div><div class="qa-a">A <strong>class</strong> is a blueprint or template defining properties and behavior. An <strong>object</strong> is a runtime instance of a class representing a real-world entity. Classes are defined once; objects are created many times.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q16</div><div class="qa-q">What is inheritance in Java?</div><div class="qa-a">Inheritance allows a child class to acquire properties and methods of a parent class using the <code>extends</code> keyword. It promotes code reuse. Java supports single, multilevel, and hierarchical inheritance (but NOT multiple with classes).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q17</div><div class="qa-q">What is polymorphism?</div><div class="qa-a">Polymorphism means "many forms" — a single method behaves differently based on context. <strong>Compile-time</strong>: method overloading (same name, different params). <strong>Runtime</strong>: method overriding (subclass redefines parent method).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q18</div><div class="qa-q">What is encapsulation?</div><div class="qa-a">Encapsulation bundles data (fields) and methods into a single class while restricting direct access using <code>private</code>. External access is controlled through public <code>getters</code> and <code>setters</code>, ensuring data integrity.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q19</div><div class="qa-q">What is abstraction?</div><div class="qa-a">Abstraction hides complex implementation details while exposing only essential features. Achieved via <code>abstract</code> classes (partial abstraction) and <code>interface</code>s (full abstraction in older Java; default methods added in Java 8).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q20</div><div class="qa-q">Abstract class vs Interface?</div><div class="qa-a">Abstract class uses <code>extends</code>, can have implemented methods, constructors, fields. Interface uses <code>implements</code>, allows multiple implementation, Java 8+ supports default/static methods. You can extend only one abstract class but implement multiple interfaces.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q21</div><div class="qa-q">Can Java support multiple inheritance?</div><div class="qa-a">Java does NOT support multiple inheritance through classes (to avoid the Diamond Problem). However, it achieves multiple inheritance through <strong>interfaces</strong> — a class can implement multiple interfaces.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q22</div><div class="qa-q">Method overloading vs method overriding?</div><div class="qa-a"><strong>Overloading</strong>: same method name, different parameter types/count in the same class (compile-time). <strong>Overriding</strong>: subclass provides its own implementation of a parent method with the same signature (runtime).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q23</div><div class="qa-q">Can we write code after a throw statement?</div><div class="qa-a">No. After a <code>throw</code> statement, the JVM stops execution. Any code written after it causes a <strong>compile-time error</strong>: "unreachable code."</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q24</div><div class="qa-q">Can we nest try statements in Java?</div><div class="qa-a">Yes. Java supports <strong>nested try</strong> statements — you can place a try block inside another try block. Each has its own catch block to handle exceptions at different levels.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q25</div><div class="qa-q">What is a constructor?</div><div class="qa-a">A constructor is a special method with the same name as the class and no return type. It initializes a new object. Types: <strong>Default</strong> (no-arg), <strong>Parameterized</strong> (with args), and <strong>Copy</strong> constructor.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q26</div><div class="qa-q">Default value of local variables?</div><div class="qa-a">Local variables in Java are <strong>NOT</strong> initialized to any default value. Neither primitives nor object references have defaults. Using an uninitialized local variable causes a compile-time error.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q27</div><div class="qa-q">What is an object in Java?</div><div class="qa-a">An object is a runtime instance of a class that encapsulates state (fields) and behavior (methods). It represents a real-world entity and is the fundamental building block of object-oriented programming.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q28</div><div class="qa-q">Advantages of Packages in Java?</div><div class="qa-a">Packages avoid name clashes between classes. They provide easier access control. They allow hidden classes not visible outside the package. They make it easier to locate related classes and organize large projects.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q29</div><div class="qa-q">Can a constructor be final?</div><div class="qa-a">No. Constructors cannot be declared <code>final</code>. The <code>final</code> keyword applies to classes (prevent inheritance), methods (prevent overriding), and variables (prevent reassignment) — not constructors.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q30</div><div class="qa-q">What happens if constructor is protected?</div><div class="qa-a">A <code>protected</code> constructor is accessible only within the same package or by subclasses (even in different packages). It restricts object creation from unrelated external classes — useful in the Factory pattern.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q31</div><div class="qa-q">What is a static method?</div><div class="qa-a">A static method belongs to the class, not an instance. It can be called without creating an object (<code>ClassName.method()</code>). It can only directly access other static members (fields/methods).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q32</div><div class="qa-q">Why is the main method static?</div><div class="qa-a">The JVM calls <code>main()</code> without creating an instance of the class first. Making it static avoids the need to instantiate the class, preventing extra memory allocation before the program even starts.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q33</div><div class="qa-q">What is a static block?</div><div class="qa-a">A static block is executed exactly once when the class is first loaded into memory — before the <code>main()</code> method. It's used for static initialization like loading drivers or setting configuration.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q34</div><div class="qa-q">Which class is the superclass for all classes?</div><div class="qa-a">The <code>Object</code> class (<code>java.lang.Object</code>) is the superclass of all classes in Java. Every class implicitly extends Object, which provides methods like <code>equals()</code>, <code>hashCode()</code>, <code>toString()</code>, and <code>getClass()</code>.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q35</div><div class="qa-q">System.out vs System.err vs System.in?</div><div class="qa-a"><code>System.out</code>: Standard output stream for normal program results. <code>System.err</code>: Standard error stream for exceptions and error messages. <code>System.in</code>: Standard input stream for reading user input (typically via Scanner).</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q36</div><div class="qa-q">What is the difference between String, StringBuilder, and StringBuffer?</div><div class="qa-a"><code>String</code> is immutable. <code>StringBuilder</code> is mutable and not thread-safe (faster, single-threaded use). <code>StringBuffer</code> is mutable and thread-safe (synchronized, slower). Prefer StringBuilder for string manipulation in loops.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q37</div><div class="qa-q">What is the Collections Framework?</div><div class="qa-a">Java Collections Framework provides unified architecture for storing and manipulating groups of objects. Key interfaces: <code>List</code> (ArrayList, LinkedList), <code>Set</code> (HashSet, TreeSet), <code>Map</code> (HashMap, TreeMap), <code>Queue</code>.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q38</div><div class="qa-q">ArrayList vs LinkedList?</div><div class="qa-a"><code>ArrayList</code> uses dynamic array — O(1) random access, O(n) insert/delete in middle. <code>LinkedList</code> uses doubly-linked list — O(n) access, O(1) insert/delete at ends. Choose based on access vs modification pattern.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q39</div><div class="qa-q">HashMap vs HashTable?</div><div class="qa-a"><code>HashMap</code> is not synchronized (not thread-safe), allows one null key and multiple null values, faster. <code>Hashtable</code> is synchronized (thread-safe), does not allow null keys or values, slower. Use <code>ConcurrentHashMap</code> for thread-safe modern code.</div></div>
+
+    <div class="qa-card"><div class="qa-num">Q40</div><div class="qa-q">What is Exception Handling in Java?</div><div class="qa-a">Exception handling manages runtime errors using <code>try</code>, <code>catch</code>, <code>finally</code>, <code>throw</code>, <code>throws</code>. Checked exceptions (must handle: IOException) vs Unchecked (runtime: NullPointerException). Prevents abnormal program termination.</div></div>
+
+  </div>
+</div>
+
+</main>
+
+<footer>
+  Java Code Hub · SDET Interview Prep · 50+ Programs · 40 Q&amp;A
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggle(header) {
+    const card = header.parentElement;
+    const codeSection = card.querySelector('.code-section');
+    const btn = header.querySelector('.expand-btn');
+    const isOpen = codeSection.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.textContent = isOpen ? '−' : '+';
+  }
+
+  function copyCode(btn) {
+    const pre = btn.closest('.code-section').querySelector('pre');
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function filterCards(input, sectionId) {
+    const query = input.value.toLowerCase();
+    const grid = document.getElementById(sectionId + '-grid');
+    if (!grid) return;
+    grid.querySelectorAll('.problem-card').forEach(card => {
+      const title = card.dataset.title || '';
+      card.style.display = title.includes(query) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
