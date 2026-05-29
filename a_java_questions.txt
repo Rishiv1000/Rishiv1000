@@ -8,7 +8,6 @@ StringBuilder vs StringBuffer
 How to create Immutable class
 What is multi Threading
 Shallow copy vs Deep copy
-Function Interface
 What is new features introduced in Java 8 & Java 17
 Stream API coding Question (find repetitive no.)
 Deadlock in Java (Thread)
