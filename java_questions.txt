@@ -1,0 +1,85 @@
+1. What is checked & unchecked exception?
+2. Difference b/w HashMap & ConcurrentHashMap
+3. Internal working of HashMap
+4. What is difference b/w Runnable & Callable
+5. ArrayList vs LinkedList
+6. Map vs HashMap vs HashSet
+7. StringBuilder vs StringBuffer
+8. How to create Immutable class
+9. What is multi Threading
+10. Shallow copy vs Deep copy
+11. Function Interface
+12. What is new features introduced in Java 8 & Java 17
+13. Stream API coding Question (find repetitive no.)
+14. Deadlock in Java (Thread)
+15. Comparator vs Comparable
+16. What happens if u divide an integer by zero ?
+17. group By concept in Stream APi
+18. Which Java version used and why?
+19. What is oops
+20. How you are implementing oops in your project
+21. Coding problem on string array
+22. why string are immutable
+23. difference between string, string buffer, string builder
+24. what is collection
+25. difference between list, set, map
+26. What are the 4 pillars of OOP?
+27. Difference between abstraction vs encapsulation
+28. Method overloading vs method overriding
+29. What is a constructor?
+30. Types of constructors
+31. Difference between final, finally, finalize
+32. What is a static block?
+33. What is a marker interface?
+34. How many objects created in this Java code?
+35. What is a thread?
+36. What is synchronization?
+37. What is deadlock?
+38. How to avoid deadlock?
+39. What is volatile keyword?
+40. Difference between volatile vs synchronized
+41. ThreadLocal — what is it used for?
+42. Difference between process vs thread
+43. Difference between List, Set, Map
+44. HashMap internals (Java 8 tree structure)
+45. Difference between HashMap vs ConcurrentHashMap
+46. Fail-fast vs fail-safe iterators
+47. Comparable vs Comparator
+48. Internal working of ArrayList
+49. What are functional interfaces?
+50. What is Stream API?
+51. Lambda expressions
+52. Optional class use
+53. Method references
+54. Parallel streams
+55. Reverse a string without using built-in methods
+56. Remove duplicates from a string / list
+57. Find second highest number
+58. Merge two arrays/lists
+59. Longest substring without repeating characters
+60. Check palindrome
+61. Find frequency of characters
+62. Use Stream API to filter/map/sort
+63. Explain the difference between final, finally, and finalize()
+64. What is the difference between HashMap and ConcurrentHashMap?
+65. In a HashMap, what happens if equals() is overridden but hashCode() is not?
+66. How can you make a class immutable in Java?
+67. What is the difference between String, StringBuilder, and StringBuffer?
+68. What is the difference between == and equals()?
+69. Why are Strings immutable in Java?
+70. What is the difference between JDK, JRE, and JVM?
+71. What are access modifiers in Java?
+72. What is the difference between an abstract class and an interface?
+73. What is the difference between deep copy and shallow copy?
+74. What is the purpose of wrapper classes in Java?
+75. What is the difference between Comparable and Comparator?
+76. What is the difference between Iterable and Iterator?
+77. What is the Java Collection Framework, and why do we use it?
+78. What is the difference between List, Set, and Map?
+79. Explain the internal working of HashMap
+80. How can you control concurrent access in collections?
+81. Can we store different data types in a collection? If not, how can we store the same data type in a List object?
+82. What is the difference between map() and flatMap() in the Stream API?
+83. How do Streams improve backend code quality?
+84. What are the differences between Java 8 and Java 17?
+85. Why do you think Java 17 is better than Java 8?
