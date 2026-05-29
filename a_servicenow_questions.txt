@@ -1,0 +1,242 @@
+Service Now Introduction & Overview : History, Versions, Benefits
+Self-service: Basic View of service now and instance creation.
+User Administration – User creation. User groups roles Security level, concept of impersonating, System Properties, ACL & Home page creation.
+Basic ITIL Concepts. Lifecycle explanation of Incident, change, task, knowledge and problem management.
+Tables & Columns, Applications & Menus.
+Client side and server side scripting.
+Client script, UI Policies, UI Actions, Business Rules, Script includes,
+Concept of Gliderecord and other API’s (G_form, G_user, GlideAJAX, Glidesystem..etc
+Service Catalog and its concepts. (record producer, order guide, catalog items)
+Workflows and its activities.
+SLM, SLA,OLA
+Scheduled jobs , Email Notifications,
+Data Policies.
+Data Sources & Import set Transform Maps ,
+Integration (SOAP & REST), LDAP, ODBC.
+Update sets
+Export sets
+What is service now and benefits?
+Comparison of service now with other ITSM tools.
+Give one real example of table relationship. Parent child relationship && relationship between table
+What is SaaS, PaaS and IaaS. And relate service now with these terminologies.
+Servienow versions, which version you are currently working on (have to say Quebec)
+What are the advantages of latest version of servienow.
+What is your roles and responsibility are as part of service now professional?
+What are Roles and Important of Roles.
+How to restrict application or module for specific people.
+Delegates and purpose.
+Use of impersonate. how to impersonate and what are the roles required to impersonate.
+What is view and how to create a view or restrict a view to set of people.
+What is reference qualifier? Types and explain
+How call a script include from reference qualifier.Advanced – reference equal: javascript:new u_backfillAssignmentGroup(); (script include name.funtion name)
+What is dynamic filter options – to call a business rule or script include
+Ways to create a table.
+What is the limitation of extend table? (10000)
+Why, created application is not showing in left menu bar after creating a new application. (Until we have a module created, the application will not show in left or it is restricted with roles.)
+Difference between application and module.
+What is table schema map?
+Encoded query.
+What is scoped application and difference between scoped app and global application. (to isolate an application and its configuration from servicneow oob database and configuration, we make scoped application then global scope.)
+How to use logging in scoped application.
+When we extend a table, what are all the configurations will apply to child table and how to restrict them?
+What is ACL and uses?
+Types of ACL’s.
+Why cannot a normal user create a new ACL or Edit a ACL. (security_admin)
+What roles required to get ACL access and how to get the roles. (security_admin).
+What is admin override (why admin is not able to edit a record or do some activity)
+ACL checking activities ( roles, condition and scripts)
+Difference between –None-. *, table.active (incident.caller).
+What is the execution order of checking in ACL. (field and then table) ACL allow – incident.active & ACL – deny – incident.* (will active field get access?) true – false -true
+What happened if there are multiple ACL that provide access true and false.(one should be satisfy)
+Give an example for script based ACL.
+What are system properties and explain with few examples?
+While exporting data into excel/CSV, I am unable to get data more than 1000 records, what is the problem and how to solve it.
+What is UI policy.
+What are the main actions can be done via UI Policy.
+What is script option in UI policy. Explain with examples.
+What is the difference between UI policy action and UI policy.
+What is “reverse if false”, Global, On Load, inherit UI policy page
+What is home page and how to create a home page.
+SLA definitions and types and description of each type. Why SLA is required.
+SLA snow page options
+Difference between response SLA and resolution SLA.
+What is SLM.
+What is incident and life cycle of incident.
+What is problem and types of problem? When problem with be raised.
+Real time problem situation and explain the entire process.
+What is change, types and lifecycle?
+What is task and lifecycle.
+Retroactive start and pause.
+Difference between incident and Risk.
+What is client scripts and explain it types with examples.
+Service now architecture (form layer / script layer /database layer)
+What is the oncelledit type and what are the limitations of it.
+What are supportive API’s for client script.
+What are the limitations of client scripts.
+What is the difference between client script and UI policy
+Where are the places client script will be useful.
+Explain few client API’s with examples
+Order of execution (ACL, client scripts, BR, ui policy, dictionary…).
+What is dictionary?
+What is dictionary override. Explain with some example.
+Base table and child table relationships.
+2 level , 3 level traversing and DOTWALKING
+Difference between glideRecord vs getreference or getreference vs get value?
+Difference between UI policy and client script.
+What is the difference between Global vs scoped client script. Which one is suggested approach?
+Retroactive start and pause in SLA
+Client script best practices (avoid global CS, use scratchpad to limit server calls, don’t use gliderecord, best us of script include, don’t use DOM, plan asyn calls, getreference or ajax, use UI policies)
+What is update set and respective table . where the updates will capture(sys_update_set.xml). state values. (sys_update_set and sys_update_xml)
+Limitations of update sets
+Update set best practices.
+Ways to move update set from one env to another. Which one is good to follow?
+What is update source and how to configure?
+Preview issues , backout
+What is merged update sets
+What is reports
+How to create a report, a new report or report from data source.
+How to create a report data source
+Share, export, publish, schedule options and use cases.
+What is database views with example.
+Scheduled jobs and what are the things we can schedule.
+What is template and how to create a template for incident or change (toddle bar)
+Scheduled import clean up – how to do (for 7days once)
+What is UI action and purpose of the UI action in real time examples (change example)
+UI actions and placements.
+What is form design and form layout?
+What is use of slush bucket?
+Difference between sys_user.list and sys_user.LIST and sys_user.FORM and Sys_user.form
+What is stats for?
+Explain import set table and transform maps with one example.
+How to import data from a table
+How to export data from a table
+What are the limitations of direct export and import?
+What is mapping fields, what is the difference between manual mapping (explicit mappaing) and auto mapping.
+What is data source?
+Types of data source and port values for each type.
+Explain Coalesce.
+Use of transform maps scripts with real time example.
+Types of transform maps
+What are when options and explain all the options(onstart….) and difference between each types
+Form options of transform maps like "Run business rules, Enforce mandatory fields, copy empty fields.
+Execution flow of transform script types. (start,before,after,complete) SBAC
+What is business rules and types , explain with real time scenarios.
+What are the main objects on after and async
+What is scratchpad and where are the places, g_scratchpad will be useful.
+what is data policies and actions can be done via data policy
+what is the diff between data policy and Ui policy (datapolicy – time of data import and webservices).
+How to convert data policy to ui policy and ui policy to data policies and what the conditions to be met. (Global-checked , run script – cleared, visible – leave alone)
+when data policy will be used
+What is email notifications
+what is inbound email action. explain with example
+what is email digest.
+What is the use of weight option in email notification.
+How an email will be recognized by service now system( watermark, subject – prefix, reply & from /table)
+how the data will be read from email (email.body, email.subject) with examples
+Inbound email action in details, event management.
+What is the format and flow of an event?
+What is the use of param1 and param2 ${event.param1}
+How to schedule a event from script (gs.eventQueueScheduled().
+What is the syntax to run an event (eventqueue)
+How to create a link to approve/reject an approval In email? ${mailto:mailto.rejection} //rejection is an email template
+How to print test or something from email script : template.print(“Summary of “);
+Explain inbound email action with some examples
+What is email script
+What is the use of email template and how to trigger a template from script.
+what are the disadvantages of business rules
+what are the advantages of business rule
+explain all the types of business rules with examples
+Gliderecord methods with examples Addquery, addorcondition, next, hasnext, _next, addjoinquery, addnullquery, addactivequery.
+What is gliderecord – set workflow method.
+What is the diff between g_form, g_user,gs and gliderecord.
+What is the difference between g_user.hasRole vs g_user.hasRoles vs g_user.hasRoleExactly vs g_user.hasRolefromLists. (hasrole is role +admin & hasroleexactly (only role)
+What is the use of gs.info and gs.log
+What is service catalog and types – describe with real time examples
+What is the variable and variable set?
+What is category?
+Why my catalog item is not showing in service catalog.
+What is 3 step process
+What is rule base
+What is order guide
+Difference between order guide to catalog.
+What is the difference between record producers to catalog?
+What is cascading variables?
+How read variable values from record producer form (producer.variablename)
+How to read variable values from catalog form In script or workflow script (current.varaible.pool.variablename or current.variables.variablename)
+How to start/stop a workflow from script
+Explain few important variable types.
+How to limit service catalog request form to certain group or people.
+What is the user criteria?
+What is the difference between workflow and execution plan
+What are the basic activities available in every workflow? Begin and End
+Workflow activities for notifications with example (approval user, group, action and rollback, approval cordinator)
+Workflow activities for conditions (if, switch and wait for condition)
+Workflow activities for notifications.
+What are the ways to select recipients of the notifications (manual, script, dynamic)
+What is subflow and explain with examples
+How to pass values between activities
+How to pass values from main workflow to subflow.
+What is the difference between catalog task to task- activities to be create them
+What is timer activity
+What are utilities activities. Explain with examples Branch , Join, lock / unlock, return value, set value, turnstile & runscript.
+What is script include and uses. Explain with example
+What is the difference between script include and business rule
+What is class and functions.
+How to call a script include from client script and business rule.
+What is callback function
+What is the difference between getXML and getXMLwait.
+What is client callable option in script include
+Types of script include and use cases of script include (where are the places we use script include)
+How to call a script include from another script include. (gs.include())
+Difference between gs.include() and NewInclude() – A:gs.include is to call a script include and include() is to initialize a script include into a object.
+Where are the places “scripts” can be used.
+What is GlideAJAX, Getparameter, addparameters in script include concept.
+When we call a service side script from client side, in which format, the data will transfer? XML.
+Where are the places , script includes can be used
+What is the difference between script include and global business rule
+Which kind of script can be used in script include
+What are the best practices of scripting.
+What is global business rules and best practices.
+What is backround scripts and real time example
+What is the difference between background script and scheduled job. Which account the job will run when we execute
+How to schedule a script , explain with example
+What is integration and explain with real time example.
+What are the types of web services
+What is the pre-reqs required to set integration between for two databases, from user and table level. That roles are required for web services activities
+Difference between import and integration
+What is the difference between REST and SOAP,
+Types of webservices
+What are the pre-reqs needed to set a communication(integration) between two sources.
+Explain with real time scenario
+What are advantages and disadvantages of SOAP.
+What are the methods of REST
+What are the methods of SOAP
+What are scripted webservice and what is response and request.
+What is default source type of rest and soap.
+What are the roles required for webservices.
+sn_ws.RESTMessageV2 and sn_ws.SOAPMessageV2
+what are the tools you use to test the integration part before going to actual work. Soap UI 4.3, advanced rest client -chrome addin .postman – tool.
+Default supportive format of REST.
+What is an API and how to analyses an API.
+How to hide attachments for a group or location (disableattavhment())
+What s single tenant & multi tenant (domain separation – MSP – manager service provider).
+What is the difference between GlideForm to g_form (GlideForm is an API or class with many methods where g_form is a object to call the API methods.)
+CMDB – top down & Bottom up approaches.
+Explain scripting layers in service now.
+If we create a onload client script and before business rule on load, which one will run first. And why
+Update set move to other instance , best practice.
+What happens if we use g_form in business rule.
+Will current can be used in after business rule? If no , what is the alternative.
+Sprint release story ?
+How to make the authentication in Scripted rest API (using ACL)
+How to restrict/Allow few table accesses for a group of people (ACL – System Properties)
+Best Practices of client Script and Business Rules.
+Field Mandatory – how to do ? If UI policy- how can u handle in list view?
+Scenario of Tech parks - 5 buildings - parking floors (2) - parking slots (few number) > Madrid enhancements.
+Limitation of current.update() and alternative for this.? Setworkflow(false)
+Sc# - workflow manager approval, if manager don’t approve in 5 days, the approval should go to Manager’s manager.
+SC# - Order guide, if two catalog first level approvals have a same person as approver, cascade approvals to other catalog approvals.
+What is the different methodology of agile? (scrum , XP & Kanban).
+Fix Script vs backround script
+Ui macro scenario #jelly script
+GlideDialogWindow scenario.

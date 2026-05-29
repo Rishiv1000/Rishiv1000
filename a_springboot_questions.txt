@@ -1,0 +1,140 @@
+What is Join in SQL
+What is ACID properties
+Find out 2nd highest salary of an employee
+What is indexing
+What is Servlet & Servlet factory
+What is 1st level cache & 2nd level cache
+What is lazy loading & Eager loading
+What is N+1 problem
+What is diff. b/w @Autowired @Inject() Spring boot
+What is View?
+What is Normalization
+What is Hibernate
+What is Spring IOC container
+Spring Life cycle
+What is Application Context
+What/how many types of dependency injection
+How use Spring boot annotating scenario based Question
+How you Review the code at production Level
+How you optimize the code
+How you do or monitor logs
+How im Testing (Junit) & How you write test code for private Method
+Hibernate Caching
+Spring Boot annotations
+SQL questions
+SQL Joins
+Primary Key vs Foreign Key
+Normalization
+Request Body vs Path Variable
+Dependency Injection
+Coding Questions
+Access modifiers
+What is Dispatcher Servlet?
+What r d advantages of micro services?
+How do u send notifications between micro services?
+What is JWT?
+What is the difference btw access token and refresh token?
+Why did you choose MongoDB?
+how do u connect to an S3 bucket?
+Sql joins, sub queries, constraints
+Project architecture
+Agile methodology
+Difference between @Component, @Service, @Repository, @Controller
+Autowiring types
+What is @Transactional?
+Isolation levels
+How to disable auto-configuration in Spring Boot?
+@ControllerAdvice & global exception handling
+How to secure REST API (JWT + roles + filters)
+Spring Boot Actuator – why used?
+Bean vs Component
+Entity relationships (OneToOne, OneToMany, ManyToMany)
+Difference between get() vs load()
+Why Hibernate uses proxies?
+How to create custom exception?
+How to handle lazy loading exceptions?
+JPA repository methods
+Difference between Page & Slice
+What is API Gateway?
+What is Load Balancer?
+How microservices communicate?
+Circuit breaker pattern
+Saga pattern
+Service registry (Eureka)
+Why do we need configuration server?
+Rate limiting (Bucket4j, Redis)
+Difference between WHERE vs HAVING
+Types of JOINs (Inner, Left, Right, Full)
+GROUP BY with examples
+Stored procedures — how to call from Java
+Window functions
+What is Docker?
+What is containerization?
+What is CI/CD?
+Difference between Git merge vs rebase
+Azure basic services (App Service, VM, Storage)
+How to handle deployment issues?
+Explain REST API from scratch
+How does a Spring Boot application work internally?
+What is the purpose of the Spring IoC Container?
+Can we create objects using the new keyword in Spring Boot?
+Explain Dependency Injection in Spring
+What is the difference between @RestController and @Controller?
+What is the use of @Autowired?
+What is the purpose of the @Bean annotation?
+What is the purpose of the @Qualifier annotation?
+What is the difference between Spring and Spring Cloud?
+How do you secure a Spring Boot application?
+How do you verify whether a token is valid or not?
+What is the difference between Authentication and Authorization?
+Why choose Microservices architecture over Monolithic architecture?
+What is the difference between synchronous and asynchronous communication?
+What is a Dead Letter Queue (DLQ)?
+When does Kafka call other services in a microservices architecture?
+How would you store logs in Amazon S3 in a microservices system?
+What is the difference between WebClient, Feign Client, and RestTemplate?
+Explain Eager Loading and Lazy Loading
+What is the N+1 problem, and how can it be solved?
+What is the difference between Optimistic Locking and Pessimistic Locking?
+How do you manage relationships between parent and child tables in JPA/Hibernate?
+How do you control transactions in Hibernate/JPA with Spring Boot?
+What is an ER Diagram, and how do you design one?
+What database problems do developers usually face, and how do you resolve them?
+How have you used Optimistic Locking in a booking system?
+What is the difference between a DTO and an Entity?
+Explain the SOLID principles
+Explain the ACID properties in databases
+Explain the Singleton Design Pattern
+Explain the Factory Design Pattern
+Explain the Strategy Design Pattern
+How do you write unit test cases in a Spring Boot application?
+How can you view logs of a running pod or container in Kubernetes?
+If the container has stopped running, how can you view its logs?
+What is Zipkin Server, and why is it used?
+How do you monitor a Spring Boot application?
+When code is pushed to GitHub and Jenkins triggers a pipeline automatically, what stages are present?
+How to deploy production-ready application in AWS using Terraform?
+How does zero-downtime deployment work in Kubernetes?
+If there is a failure in communication between microservices, how would you handle it?
+What resilience patterns would you implement in a microservices system?
+How would you implement Retry Mechanism and Timeout Configuration in Spring Boot?
+How does Resilience4j help in fault tolerance?
+What is Circuit Breaker pattern?
+If a downstream service becomes slow, how would you handle it?
+How would you handle message processing failures in Kafka?
+How does Kafka Retry mechanism work?
+What strategies ensure message reliability?
+What if Kafka consumer fails repeatedly?
+Challenges in distributed transactions
+What is Saga Design Pattern?
+Difference between Orchestration Saga and Choreography Saga
+If one service fails, how maintain data consistency?
+If Payment Service fails, how handle?
+How to ensure idempotency in payment system?
+Explain one challenging use case you worked on
+How would you design doctor appointment booking system?
+How to avoid double booking?
+How to handle race conditions in distributed system?
+How to scale booking service?
+How to support cancellation and rescheduling?
+Which java version used in project, Which gateway used, About AWS, Have you used Linked list in your project and why. List .of ("a", "c","f","g","k") Find unique elements. Which services you have worked on your project? Which databases used?

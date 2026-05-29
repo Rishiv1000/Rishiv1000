@@ -1,0 +1,85 @@
+What is checked & unchecked exception?
+Difference b/w HashMap & ConcurrentHashMap
+Internal working of HashMap
+What is difference b/w Runnable & Callable
+ArrayList vs LinkedList
+Map vs HashMap vs HashSet
+StringBuilder vs StringBuffer
+How to create Immutable class
+What is multi Threading
+Shallow copy vs Deep copy
+Function Interface
+What is new features introduced in Java 8 & Java 17
+Stream API coding Question (find repetitive no.)
+Deadlock in Java (Thread)
+Comparator vs Comparable
+What happens if u divide an integer by zero ?
+group By concept in Stream APi
+Which Java version used and why?
+What is oops
+How you are implementing oops in your project
+Coding problem on string array
+why string are immutable
+difference between string, string buffer, string builder
+what is collection
+difference between list, set, map
+What are the 4 pillars of OOP?
+Difference between abstraction vs encapsulation
+Method overloading vs method overriding
+What is a constructor?
+Types of constructors
+Difference between final, finally, finalize
+What is a static block?
+What is a marker interface?
+How many objects created in this Java code?
+What is a thread?
+What is synchronization?
+What is deadlock?
+How to avoid deadlock?
+What is volatile keyword?
+Difference between volatile vs synchronized
+ThreadLocal — what is it used for?
+Difference between process vs thread
+Difference between List, Set, Map
+HashMap internals (Java 8 tree structure)
+Difference between HashMap vs ConcurrentHashMap
+Fail-fast vs fail-safe iterators
+Comparable vs Comparator
+Internal working of ArrayList
+What are functional interfaces?
+What is Stream API?
+Lambda expressions
+Optional class use
+Method references
+Parallel streams
+Reverse a string without using built-in methods
+Remove duplicates from a string / list
+Find second highest number
+Merge two arrays/lists
+Longest substring without repeating characters
+Check palindrome
+Find frequency of characters
+Use Stream API to filter/map/sort
+Explain the difference between final, finally, and finalize()
+What is the difference between HashMap and ConcurrentHashMap?
+In a HashMap, what happens if equals() is overridden but hashCode() is not?
+How can you make a class immutable in Java?
+What is the difference between String, StringBuilder, and StringBuffer?
+What is the difference between == and equals()?
+Why are Strings immutable in Java?
+What is the difference between JDK, JRE, and JVM?
+What are access modifiers in Java?
+What is the difference between an abstract class and an interface?
+What is the difference between deep copy and shallow copy?
+What is the purpose of wrapper classes in Java?
+What is the difference between Comparable and Comparator?
+What is the difference between Iterable and Iterator?
+What is the Java Collection Framework, and why do we use it?
+What is the difference between List, Set, and Map?
+Explain the internal working of HashMap
+How can you control concurrent access in collections?
+Can we store different data types in a collection? If not, how can we store the same data type in a List object?
+What is the difference between map() and flatMap() in the Stream API?
+How do Streams improve backend code quality?
+What are the differences between Java 8 and Java 17?
+Why do you think Java 17 is better than Java 8?
