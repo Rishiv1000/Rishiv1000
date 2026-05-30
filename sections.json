@@ -26,5 +26,12 @@
     "icon": "💡",
     "desc": "SQL, React, Node.js.",
     "file": "a_others_questions.txt"
+  },
+  {
+    "id": "Photo Study",
+    "title": "Photo Study",
+    "icon": "📄",
+    "desc": "",
+    "file": "a_Photo Study_questions.txt"
   }
 ]
