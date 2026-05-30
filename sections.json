@@ -26,12 +26,5 @@
     "icon": "💡",
     "desc": "SQL, React, Node.js.",
     "file": "a_others_questions.txt"
-  },
-  {
-    "id": "Mern",
-    "title": "Mern",
-    "icon": "📄",
-    "desc": "",
-    "file": "a_Mern_questions.txt"
   }
 ]
