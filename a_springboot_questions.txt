@@ -1,4 +1,3 @@
-What is ACID properties
 Find out 2nd highest salary of an employee
 What is indexing
 What is Servlet & Servlet factory
