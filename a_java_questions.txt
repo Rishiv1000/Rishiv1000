@@ -16,7 +16,7 @@ What happens if u divide an integer by zero ?
 group By concept in Stream APi
 Which Java version used and why?
 What is oops
-How you are implementing oops in your project
+[★] How you are implementing oops in your project
 Coding problem on string array
 why string are immutable
 difference between string, string buffer, string builder
