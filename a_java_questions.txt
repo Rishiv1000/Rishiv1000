@@ -82,5 +82,4 @@ What is the difference between map() and flatMap() in the Stream API?
 How do Streams improve backend code quality?
 What are the differences between Java 8 and Java 17?
 Why do you think Java 17 is better than Java 8?
-Hey Test
 Hey
