@@ -1,0 +1,30 @@
+[
+  {
+    "id": "java",
+    "title": "Java",
+    "icon": "☕",
+    "desc": "Core Java, OOP, Collections.",
+    "file": "a_java_questions.txt"
+  },
+  {
+    "id": "springboot",
+    "title": "Spring Boot",
+    "icon": "🍃",
+    "desc": "Microservices, REST APIs.",
+    "file": "a_springboot_questions.txt"
+  },
+  {
+    "id": "servicenow",
+    "title": "ServiceNow",
+    "icon": "⚙️",
+    "desc": "ITSM, GlideRecord.",
+    "file": "a_servicenow_questions.txt"
+  },
+  {
+    "id": "others",
+    "title": "Others",
+    "icon": "💡",
+    "desc": "SQL, React, Node.js.",
+    "file": "a_others_questions.txt"
+  }
+]
