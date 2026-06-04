@@ -1,3 +1,4 @@
 [★] Tell me about yourself.
 How to check ip address in linux
 What is use of ipconfig vs ifconfig vs netstat
+How to check Port is running in linux
