@@ -26,5 +26,12 @@
     "icon": "💡",
     "desc": "SQL, React, Node.js.",
     "file": "a_others_questions.txt"
+  },
+  {
+    "id": "Java Links",
+    "title": "Java Links",
+    "icon": "📄",
+    "desc": "Java Links",
+    "file": "a_Java Links_questions.txt"
   }
 ]
