@@ -26,12 +26,5 @@
     "icon": "💡",
     "desc": "SQL, React, Node.js.",
     "file": "a_others_questions.txt"
-  },
-  {
-    "id": "SpringBoot Links",
-    "title": "SpringBoot Links",
-    "icon": "📄",
-    "desc": "SpringBoot Links",
-    "file": "a_SpringBoot Links_questions.txt"
   }
 ]
