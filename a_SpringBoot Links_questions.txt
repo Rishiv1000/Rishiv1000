@@ -1,0 +1,55 @@
+1. Introduction to Spring boot 
+https://notebook.zohopublic.in/public/notes/bietvaf4a031eeb7245f19e651a16232e077a
+
+2. Spring boot Project setup and Layered Architecture Introduction
+https://notebook.zohopublic.in/public/notes/bietv97e0afeb8fcf41e191da86e3898422b7
+
+3. Introduction to Maven and its Lifecycle
+https://notebook.zohopublic.in/public/notes/bietv1d00e57bcbca4be89f155f6039985778
+Maven Tutorial | LCWD Blogs
+
+4. Spring boot: Bean and its Lifecycle | Inversion of Control (IOC)
+https://notebook.zohopublic.in/public/notes/bietv2018487e1de84b009904a4dfeda24def
+
+5. Spring boot Annotations 
+https://notebook.zohopublic.in/public/notes/bietv0de3bac30fbd41e7b1346bf9243ad3b2
+
+6. Dependency Injection in Spring boot 
+https://notebook.zohopublic.in/public/notes/bietv964a637b52be4a1bbfde8d0309040a79
+
+7. Other Topics
+https://notebook.zohopublic.in/public/notes/bietv379bff087eca47eaa84a3024d7e14b46
+https://notebook.zohopublic.in/public/notes/bietv13e5f5aeff684305a86e2d251aa4deed
+https://notebook.zohopublic.in/public/notes/dcr5z97c7e76aa1454ea6a57e1a2dde4f8785
+https://notebook.zohopublic.in/public/notes/dcr5ze84495de6ad14cadbf5fe38b99b18b9d
+
+8. Spring boot AOP (Aspect Oriented Programming)
+https://notebook.zohopublic.in/public/notes/dcr5z12bd30d9fbc2454e9881904115682227
+
+9. Transactional Annotation 
+https://notebook.zohopublic.in/public/notes/dcr5za43213ff940049e4857a26389eb54486
+https://notebook.zohopublic.in/public/notes/dcr5z827d4c4d67cf491494f30a7733eeb3e1
+https://notebook.zohopublic.in/public/notes/dcr5z613a71d83b66404e8692cfca4790232e
+
+10. Async Annotation 
+https://notebook.zohopublic.in/public/notes/dcr5zd72620f1d2574b40a39fe1b017931423
+https://notebook.zohopublic.in/public/notes/dcr5z0896f8dfa8ad4dcfafa5d737b2b9c26d
+
+11. Others Topic
+https://notebook.zohopublic.in/public/notes/dcr5zfbbb4128be4a406682b6a13ff80ed8fa
+https://notebook.zohopublic.in/public/notes/dcr5z502a3a0746974f36b75a50729b691d58
+https://notebook.zohopublic.in/public/notes/dcr5z26771d816c4f47b7a63d7e1d45129fd7
+
+12. Response Code and Exception Handling in Springboot
+https://notebook.zohopublic.in/public/notes/9wn9o2148145a9ab9476ca8b75e801ca27882
+https://notebook.zohopublic.in/public/notes/9wn9o7260a3af90164c31941f061955edb73d
+
+13. JPA Internals Working with JDBC
+https://notebook.zohopublic.in/public/notes/9wn9o634e8b2e46734882b52ecfd06aa4a162
+https://notebook.zohopublic.in/public/notes/9wn9o5fd6c0f15d68425d9b98284f48186179
+https://notebook.zohopublic.in/public/notes/9wn9o2d75e726a75c4b7eb7aaec1bd35d99b5
+https://notebook.zohopublic.in/public/notes/9wn9o30b391bbe74c408eb8c70d306be98258
+https://notebook.zohopublic.in/public/notes/9wn9ob681f4fe22c8412db0729f618737a416
+
+14. Main Springboot Notes with JPA, SECURITY
+https://onedrive.live.com/personal/6b364628c29feb52/_layouts/15/Doc.aspx?sourcedoc={b06d0b4b-3c6e-4388-8c56-0d8ed130ea41}&action=view&redeem=aHR0cHM6Ly8xZHJ2Lm1zL28vYy82YjM2NDYyOGMyOWZlYjUyL0Vrc0xiYkJ1UEloRGpGWU5qdEV3NmtFQjd3UnhlNXdkMm9XWFJFTDlnS3BoRWc&wd=target%28SpringBoot.one%7C80d0b2b8-f2e3-1b4b-baff-c5631c171a8d%2F29%20JPA-Part8%7C5f51b610-41b8-e74e-b3c2-a3366373cbde%2F%29&wdorigin=NavigationUrl
