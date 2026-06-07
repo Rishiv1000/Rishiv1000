@@ -239,3 +239,25 @@ SC# - Order guide, if two catalog first level approvals have a same person as ap
 What is the different methodology of agile? (scrum , XP & Kanban).
 Fix Script vs backround script
 Ui macro scenario #jelly script
+Server Side APIS:
+
+GlideRecord
+GlideRecdrdSecure
+GlideAggregate
+GlideSystem
+GlideDateTime
+GlideDuration
+GlideSchedule
+
+Etc
+
+Client Side APIs:
+
+GlideUser
+GlideForm
+GlideAjax
+GlideDialogHindow
+GlideModal
+GlideModalForm
+
+Explain In hinglish as interview question
