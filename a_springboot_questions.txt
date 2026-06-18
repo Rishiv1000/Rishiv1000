@@ -1,5 +1,5 @@
 Find out 2nd highest salary of an employee
-What is indexing
+[★] What is indexing
 What is Servlet & Servlet factory
 What is 1st level cache & 2nd level cache
 What is lazy loading & Eager loading
