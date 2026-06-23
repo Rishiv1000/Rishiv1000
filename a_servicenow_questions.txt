@@ -1,131 +1,131 @@
 Service Now Introduction & Overview : History, Versions, Benefits
-Self-service: Basic View of service now and instance creation.
-User Administration – User creation. User groups roles Security level, concept of impersonating, System Properties, ACL & Home page creation.
-Basic ITIL Concepts. Lifecycle explanation of Incident, change, task, knowledge and problem management.
-Tables & Columns, Applications & Menus.
-Client side and server side scripting.
-Client script, UI Policies, UI Actions, Business Rules, Script includes,
-Concept of Gliderecord and other API’s (G_form, G_user, GlideAJAX, Glidesystem..etc
-Service Catalog and its concepts. (record producer, order guide, catalog items)
-Workflows and its activities.
-SLM, SLA,OLA
-Scheduled jobs , Email Notifications,
-Data Policies.
-Data Sources & Import set Transform Maps ,
-Integration (SOAP & REST), LDAP, ODBC.
-Update sets
-Export sets
+Self-service: Basic View of service now and instance creation in servicenow.
+User Administration – User creation. User groups roles Security level, concept of impersonating, System Properties, ACL & Home page creation in servicenow.
+Basic ITIL Concepts. Lifecycle explanation of Incident, change, task, knowledge and problem management in servicenow.
+Tables & Columns, Applications & Menus in servicenow.
+Client side and server side scripting in servicenow.
+Client script, UI Policies, UI Actions, Business Rules, Script includes in servicenow
+Concept of Gliderecord and other API’s (G_form, G_user, GlideAJAX, Glidesystem..etc in servicenow
+Service Catalog and its concepts. (record producer, order guide, catalog items) in servicenow
+Workflows and its activities in servicenow.
+SLM, SLA,OLA in servicenow
+Scheduled jobs , Email Notifications in servicenow
+Data Policies in servicenow.
+Data Sources & Import set Transform Maps in servicenow
+Integration (SOAP & REST), LDAP, ODBC in servicenow.
+Update sets in servicenow
+Export sets in servicenow
 What is service now and benefits?
 Comparison of service now with other ITSM tools.
-Give one real example of table relationship. Parent child relationship && relationship between table
-What is SaaS, PaaS and IaaS. And relate service now with these terminologies.
+Give one real example of table relationship. Parent child relationship && relationship between table in servicenow
+What is SaaS, PaaS and IaaS. And relate service now with these terminologies in servicenow.
 Servienow versions, which version you are currently working on (have to say Quebec)
 What are the advantages of latest version of servienow.
 What is your roles and responsibility are as part of service now professional?
-What are Roles and Important of Roles.
-How to restrict application or module for specific people.
-Delegates and purpose.
-Use of impersonate. how to impersonate and what are the roles required to impersonate.
-What is view and how to create a view or restrict a view to set of people.
-What is reference qualifier? Types and explain
-How call a script include from reference qualifier.Advanced – reference equal: javascript:new u_backfillAssignmentGroup(); (script include name.funtion name)
-What is dynamic filter options – to call a business rule or script include
-Ways to create a table.
-What is the limitation of extend table? (10000)
-Why, created application is not showing in left menu bar after creating a new application. (Until we have a module created, the application will not show in left or it is restricted with roles.)
-Difference between application and module.
-What is table schema map?
-Encoded query.
-What is scoped application and difference between scoped app and global application. (to isolate an application and its configuration from servicneow oob database and configuration, we make scoped application then global scope.)
-How to use logging in scoped application.
-When we extend a table, what are all the configurations will apply to child table and how to restrict them?
-What is ACL and uses?
-Types of ACL’s.
-Why cannot a normal user create a new ACL or Edit a ACL. (security_admin)
-What roles required to get ACL access and how to get the roles. (security_admin).
-What is admin override (why admin is not able to edit a record or do some activity)
-ACL checking activities ( roles, condition and scripts)
-Difference between –None-. *, table.active (incident.caller).
-What is the execution order of checking in ACL. (field and then table) ACL allow – incident.active & ACL – deny – incident.* (will active field get access?) true – false -true
-What happened if there are multiple ACL that provide access true and false.(one should be satisfy)
-Give an example for script based ACL.
-What are system properties and explain with few examples?
-While exporting data into excel/CSV, I am unable to get data more than 1000 records, what is the problem and how to solve it.
-What is UI policy.
-What are the main actions can be done via UI Policy.
-What is script option in UI policy. Explain with examples.
-What is the difference between UI policy action and UI policy.
-What is “reverse if false”, Global, On Load, inherit UI policy page
-What is home page and how to create a home page.
-SLA definitions and types and description of each type. Why SLA is required.
-SLA snow page options
-Difference between response SLA and resolution SLA.
-What is SLM.
-What is incident and life cycle of incident.
-What is problem and types of problem? When problem with be raised.
-Real time problem situation and explain the entire process.
-What is change, types and lifecycle?
-What is task and lifecycle.
-Retroactive start and pause.
-Difference between incident and Risk.
-What is client scripts and explain it types with examples.
-Service now architecture (form layer / script layer /database layer)
-What is the oncelledit type and what are the limitations of it.
-What are supportive API’s for client script.
-What are the limitations of client scripts.
-What is the difference between client script and UI policy
-Where are the places client script will be useful.
-Explain few client API’s with examples
-Order of execution (ACL, client scripts, BR, ui policy, dictionary…).
-What is dictionary?
-What is dictionary override. Explain with some example.
-Base table and child table relationships.
-2 level , 3 level traversing and DOTWALKING
-Difference between glideRecord vs getreference or getreference vs get value?
-Difference between UI policy and client script.
-What is the difference between Global vs scoped client script. Which one is suggested approach?
-Retroactive start and pause in SLA
-Client script best practices (avoid global CS, use scratchpad to limit server calls, don’t use gliderecord, best us of script include, don’t use DOM, plan asyn calls, getreference or ajax, use UI policies)
-What is update set and respective table . where the updates will capture(sys_update_set.xml). state values. (sys_update_set and sys_update_xml)
-Limitations of update sets
-Update set best practices.
-Ways to move update set from one env to another. Which one is good to follow?
-What is update source and how to configure?
-Preview issues , backout
-What is merged update sets
-What is reports
-How to create a report, a new report or report from data source.
-How to create a report data source
-Share, export, publish, schedule options and use cases.
-What is database views with example.
-Scheduled jobs and what are the things we can schedule.
-What is template and how to create a template for incident or change (toddle bar)
-Scheduled import clean up – how to do (for 7days once)
-What is UI action and purpose of the UI action in real time examples (change example)
-UI actions and placements.
-What is form design and form layout?
-What is use of slush bucket?
-Difference between sys_user.list and sys_user.LIST and sys_user.FORM and Sys_user.form
-What is stats for?
-Explain import set table and transform maps with one example.
-How to import data from a table
-How to export data from a table
-What are the limitations of direct export and import?
-What is mapping fields, what is the difference between manual mapping (explicit mappaing) and auto mapping.
-What is data source?
-Types of data source and port values for each type.
-Explain Coalesce.
-Use of transform maps scripts with real time example.
-Types of transform maps
-What are when options and explain all the options(onstart….) and difference between each types
-Form options of transform maps like "Run business rules, Enforce mandatory fields, copy empty fields.
-Execution flow of transform script types. (start,before,after,complete) SBAC
-What is business rules and types , explain with real time scenarios.
-What are the main objects on after and async
-What is scratchpad and where are the places, g_scratchpad will be useful.
-what is data policies and actions can be done via data policy
-what is the diff between data policy and Ui policy (datapolicy – time of data import and webservices).
-How to convert data policy to ui policy and ui policy to data policies and what the conditions to be met. (Global-checked , run script – cleared, visible – leave alone)
+What are Roles and Important of Roles in servicenow.
+How to restrict application or module for specific people in servicenow.
+Delegates and purpose in servicenow.
+Use of impersonate. how to impersonate and what are the roles required to impersonate in servicenow.
+What is view and how to create a view or restrict a view to set of people in servicenow.
+What is reference qualifier? Types and explain in servicenow
+How call a script include from reference qualifier.Advanced – reference equal: javascript:new u_backfillAssignmentGroup(); (script include name.funtion name) in servicenow
+What is dynamic filter options – to call a business rule or script include in servicenow
+Ways to create a table in servicenow.
+What is the limitation of extend table in servicenow? (10000)
+Why, created application is not showing in left menu bar after creating a new application in servicenow. (Until we have a module created, the application will not show in left or it is restricted with roles.)
+Difference between application and module in servicenow.
+What is table schema map in servicenow?
+Encoded query in servicenow.
+What is scoped application and difference between scoped app and global application in servicenow. (to isolate an application and its configuration from servicneow oob database and configuration, we make scoped application then global scope.)
+How to use logging in scoped application in servicenow.
+When we extend a table, what are all the configurations will apply to child table and how to restrict them in servicenow?
+What is ACL and uses in servicenow?
+Types of ACL’s in servicenow.
+Why cannot a normal user create a new ACL or Edit a ACL in servicenow. (security_admin)
+What roles required to get ACL access and how to get the roles in servicenow. (security_admin).
+What is admin override (why admin is not able to edit a record or do some activity) in servicenow
+ACL checking activities ( roles, condition and scripts) in servicenow
+Difference between –None-. *, table.active (incident.caller) in servicenow.
+What is the execution order of checking in ACL. (field and then table) ACL allow – incident.active & ACL – deny – incident.* (will active field get access?) true – false -true in servicenow
+What happened if there are multiple ACL that provide access true and false.(one should be satisfy) in servicenow
+Give an example for script based ACL in servicenow.
+What are system properties and explain with few examples in servicenow?
+While exporting data into excel/CSV, I am unable to get data more than 1000 records, what is the problem and how to solve it in servicenow.
+What is UI policy in servicenow.
+What are the main actions can be done via UI Policy in servicenow.
+What is script option in UI policy. Explain with examples in servicenow.
+What is the difference between UI policy action and UI policy in servicenow.
+What is “reverse if false”, Global, On Load, inherit UI policy page in servicenow
+What is home page and how to create a home page in servicenow.
+SLA definitions and types and description of each type. Why SLA is required in servicenow.
+SLA snow page options in servicenow
+Difference between response SLA and resolution SLA in servicenow.
+What is SLM in servicenow.
+What is incident and life cycle of incident in servicenow.
+What is problem and types of problem? When problem with be raised in servicenow.
+Real time problem situation and explain the entire process in servicenow.
+What is change, types and lifecycle in servicenow?
+What is task and lifecycle in servicenow.
+Retroactive start and pause in servicenow.
+Difference between incident and Risk in servicenow.
+What is client scripts and explain it types with examples in servicenow.
+Service now architecture (form layer / script layer /database layer) in servicenow
+What is the oncelledit type and what are the limitations of it in servicenow.
+What are supportive API’s for client script in servicenow.
+What are the limitations of client scripts in servicenow.
+What is the difference between client script and UI policy in servicenow
+Where are the places client script will be useful in servicenow.
+Explain few client API’s with examples in servicenow
+Order of execution (ACL, client scripts, BR, ui policy, dictionary…) in servicenow
+What is dictionary in servicenow?
+What is dictionary override. Explain with some example in servicenow.
+Base table and child table relationships in servicenow.
+2 level , 3 level traversing and DOTWALKING in servicenow
+Difference between glideRecord vs getreference or getreference vs get value in servicenow?
+Difference between UI policy and client script in servicenow.
+What is the difference between Global vs scoped client script. Which one is suggested approach in servicenow?
+Retroactive start and pause in SLA in servicenow
+Client script best practices in servicenow (avoid global CS, use scratchpad to limit server calls, don’t use gliderecord, best us of script include, don’t use DOM, plan asyn calls, getreference or ajax, use UI policies)
+What is update set and respective table . where the updates will capture(sys_update_set.xml). state values. (sys_update_set and sys_update_xml) in servicenow
+Limitations of update sets in servicenow
+Update set best practices in servicenow. 
+Ways to move update set from one env to another. Which one is good to follow in servicenow?
+What is update source and how to configure in servicenow?
+Preview issues , backout in servicenow
+What is merged update sets in servicenow
+What is reports in servicenow
+How to create a report, a new report or report from data source in servicenow.
+How to create a report data source in servicenow
+Share, export, publish, schedule options and use cases in servicenow.
+What is database views with example in servicenow.
+Scheduled jobs and what are the things we can schedule in servicenow.
+What is template and how to create a template for incident or change (toddle bar) in servicenow
+Scheduled import clean up – how to do (for 7days once) in servicenow
+What is UI action and purpose of the UI action in real time examples (change example) in servicenow
+UI actions and placements in servicenow.
+What is form design and form layout in servicenow?
+What is use of slush bucket in servicenow?
+Difference between sys_user.list and sys_user.LIST and sys_user.FORM and Sys_user.form in servicenow
+What is stats for in servicenow?
+Explain import set table and transform maps with one example in servicenow.
+How to import data from a table in servicenow
+How to export data from a table in servicenow
+What are the limitations of direct export and import in servicenow?
+What is mapping fields, what is the difference between manual mapping (explicit mappaing) and auto mapping in servicenow.
+What is data source in servicenow?
+Types of data source and port values for each type in servicenow.
+Explain Coalesce in servicenow.
+Use of transform maps scripts with real time example in servicenow.
+Types of transform maps in servicenow
+What are when options and explain all the options(onstart….) and difference between each types in servicenow
+Form options of transform maps like "Run business rules, Enforce mandatory fields, copy empty fields in servicenow.
+Execution flow of transform script types. (start,before,after,complete) SBAC in servicenow
+What is business rules and types , explain with real time scenarios in servicenow.
+What are the main objects on after and async in servicenow
+What is scratchpad and where are the places, g_scratchpad will be useful in servicenow.
+what is data policies and actions can be done via data policy in servicenow
+what is the diff between data policy and Ui policy (datapolicy – time of data import and webservices) in servicenow.
+How to convert data policy to ui policy and ui policy to data policies and what the conditions to be met. (Global-checked , run script – cleared, visible – leave alone) in servicenow
 when data policy will be used
 What is email notifications
 what is inbound email action. explain with example
