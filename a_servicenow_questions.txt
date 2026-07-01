@@ -3,7 +3,7 @@ Self-service: Basic View of service now and instance creation in servicenow.
 User Administration – User creation. User groups roles Security level, concept of impersonating, System Properties, ACL & Home page creation in servicenow.
 Basic ITIL Concepts. Lifecycle explanation of Incident, change, task, knowledge and problem management in servicenow.
 Tables & Columns, Applications & Menus in servicenow.
-Client side and server side scripting in servicenow.
+[★] Client side and server side scripting in servicenow.
 Client script, UI Policies, UI Actions, Business Rules, Script includes in servicenow
 Concept of Gliderecord and other API’s (G_form, G_user, GlideAJAX, Glidesystem..etc in servicenow
 Service Catalog and its concepts. (record producer, order guide, catalog items) in servicenow
