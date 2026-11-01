@@ -1,11 +1,5 @@
 # Hi, I'm Rishi Verma 👋
 
-
-## 🌱 Currently Learning
-- Docker & containerisation
-- AWS fundamentals (EC2, S3, RDS)
-- System design & distributed systems
-
 ---
 
 ## 💡 About Me
